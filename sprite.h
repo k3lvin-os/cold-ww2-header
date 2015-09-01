@@ -35,8 +35,18 @@
 	// Fill the image variable with the sprite
 	void Sprite::GetImage(char name[], int width, int height){
 		
-		readimagefile(name,0,0,width,height); 
-		int size = imagesize(0,0,width,height);
+		// Read image file and calculate it size
+		readimagefile(name,0,0,width,height);  
+		int size = imagesize(0,0,width,height); 
+		
+		
+		moveto(getmaxx() / 2, getmaxy() / 2);
+		// Check for a image without size (the path is wrong probably)
+		char chSize[100];
+		//itoa(size,&chSize,10);
+		outtext(chSize);
+		
+		// Alocate space for image and receive image	
 		image = malloc(size);
 		getimage(0,0,width,height,image); 
 	}
