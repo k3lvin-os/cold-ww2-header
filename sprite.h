@@ -1,5 +1,5 @@
 #ifndef SPRITE
-#define SPRITE
+	#define SPRITE
 
 	struct Sprite{
 	

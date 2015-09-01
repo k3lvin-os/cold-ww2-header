@@ -4,7 +4,7 @@
 */
 
 #ifndef TD_FUNCTIONS.H
-#define TD_FUNCTIONS.H
+	#define TD_FUNCTIONS.H
 
 	#include <graphics.h>
 	#include <iostream>
