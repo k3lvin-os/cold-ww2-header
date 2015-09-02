@@ -17,6 +17,9 @@
 		Sprite(char name[], int width, int height,int beginX, int beginY);
 		Sprite(char name[], int width, int height);
 		Sprite();
+		
+		// Destructor
+		~Sprite(){}
 			
 	};
 	
