@@ -10,7 +10,8 @@
 		// Functions
 		void Show();
 		void Move(int changeX, int changeY);
-		void GetImage(char name[], int width, int height);	
+		void GetImage(char name[], int width, int height);
+		void GoTo(int newX, int newY);
 	
 		// Constructors	
 		Sprite(int beginX,int beginY);
@@ -22,6 +23,12 @@
 		~Sprite(){}
 			
 	};
+	
+	// Go to a new position
+	void Sprite::GoTo(int newX, int newY){
+		x = newX;
+		y = newY; 
+	}
 	
 	// Show sprite
 	 void Sprite::Show(){
