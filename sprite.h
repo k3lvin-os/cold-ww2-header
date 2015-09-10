@@ -1,5 +1,3 @@
-#ifndef SPRITE
-	#define SPRITE
 
 	struct Sprite{
 	
@@ -75,4 +73,3 @@
 		y = 0;
 	}
 	
-#endif
