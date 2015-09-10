@@ -12,38 +12,39 @@ bibliotecas. */
 
 using namespace std;
 
-
+// Armazena os tipos de tiles do jogo
 struct Tiles{
-	Sprite *tipoTile = (Sprite *) malloc(sizeof(Sprite) * QTD_TIPO);
+	
+	Sprite *tipoTile; 
 	
 	// Construtor padrão
 	Tiles();
 };
 
 
-
-
 Tiles::Tiles(){
- /*new Sprite[15];*/
- 
+	
+	// ALoca espaço para os tiles
+ 	tipoTile = new Sprite();
+ 	
  	// Carrega os tiles
-	tipoTile[0].SimpleTile(TILE_W,TILE_H, BLUE); // Muralha
-	tipoTile[1].SimpleTile(TILE_W,TILE_H, BROWN); // Caminho
-	tipoTile[2].SimpleTile(TILE_W,TILE_H, WHITE); // Campo da URSS
-	tipoTile[3].SimpleTile(TILE_W,TILE_H, LIGHTGREEN); // Campo dos EUA e Aliados
-	tipoTile[4].SimpleTile(TILE_W,TILE_H, YELLOW); // Base
-	tipoTile[5].SimpleTile(TILE_W,TILE_H, BLACK); // HUD inferior
+	tipoTile[0].BasicTile(TILE_W,TILE_H, BLUE); // Muralha
+	tipoTile[1].BasicTile(TILE_W,TILE_H, BROWN); // Caminho
+	tipoTile[2].BasicTile(TILE_W,TILE_H, WHITE); // Campo da URSS
+	tipoTile[3].BasicTile(TILE_W,TILE_H, LIGHTGREEN); // Campo dos EUA e Aliados
+	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW); // Base
+	tipoTile[5].BasicTile(TILE_W,TILE_H, BLACK); // HUD inferior
 	
 	// Limpa a tela
 	cleardevice();
-
+	
 }
 
 // Este é o cenário principal do jogo
 struct CampoJogo{
 	
 	int tiles[TILE_QTDX][TILE_QTDY]; // Indicacao dos tiles
-	Tiles *tilesJogo = new Tiles(); // Tipos de tiles
+	Tiles *tilesJogo;// Tipos de tiles
 	
 	
 	void Colocar(); // Coloca o campo de jogo
@@ -54,30 +55,26 @@ struct CampoJogo{
 
 // Coloca os sprites na tela
 void CampoJogo::Colocar(){
-	int i, j, x, y, tipo;
-	
-	i = 0;
-	j = 0;
-	x = 0;
-	y = 0;
+	tilesJogo = new Tiles();
+	int i, j,  tipo, x, y;
+
 	tipo = 0;
 	
-	while(i < TILE_QTDX){
-		while(j < TILE_QTDY){
+	for(i = 0; i < TILE_QTDX; i++)
+		for(j = 0; j < TILE_QTDY; j++) {
 			
 			tipo = tiles[i][j];
-			tilesJogo->tipoTile[tipo].Show();
 			
-			y += TILE_H; // Próxima posição para inserção de tile
-			j++; // Próximo indice no array
-		}
-		x += TELA_W;// Próxima posição para inserção de tile
-		i++;// Próximo indice no array
+			// Calcula a posição x e y
+			x = i * TILE_W;
+			y = j * TILE_H;
+			
+			putimage(x,y,tilesJogo->tipoTile[tipo].image,0);
 	}
 	
 }
 
-// Construtor padrão (o cenário já é predefinido)
+// Construtor padrão (o cenário é predefinido)
 CampoJogo::CampoJogo(){
 	int i, j;
 	for(i = 0; i < TILE_QTDX; i++){
@@ -90,12 +87,16 @@ CampoJogo::CampoJogo(){
 
 int main(){
 	initwindow(TELA_W, TELA_H);
+	CampoJogo meuCampo = CampoJogo();
+	meuCampo.Colocar();
 	
-	Tiles *meuTile = new Tiles();	
-	meuTile->tipoTile[0].Move(MidX(), MidY());
-	meuTile->tipoTile[0].SimpleTile(32,32,RED);
+	/*setfillstyle(1,RED);
+	bar(0,0,32,32);
+	int size = imagesize(0,0,32,32);
+	void *image = malloc(size);
+	getimage(0,0,32,32,image);
 	cleardevice();
-	meuTile->tipoTile[0].Show();
+	putimage(0,0,image,0);*/
 	
 	while(!kbhit());
 	return 0;

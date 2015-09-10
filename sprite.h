@@ -10,7 +10,7 @@
 		void Move(int changeX, int changeY);
 		void GetImage(char name[], int width, int height);
 		void GoTo(int newX, int newY);
-		void SimpleTile(int width, int height, int color);
+		void BasicTile(int width, int height, int color);
 	
 		// Constructors	
 		Sprite(int beginX,int beginY);
@@ -24,7 +24,7 @@
 	};
 	
 	// Cria um quadrado preenchido por uma cor especificada --> protótipo de Tile
-	void Sprite::SimpleTile(int width, int height, int color){
+	void Sprite::BasicTile(int width, int height, int color){
 		
 		int size;
 		

@@ -10,7 +10,7 @@
 
 /*Qtd. de tiles (Dimensão da tela / Dimensão dos tiles)*/
 #define TILE_QTDX 40
-#define TILE_QTDY 21
+#define TILE_QTDY 22
 
 /*Qtd. Tipos difernetes de tiltes*/
 #define QTD_TIPO 15
