@@ -12,5 +12,11 @@
 #define TILE_QTDX 40
 #define TILE_QTDY 21
 
+/*Qtd. Tipos difernetes de tiltes*/
+#define QTD_TIPO 15
+
+/*FPS do jogo*/
+#define FPS 30
+
 
 

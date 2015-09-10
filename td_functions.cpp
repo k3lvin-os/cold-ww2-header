@@ -24,3 +24,11 @@ void WidthHeight(){
 	cout << "Largura da tela " << getmaxx() + 1 << "px\nAltura da tela " << getmaxy() + 1 << "px.";
 
 }
+
+int MidX(){
+	return getmaxx() /2;
+}
+
+int MidY(){
+	return getmaxy() /2;
+}

@@ -13,6 +13,12 @@ void GetKey(int *key);
 // Prints on console the width and height of screen
 void WidthHeight();
 
+// Retorna o meio da tela na corrdenada X
+int MidX();
+
+// Retorna o meio da tela na corrdenada Y
+int MidY();
+
 	
 
 
