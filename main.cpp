@@ -105,7 +105,7 @@ CampoJogo::CampoJogo(){
 			
 			
 			switch(i){
-				case 1: // Linha da muralha e caminho dos soldados
+				case 0: // Linha da muralha e caminho dos soldados
 					
 					if(j!= 2 && j!=19 ){
 						// Muralha (maioria dos tiles dessa linha)
@@ -128,6 +128,15 @@ int main(){
 	initwindow(TELA_W, TELA_H);
 	CampoJogo meuCampo = CampoJogo();
 	meuCampo.Colocar();
+	
+	int i, j;
+	
+	for(i = 0; i < TILE_QTDX; i++){
+		for(j = 0; j < TILE_QTDY; j++){
+			cout << meuCampo.posTile[i][j] << "|";
+		}
+		cout << endl;
+	}
 	
 	/*setfillstyle(1,RED);
 	bar(0,0,32,32);
