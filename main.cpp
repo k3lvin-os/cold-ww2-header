@@ -9,6 +9,7 @@ bibliotecas. */
 #include "td_defines.h"
 #include "sprite.h"
 #include "campojogo.h"
+#include "grade.h"
 
 using namespace std;
 
@@ -20,6 +21,8 @@ int main(){
 	CampoJogo meuCampo = CampoJogo(); // Constrói o campo de jogo
 	meuCampo.Mostrar();
 	meuCampo.Console();
+	Grade *minhaGrd;
+	minhaGrd->Coloca();
 
 	
 	while(!kbhit());

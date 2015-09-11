@@ -79,7 +79,7 @@ CampoJogo::CampoJogo(){
 			switch(y){
 				case 0: // Linha da muralha e caminho dos soldados
 					
-					if(x!= 2 && x!=37 ){
+					if(x!= 2 && x!=37 && x!= 18 && x!=25 ){
 						// Muralha (maioria dos tiles dessa linha)
 						posTile[x][y] = 0;
 					} else{
