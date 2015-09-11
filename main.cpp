@@ -61,9 +61,9 @@ void CampoJogo::Colocar(){
 	
 	int tecla = 0; // teste
 	
-	for(i = 0; i < TILE_QTDX; i++){
+	for(i = 0; i < TILE_QTDX; i++){ /*	for(i = 0; i < TILE_QTDY; i++)*/ // Código alternativo
 	
-		for(j = 0; j < TILE_QTDY; j++) {
+		for(j = 0; j < TILE_QTDY; j++) { /*	for(j = 0; j < TILE_QTDX; j++)*/// Código alternativo
 			
 			// "Qual é o tipo do tile nos indices atuais"
 			meuTipo = posTile[i][j];
@@ -72,9 +72,9 @@ void CampoJogo::Colocar(){
 			x = i * TILE_W;
 			y = j * TILE_H;
 			
-			do{
-				GetKey(&tecla);
-			}while(tecla!= ESC);
+			/*x = j * TILE_W;// Código alternativo
+			y = i * TILE_H;
+			*/
 			
 			// Coloca o tile na tela
 			putimage(x,y,tipoTile[meuTipo].image,0);
