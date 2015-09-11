@@ -57,24 +57,20 @@ struct CampoJogo{
 
 // Coloca os sprites na tela
 void CampoJogo::Colocar(){
-	int i, j,  meuTipo, x, y;
+	int j, i,  meuTipo, x,y;
 	
 	int tecla = 0; // teste
 	
-	for(i = 0; i < TILE_QTDX; i++){ /*	for(i = 0; i < TILE_QTDY; i++)*/ // Código alternativo
+	for(i = 0; i < TILE_QTDY; i++){ 
 	
-		for(j = 0; j < TILE_QTDY; j++) { /*	for(j = 0; j < TILE_QTDX; j++)*/// Código alternativo
+		for(j = 0; j < TILE_QTDX; j++) { 
 			
 			// "Qual é o tipo do tile nos indices atuais"
-			meuTipo = posTile[i][j];
-			
-			// Calcula a posição x e y
-			x = i * TILE_W;
-			y = j * TILE_H;
-			
-			/*x = j * TILE_W;// Código alternativo
+			meuTipo = posTile[j][i];
+	
+			x = j * TILE_W;
 			y = i * TILE_H;
-			*/
+			
 			
 			// Coloca o tile na tela
 			putimage(x,y,tipoTile[meuTipo].image,0);
@@ -98,25 +94,25 @@ CampoJogo::CampoJogo(){
 	tipoTile[5].BasicTile(TILE_W,TILE_H, BLACK); // HUD inferior
 	
 	// Organização de tiles do campo (isso é pré-definido)
-	int i, j;
-	for(i = 0; i < TILE_QTDX; i++){
+	int x, y;
+	for(x = 0; x < TILE_QTDX; x++){
 		
-		for(j = 0; j < TILE_QTDY; j++){
+		for(y = 0; y < TILE_QTDY; y++){
 			
 			
-			switch(i){
+			switch(y){
 				case 0: // Linha da muralha e caminho dos soldados
 					
-					if(j!= 2 && j!=19 ){
+					if(x!= 2 && x!=37 ){
 						// Muralha (maioria dos tiles dessa linha)
-						posTile[i][j] = 0;
+						posTile[x][y] = 0;
 					} else{
 						// Caminho
-						posTile[i][j] = 1;
+						posTile[x][y] = 1;
 					}
 					break;
 				default:
-					posTile[i][j] = 0;
+					posTile[x][y] = 0; 
 					
 			}
 		}
@@ -129,22 +125,17 @@ int main(){
 	CampoJogo meuCampo = CampoJogo();
 	meuCampo.Colocar();
 	
+	// Imprime código dos tiles de campo
 	int i, j;
 	
-	for(i = 0; i < TILE_QTDX; i++){
-		for(j = 0; j < TILE_QTDY; j++){
-			cout << meuCampo.posTile[i][j] << "|";
+	for(i = 0; i < TILE_QTDY; i++){
+		
+		cout << "Coluna " << i << endl; 
+		for(j = 0; j < TILE_QTDX; j++){
+			cout << meuCampo.posTile[j][i] << "|";
 		}
-		cout << endl;
 	}
 	
-	/*setfillstyle(1,RED);
-	bar(0,0,32,32);
-	int size = imagesize(0,0,32,32);
-	void *image = malloc(size);
-	getimage(0,0,32,32,image);
-	cleardevice();
-	putimage(0,0,image,0);*/
 	
 	while(!kbhit());
 	return 0;
