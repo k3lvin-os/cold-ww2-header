@@ -71,27 +71,34 @@ CampoJogo::CampoJogo(){
 	
 	// Organização de tiles do campo (isso é pré-definido)
 	int x, y;
+	
+	
 	for(x = 0; x < TILE_QTDX; x++){
-		
 		for(y = 0; y < TILE_QTDY; y++){
 			
-			
-			switch(y){
-				case 0: // Linha da muralha e caminho dos soldados
+			if (y = 0){ // Linha da muralha e caminho dos soldados
 					
-					if(x!= 2 && x!=37 && x!= 18 && x!=25 ){
-						// Muralha (maioria dos tiles dessa linha)
-						posTile[x][y] = 0;
-					} else{
-						// Caminho
-						posTile[x][y] = 1;
-					}
-					break;
-				default:
-					posTile[x][y] = 0; 
-					
+				if(x!= 2 && x!=37 && x!= 18 && x!=25 )				
+					posTile[x][y] = 0; // Muralha
+				else
+					posTile[x][y] = 1; // Caminho		
 			}
+			else			
+				posTile[x][y] = 0; 
 		}
 	}
+		
+			
+/*	// Terreno da URSS
+	for( x = 1; x < 18; x++){
+		for(y = 1; y < 17; y++ ){
+		
+			posTile[x][y] = 2;
+		}
+	}*/
 }
+		
+	
+
+
 

@@ -1,8 +1,8 @@
 struct Grade{
-	void Coloca();
+	void Colocar();
 };
 
-void Grade::Coloca(){
+void Grade::Colocar(){
 	int i, j, x, y;
 		
 		// Grade das colunas
@@ -21,4 +21,8 @@ void Grade::Coloca(){
 			line(x,y,TELA_W, y); // Desenha as linhas diagonais 
 		}
 }
+
+	
+
+
 

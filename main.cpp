@@ -18,13 +18,14 @@ using namespace std;
 int main(){
 	
 	initwindow(TELA_W, TELA_H);
-	CampoJogo meuCampo = CampoJogo(); // Constrói o campo de jogo
-	meuCampo.Mostrar();
-	meuCampo.Console();
+	CampoJogo *meuCampo = new CampoJogo(); // Constrói o campo de jogo
+	meuCampo->Mostrar();
+	meuCampo->Console();
 	Grade *minhaGrd;
-	minhaGrd->Coloca();
+	minhaGrd->Colocar();
 
-	
+
 	while(!kbhit());
 	return 0;
 }
+
