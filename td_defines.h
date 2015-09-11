@@ -18,5 +18,7 @@
 /*FPS do jogo*/
 #define FPS 30
 
+/*Teclado*/
+#define ESC 27
 
 

@@ -43,8 +43,10 @@ Tiles::Tiles(){
 // Este é o cenário principal do jogo
 struct CampoJogo{
 	
-	int tiles[TILE_QTDX][TILE_QTDY]; // Indicacao dos tiles
-	Tiles *tilesJogo;// Tipos de tiles
+	int posTile[TILE_QTDX][TILE_QTDY]; // Indicacao dos tiles
+	//Tiles *tilesJogo;// Tipos de tiles
+	Sprite *tipoTile;
+
 	
 	
 	void Colocar(); // Coloca o campo de jogo
@@ -55,31 +57,68 @@ struct CampoJogo{
 
 // Coloca os sprites na tela
 void CampoJogo::Colocar(){
-	tilesJogo = new Tiles();
-	int i, j,  tipo, x, y;
-
-	tipo = 0;
+	int i, j,  meuTipo, x, y;
 	
-	for(i = 0; i < TILE_QTDX; i++)
+	int tecla = 0; // teste
+	
+	for(i = 0; i < TILE_QTDX; i++){
+	
 		for(j = 0; j < TILE_QTDY; j++) {
 			
-			tipo = tiles[i][j];
+			// "Qual é o tipo do tile nos indices atuais"
+			meuTipo = posTile[i][j];
 			
 			// Calcula a posição x e y
 			x = i * TILE_W;
 			y = j * TILE_H;
 			
-			putimage(x,y,tilesJogo->tipoTile[tipo].image,0);
-	}
+			do{
+				GetKey(&tecla);
+			}while(tecla!= ESC);
+			
+			// Coloca o tile na tela
+			putimage(x,y,tipoTile[meuTipo].image,0);
+		}
 	
+	}
 }
 
-// Construtor padrão (o cenário é predefinido)
+// Construtor padrão 
 CampoJogo::CampoJogo(){
+	
+	// Aloca espaço para os membros do array de estrutura
+	tipoTile = (Sprite *) malloc(sizeof(Sprite) * QTD_TIPO);
+	
+	// Carregue os sprites de campo
+	tipoTile[0].BasicTile(TILE_W,TILE_H, BLUE); // Muralha
+	tipoTile[1].BasicTile(TILE_W,TILE_H, BROWN); // Caminho
+	tipoTile[2].BasicTile(TILE_W,TILE_H, WHITE); // Campo da URSS
+	tipoTile[3].BasicTile(TILE_W,TILE_H, LIGHTGREEN); // Campo dos EUA e Aliados
+	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW); // Base
+	tipoTile[5].BasicTile(TILE_W,TILE_H, BLACK); // HUD inferior
+	
+	// Organização de tiles do campo (isso é pré-definido)
 	int i, j;
 	for(i = 0; i < TILE_QTDX; i++){
+		
 		for(j = 0; j < TILE_QTDY; j++){
-			tiles[i][j] = 0;
+			
+			
+			switch(i){
+				case 1: // Linha da muralha e caminho dos soldados
+					
+					if(j!= 2 && j!=19 ){
+						// Muralha (maioria dos tiles dessa linha)
+						posTile[i][j] = 0;
+					} else{
+						// Caminho
+						posTile[i][j] = 1;
+					}
+					break;
+				default:
+					posTile[i][j] = 0;
+					
+			}
 		}
 	}
 }
