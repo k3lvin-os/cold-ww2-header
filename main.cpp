@@ -3,7 +3,7 @@ bibliotecas. */
 
 #include <iostream>
 #include <fstream> // E / S de arquivos
-#include <string>
+#include <iomanip> // Para ler em caracter a caracter
 #include <graphics.h>
 
 /*Bibliotecas do projeto TowerDefense*/
@@ -22,21 +22,18 @@ int main(){
 	// Mainpulador de arquivo
 	ifstream arquivo;
 	
-	// Linha de tiles
-	string linha;
+	// Leitor de caracteres
+	char c;
 	
 	// Abre o arquivo
 	arquivo.open("teste.txt");
 	
 	// Lê até encontrar o caracter de
 	// fim de arquivo
-	while(!arquivo.eof()){
+	while(arquivo.get(c)){
 		
-		// Lê o conteúdo de uma linha
-		getline(arquivo,linha);
-		
-		//Exibindo o conteúdo da linha
-		cout << linha << endl;
+		// Imprime-o
+		cout << c;
 	}
 	
 	// Fecha o arquivo
