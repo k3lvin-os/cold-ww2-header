@@ -2,6 +2,8 @@
 bibliotecas. */
 
 #include <iostream>
+#include <fstream> // E / S de arquivos
+#include <string>
 #include <graphics.h>
 
 /*Bibliotecas do projeto TowerDefense*/
@@ -17,14 +19,35 @@ using namespace std;
 // Mostra o campo de jogo nos gráficos e no console
 int main(){
 	
-	initwindow(TELA_W, TELA_H);
-	CampoJogo *meuCampo = new CampoJogo(); // Constrói o campo de jogo
-	meuCampo->Mostrar();
-	meuCampo->Console();
-	Grade *minhaGrd;
-	minhaGrd->Colocar();
+	// Mainpulador de arquivo
+	ifstream arquivo;
+	
+	// Linha de tiles
+	string linha;
+	
+	// Abre o arquivo
+	arquivo.open("teste.txt");
+	
+	// Lê até encontrar o caracter de
+	// fim de arquivo
+	while(!arquivo.eof()){
+		
+		// Lê o conteúdo de uma linha
+		getline(arquivo,linha);
+		
+		//Exibindo o conteúdo da linha
+		cout << linha << endl;
+	}
+	
+	// Fecha o arquivo
+	arquivo.close();
+	
+	cout << endl << endl;
+	
+	system("pause");
+	
 
-
+	
 	while(!kbhit());
 	return 0;
 }
