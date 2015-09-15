@@ -16,30 +16,49 @@ bibliotecas. */
 using namespace std;
 
 
-// Mostra o campo de jogo nos gráficos e no console
 int main(){
 	
+	// Linha e coluna (contadores)
+	int i, j;
 	
+	// Confirma a leitura do arquivo
+	bool leu = true;
 	
-	// Mainpulador de arquivo para saída
-	ofstream arquivo;
-	
-	// Abre o arquivo
-	arquivo.open("teste.txt");
-	
-	arquivo << "Veja, caro mortal! Eu escrevi em um arquivo .txt";
-	arquivo << "\nAlgo que poucos podem fazer";
-	
-	// Fecha o arquivo
-	arquivo.close();
-	
-	cout << "Acabei de escrever no arquivo \"teste.txt\". Leia-o";
-	
-	cout << endl << endl;
-	
-	system("pause");
+	// Nome do arquivo
+	char arqnome[12];
 	
 
-	return 0;
+	
+	cout << "Digite um nome para o arquivo de coordenadas (.txt)\n";
+	cout << "Seu arquivo deve conter, no máximo, 8 caracteres\n";
+	cin >> arqnome;
+	
+	// Possibilita que o arquivo se torne txt
+	strcat(arqnome,".txt");
+
+	
+	// Cria e manipula o arquivo com a posição dos tiles
+	ofstream arqTile(arqnome);
+		
+	// Abre o arquivo
+	arqTile.open(arqnome);
+		
+	arqTile << "OLÁ !!!!";
+	
+	arqTile.close();
+		
+	
+/*	
+	for(i = 0; i < TILE_QTDY; i++){
+		
+		for(j = 0; j < TILE_QTDX; j++){
+			
+			arqTiles << "0"; 
+		}
+	
+		cout << endl;
+	}	
+
+	return 0;*/
 }
 
