@@ -19,33 +19,27 @@ using namespace std;
 // Mostra o campo de jogo nos gráficos e no console
 int main(){
 	
-	// Mainpulador de arquivo
-	ifstream arquivo;
 	
-	// Leitor de caracteres
-	char c;
+	
+	// Mainpulador de arquivo para saída
+	ofstream arquivo;
 	
 	// Abre o arquivo
 	arquivo.open("teste.txt");
 	
-	// Lê até encontrar o caracter de
-	// fim de arquivo
-	while(arquivo.get(c)){
-		
-		// Imprime-o
-		cout << c;
-	}
+	arquivo << "Veja, caro mortal! Eu escrevi em um arquivo .txt";
+	arquivo << "\nAlgo que poucos podem fazer";
 	
 	// Fecha o arquivo
 	arquivo.close();
+	
+	cout << "Acabei de escrever no arquivo \"teste.txt\". Leia-o";
 	
 	cout << endl << endl;
 	
 	system("pause");
 	
 
-	
-	while(!kbhit());
 	return 0;
 }
 
