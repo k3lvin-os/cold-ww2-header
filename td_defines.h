@@ -21,4 +21,6 @@
 /*Teclado*/
 #define ESC 27
 
+/*Base numérica decimal (para uso no itoa() e outras funções que necessitam desta constante)*/
+#define DECIMAL 10
 

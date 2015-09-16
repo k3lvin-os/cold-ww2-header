@@ -18,47 +18,22 @@ using namespace std;
 
 int main(){
 	
-	// Linha e coluna (contadores)
-	int i, j;
+	initwindow(TELA_W,TELA_H);
 	
-	// Confirma a leitura do arquivo
-	bool leu = true;
+	// Cria o campo, mostra na tela e no console 
+	CampoJogo *meuCampo = new CampoJogo();	
+	meuCampo->Mostrar();
+	meuCampo->Console();
 	
-	// Nome do arquivo
-	char arqnome[12];
+	// Cria e mostra uma grade
+	Grade *minhaGrd;
+	minhaGrd->Colocar();
 	
-
+	// Arquiva as coordenadas em um txt
+	meuCampo->Arquiva("Tile.txt");
 	
-	cout << "Digite um nome para o arquivo de coordenadas (.txt)\n";
-	cout << "Seu arquivo deve conter, no máximo, 8 caracteres\n";
-	cin >> arqnome;
-	
-	// Possibilita que o arquivo se torne txt
-	strcat(arqnome,".txt");
-
-	
-	// Cria e manipula o arquivo com a posição dos tiles
-	ofstream arqTile;
-	
-	// Abre o arquivo
-	arqTile.open(arqnome);
-		
-	arqTile << "OLÁ !!!!";
-	
-	arqTile.close();
-		
-	
-/*	
-	for(i = 0; i < TILE_QTDY; i++){
-		
-		for(j = 0; j < TILE_QTDX; j++){
-			
-			arqTiles << "0"; 
-		}
-	
-		cout << endl;
-	}	
-
-	return 0;*/
+	while(!kbhit());
+	closegraph();
+	return 0;
 }
 

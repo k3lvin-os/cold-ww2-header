@@ -10,6 +10,7 @@ struct CampoJogo{
 	// Funções
 	void Mostrar(); 
 	void Console();
+	void Arquiva(char nomeArq[8]);
 	
 	// Construtor (padrão)
 	CampoJogo();	
@@ -39,6 +40,37 @@ void CampoJogo::Mostrar(){
 	
 	}
 }
+
+// Arquiva a matriz de coordenadas dos tiles (cria um arquivo com nome dado e o conteúdo citado)
+void CampoJogo::Arquiva(char nomeArq[8]){
+	
+	// Contadores
+	int i, j;
+	
+	//char *c;
+	
+	// Mainpulador de arquivos	
+	std::ofstream escreve;
+	
+	// Abre o arquivo
+	escreve.open(nomeArq);
+	
+	// Escreve o conteúdo da matriz de posições no arquivo
+	for(i = 0; i < TILE_QTDY; i++){
+		for(j = 0; j < TILE_QTDX; j++){
+			
+			//c = itoa(posTile[i][j], c, DECIMAL);
+			escreve << posTile[i][j];
+		}
+		escreve << std::endl;
+	}
+	
+	//Fecha o arquivo
+	escreve.close();
+	
+	
+}
+
 
 // Imprime a posição dos tiles no console
 void CampoJogo::Console(){
