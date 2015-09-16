@@ -38,8 +38,8 @@ int main(){
 
 	
 	// Cria e manipula o arquivo com a posição dos tiles
-	ofstream arqTile(arqnome);
-		
+	ofstream arqTile;
+	
 	// Abre o arquivo
 	arqTile.open(arqnome);
 		
