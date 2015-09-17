@@ -119,70 +119,7 @@ CampoJogo::CampoJogo(char nomeArq[8]){
 	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW); // Base
 	tipoTile[5].BasicTile(TILE_W,TILE_H, BLACK); // HUD inferior
 	
-	// Organização de tiles do campo (isso é pré-definido)
-	int x, y;
-	
-		for(x = 0; x < TILE_QTDX; x++){
-		for(y = 0; y < TILE_QTDY; y++){
-			
-			if (y == 0){ // Linha da muralha e caminho dos soldados
-					
-				if(x!= 2 && x!=37 && x!= 18 && x!=25 )				
-					posTile[x][y] = 0; // Muralha
-				else
-					posTile[x][y] = 1; // Caminho		
-			}
-			else			
-				posTile[x][y] = 0; 
-		}
-	}
-		
-			
-	// Terreno da URSS
-	for( x = 1; x < 20; x++){
-		for(y = 1; y < 19; y++ ){
-		
-			posTile[x][y] = 2;
-		}
-	}
-	
-	// HUD do usuário
-	for(x = 0; x < TILE_QTDX; x++ ){
-		for(y = 19; y < TILE_QTDY; y++){
-			posTile[x][y]= 5;
-		}
-	}
-	
-	// Terreno dos Aliados capitalistas
-	for(x = 24; x < 39; x++){
-		for(y = 1; y <19; y++){
-			posTile[x][y] = 3;
-		}
-	}
-	
-	// Caminho das tropas
-	posTile[2][0] = 1;
-	posTile[2][1] = 1;
-	posTile[2][2] = 1;
-	for(x = 3, y = 2; x <10; x++ ){
-		posTile[x][y] = 1;
-	}
-	for(x = 10, y = 2; y < 9; y++  ){
-		posTile[x][y] = 1;
-	}
-	
-	// Final do laço
-	for(x = 15, y = 7; x < 18; x++){
-		posTile[x][y] = 1;
-	}
-	
-	for(x = 18, y = 7; y >= 0; y--){
-		posTile[x][y] = 1;
-	}
-
-	
-	
-	/*// Abre o arquivo
+	// Abre o arquivo
 	leitor.open(nomeArq);
 	
 	// Verifica se o arquivo NÃO foi aberto
@@ -212,37 +149,38 @@ CampoJogo::CampoJogo(char nomeArq[8]){
 			else if(c == '|'){
 				
 				// Converte e Transfere o valor para a matriz de posições de tiles (matriz de inteiros)
-				posTile[i][j] = atoi(temp);
+				posTile[j][i] = atoi(temp);
 			    
 				// Zera o conteúdo da variável temporária
 				strcpy(temp, "   ");
+				
+				// Retorna para o primeiro indice do array temporário
+				tempPos = 0;
 			    
 			    // Vai para a próxima coluna
 			    j++;
 		
 				// Verificações de fim de dos indices
-			    if(j == (TILE_QTDX - 1)){
-			    	j = 0;
+			    if(j == TILE_QTDX){
+					
+					j = 0;
 			    	i++;
+			    	
+					if(i == TILE_QTDY)
+						mtxCheia = true; // Isso faz o programa sair do laço de leitura
+					
 				}
-				
-				if(i == (TILE_QTDY - 1)){
-					mtxCheia = true; // Isso faz o programa sair do laço de leitura
-				}
-				
-				// Retorna para o primeiro indice do array temporário
-				tempPos = 0;
 				
 			}
 			
 		}
 		
-
-		
-		}
-		
 		// Fecha o arquivo
-		leitor.close();*/
+		leitor.close();
+			
+	}
+		
+
 	}
 	
 	
