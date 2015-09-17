@@ -47,7 +47,8 @@ void CampoJogo::Arquiva(char nomeArq[8]){
 	// Contadores
 	int i, j;
 	
-	//char *c;
+	char temp[4];
+	
 	
 	// Mainpulador de arquivos	
 	std::ofstream escreve;
@@ -59,10 +60,15 @@ void CampoJogo::Arquiva(char nomeArq[8]){
 	for(i = 0; i < TILE_QTDY; i++){
 		for(j = 0; j < TILE_QTDX; j++){
 			
-			//c = itoa(posTile[i][j], c, DECIMAL);
+			/*strcpy(temp,(char *) posTile[i][j]);
+			strcat(temp,",");
+			escreve << temp;*/
+			
 			escreve << posTile[i][j];
+			escreve << "|";
+
+
 		}
-		escreve << std::endl;
 	}
 	
 	//Fecha o arquivo
