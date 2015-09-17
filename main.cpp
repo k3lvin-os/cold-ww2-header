@@ -21,13 +21,15 @@ int main(){
 	initwindow(TELA_W,TELA_H);
 	
 	// Coloca grade na tela
-	Grade *minhaGrd = new Grade();
-	minhaGrd->Colocar();
-	
+
 	// Cria o campo, mostra na tela e no console 
 	CampoJogo *meuCampo = new CampoJogo("Tile.txt");
 	meuCampo->Console();	
 	meuCampo->Mostrar();
+	Grade *minhaGrd = new Grade();
+	minhaGrd->Colocar();
+	
+	
 	// Quando o usuário apertar algo, o programa fecha
 	while(!kbhit());
 	closegraph();
