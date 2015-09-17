@@ -20,18 +20,15 @@ int main(){
 	
 	initwindow(TELA_W,TELA_H);
 	
-	// Cria o campo, mostra na tela e no console 
-	CampoJogo *meuCampo = new CampoJogo();	
-	meuCampo->Mostrar();
-	meuCampo->Console();
-	
-	// Cria e mostra uma grade
-	Grade *minhaGrd;
+	// Coloca grade na tela
+	Grade *minhaGrd = new Grade();
 	minhaGrd->Colocar();
 	
-	// Arquiva as coordenadas em um txt
-	meuCampo->Arquiva("Tile.txt");
-	
+	// Cria o campo, mostra na tela e no console 
+	CampoJogo *meuCampo = new CampoJogo("Tile.txt");
+	meuCampo->Console();	
+	meuCampo->Mostrar();
+	// Quando o usuário apertar algo, o programa fecha
 	while(!kbhit());
 	closegraph();
 	return 0;
