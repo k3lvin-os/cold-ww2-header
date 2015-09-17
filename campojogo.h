@@ -45,10 +45,7 @@ void CampoJogo::Mostrar(){
 void CampoJogo::Arquiva(char nomeArq[8]){
 	
 	// Contadores
-	int i, j;
-	
-	char temp[4];
-	
+	int i, j;	
 	
 	// Mainpulador de arquivos	
 	std::ofstream escreve;
@@ -61,12 +58,12 @@ void CampoJogo::Arquiva(char nomeArq[8]){
 		for(j = 0; j < TILE_QTDX; j++){
 
 			// Escreve a posição e separa o conteúdo
-			escreve << posTile[i][j];
+			escreve << posTile[j][i];
 			escreve << "|"; 
 
 		}
 	}
-	
+
 	//Fecha o arquivo
 	escreve.close();
 	
@@ -85,6 +82,7 @@ void CampoJogo::Console(){
 		for(j = 0; j < TILE_QTDX; j++){
 			std::cout << posTile[j][i] << "|";
 		}
+		
 	}
 	
 }

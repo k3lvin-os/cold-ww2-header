@@ -28,6 +28,7 @@ int main(){
 	meuCampo->Mostrar();
 	Grade *minhaGrd = new Grade();
 	minhaGrd->Colocar();
+	meuCampo->Arquiva("Tile.txt");
 	
 	
 	// Quando o usuário apertar algo, o programa fecha
