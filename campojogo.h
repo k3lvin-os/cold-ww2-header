@@ -1,6 +1,14 @@
 // Este é o cenário principal do jogo
 struct CampoJogo{
 	
+	// Constantes
+	/*const char *TILES[] = {"MURALHA", 
+							"CAMINHO",
+ 							"URSSCAMP",
+							 "EUACAMP",
+							 "BASE",
+							 "GUI"};
+	*/
 	// Posição dos tiles
 	int posTile[TILE_QTDX][TILE_QTDY]; 
 	
