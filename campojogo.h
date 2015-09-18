@@ -11,10 +11,25 @@ struct CampoJogo{
 	void Mostrar(); 
 	void Console();
 	void Arquiva(char nomeArq[8]);
+	void Zera(int tileZero);
+	void TileLoad();
+	void PosLoad(char nomeArq[8]);
 	
-	// Construtor (padrão)
-	CampoJogo(char nomeArq[8]);	
+	
+	//Construtores
+	CampoJogo();
+	CampoJogo(char nomeArq[8]);
+	
+	//Destrutor (padrão)
+	~CampoJogo(){
+	}	
 };
+
+void CampoJogo::Zera(int tileZero){
+	
+	// Preenche todas posições da matriz com o valor passado
+	memset(posTile,tileZero,sizeof (posTile));
+}
 
 
 // Coloca os sprites na tela
@@ -87,26 +102,31 @@ void CampoJogo::Console(){
 	
 }
 
-// Construtor padrão 
+//Construtor  
 CampoJogo::CampoJogo(char nomeArq[8]){
+
+		// Carrega os tiles
+		TileLoad();
 		
-	// Leitor de arquivos
-	std::ifstream leitor;
+		// Carrega a posição dos tiles
+		PosLoad(nomeArq);
+}
+
+// Construtor que apenas carrega os tiles
+CampoJogo::CampoJogo(){
 	
-	// Leitor de caracteres dos arquivos
-	char c;
+	// Zera a matriz com o tile preto
+	Zera(T_PRETO);
 	
-	// Avalia se todas as coordenadas da matriz foram preenchdias
-	bool mtxCheia = false;
+	// Carrega os tiles
+	TileLoad();
+}
 	
-	// Contadores
-	int i, j;
-	
-	// Variável que recebe o valor da posição em formato char 
-	char temp[4] = "   ";
-	
-	// Contador para a variável temp
-	int  tempPos = 0;
+
+
+
+// Carrega os tipos de tiles do campo de jogo	
+void CampoJogo::TileLoad(){
 	
 	// Aloca espaço para os membros do array de estrutura
 	tipoTile = (Sprite *) malloc(sizeof(Sprite) * QTD_TIPO);
@@ -118,6 +138,30 @@ CampoJogo::CampoJogo(char nomeArq[8]){
 	tipoTile[3].BasicTile(TILE_W,TILE_H, LIGHTGREEN); // Campo dos EUA e Aliados
 	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW); // Base
 	tipoTile[5].BasicTile(TILE_W,TILE_H, BLACK); // HUD inferior
+}
+
+void CampoJogo::PosLoad(char nomeArq[8]){
+			
+	// Leitor de arquivos
+	std::ifstream leitor;
+	
+	// Leitor de caracteres dos arquivos
+	char c;
+	
+	// Avalia se todas as coordenadas da matriz foram preenchidas
+	bool mtxCheia = false;
+	
+	// Contadores
+	int i, j;
+	
+	// Variável que recebe o valor da posição em formato char 
+	char temp[4] = "   ";
+	
+	// Contador para a variável temp
+	int  tempPos = 0;
+	
+
+
 	
 	// Abre o arquivo
 	leitor.open(nomeArq);
@@ -179,9 +223,7 @@ CampoJogo::CampoJogo(char nomeArq[8]){
 		leitor.close();
 			
 	}
-		
-
-	}
+}
 	
 	
 

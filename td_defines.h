@@ -1,8 +1,12 @@
 /*Constantes*/
 
-/*Dimensões da tela*/
+/*Dimensões da tela de jogo*/
 #define TELA_W 1280
 #define TELA_H 704
+
+/*Dimensões da tela do editor de sprites*/
+#define EDIT_W 1280
+#define EDIT_H 736
 
 /*Dimensões dos tiles*/
 #define TILE_W 32
@@ -23,4 +27,7 @@
 
 /*Base numérica decimal (para uso no itoa() e outras funções que necessitam desta constante)*/
 #define DECIMAL 10
+
+/*Indicação de tiles*/
+#define T_PRETO 0
 
