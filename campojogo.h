@@ -13,7 +13,7 @@ struct CampoJogo{
 	void Arquiva(char nomeArq[8]);
 	void Zera(int tileZero);
 	void TileLoad();
-	void PosLoad(char nomeArq[8]);
+	bool PosLoad(char nomeArq[8]);
 	
 	
 	//Construtores
@@ -140,7 +140,7 @@ void CampoJogo::TileLoad(){
 	tipoTile[5].BasicTile(TILE_W,TILE_H, BLACK); // HUD inferior
 }
 
-void CampoJogo::PosLoad(char nomeArq[8]){
+bool CampoJogo::PosLoad(char nomeArq[8]){
 			
 	// Leitor de arquivos
 	std::ifstream leitor;
@@ -160,15 +160,13 @@ void CampoJogo::PosLoad(char nomeArq[8]){
 	// Contador para a variável temp
 	int  tempPos = 0;
 	
-
-
-	
 	// Abre o arquivo
 	leitor.open(nomeArq);
 	
 	// Verifica se o arquivo NÃO foi aberto
 	if(!leitor.is_open()){
 		std::cout << "Não foi possível abrir o arquivo " << nomeArq[8];
+		return false;
 	}
 	 else{
 		
@@ -221,6 +219,8 @@ void CampoJogo::PosLoad(char nomeArq[8]){
 		
 		// Fecha o arquivo
 		leitor.close();
+		
+		return true;
 			
 	}
 }
