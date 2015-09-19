@@ -3,20 +3,22 @@
 	
 		// Proprieties
 		int x, y;
+		char *nome;
 		void *image;
 		
 		// Functions
 		void Show();
 		void Move(int changeX, int changeY);
-		void GetImage(char name[], int width, int height);
+		void GetImage(char path[], int width, int height);
 		void GoTo(int newX, int newY);
 		void BasicTile(int width, int height, int color);
 	
 		// Constructors	
-		Sprite(int beginX,int beginY);
-		Sprite(char name[], int width, int height,int beginX, int beginY);
-		Sprite(char name[], int width, int height);
+		Sprite(char *nome , int beginX,int beginY );
+		Sprite(char path[], char nome[], int width, int height,int beginX, int beginY);
+		Sprite(char path[], char nome[], int width, int height);
 		Sprite();
+
 		
 		// Destructor
 		~Sprite(){}
@@ -59,30 +61,33 @@
 	
 	
 	// Fill the image variable with the sprite
-	void Sprite::GetImage(char name[], int width, int height){
+	void Sprite::GetImage(char path[], int width, int height){
 		
-		readimagefile(name,0,0,width,height); 
+		readimagefile(path,0,0,width,height); 
 		int size = imagesize(0,0,width,height);
 		image = malloc(size);
 		getimage(0,0,width,height,image); 
 	}
 	
 	// Constructor based in a sprite without image, but with coordinates
-	Sprite::Sprite(int beginX,int beginY){
+	Sprite::Sprite(char *nome, int beginX,int beginY){
 		x = beginX;
 		y = beginY;
+		this->nome = nome;
 	}
 	
 	// Constructor based in a sprite with image and coordinates
-	Sprite::Sprite(char name[], int width, int height,int beginX, int beginY){
-		GetImage(name,width,height);
+	Sprite::Sprite(char path[], char *nome, int width, int height,int beginX, int beginY){
+		GetImage(path,width,height);
 		x = beginX;
 		y = beginY;
+		this->nome = nome;
 	}
 	
 	// Constructor based in a sprite with image, but without a specific coordinate
-	Sprite::Sprite(char name[], int width, int height){
-		GetImage(name,width,height);
+	Sprite::Sprite(char path[], char *nome , int width, int height){
+		GetImage(path,width,height);
+		this->nome = nome;
 	}
 	
 	// Constructor without parameters

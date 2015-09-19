@@ -29,5 +29,6 @@
 #define DECIMAL 10
 
 /*Indicação de tiles*/
-#define T_PRETO 0
+#define T_PRETO 5
+
 

@@ -35,8 +35,14 @@ struct CampoJogo{
 
 void CampoJogo::Zera(int tileZero){
 	
-	// Preenche todas posições da matriz com o valor passado
-	memset(posTile,tileZero,sizeof (posTile));
+	int i, j;
+	
+	// Preenche todas posições da matriz com o valor passado	
+	for( i =0; i < TILE_QTDY; i++){
+		for(j = 0; j < TILE_QTDX; j++){
+			posTile[j][i] = tileZero;
+		}
+	}
 }
 
 
