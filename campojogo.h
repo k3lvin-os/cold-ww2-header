@@ -2,14 +2,8 @@
 struct CampoJogo{
 	
 	// Constantes
-	/*const char *TILES[] = {"MURALHA", 
-							"CAMINHO",
- 							"URSSCAMP",
-							 "EUACAMP",
-							 "BASE",
-							 "GUI"};
-	*/
-	// Posição dos tiles
+	const char QTD_TILE = 6;
+	
 	int posTile[TILE_QTDX][TILE_QTDY]; 
 	
 	// Tipos de tiles (sprites de tiles)
@@ -143,15 +137,15 @@ CampoJogo::CampoJogo(){
 void CampoJogo::TileLoad(){
 	
 	// Aloca espaço para os membros do array de estrutura
-	tipoTile = (Sprite *) malloc(sizeof(Sprite) * QTD_TIPO);
+	tipoTile = (Sprite *) malloc(sizeof(Sprite) * 6);
 	
 	// Carregue os sprites de campo
-	tipoTile[0].BasicTile(TILE_W,TILE_H, BLUE); // Muralha
-	tipoTile[1].BasicTile(TILE_W,TILE_H, BROWN); // Caminho
-	tipoTile[2].BasicTile(TILE_W,TILE_H, WHITE); // Campo da URSS
-	tipoTile[3].BasicTile(TILE_W,TILE_H, LIGHTGREEN); // Campo dos EUA e Aliados
-	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW); // Base
-	tipoTile[5].BasicTile(TILE_W,TILE_H, BLACK); // HUD inferior
+	tipoTile[0].BasicTile(TILE_W,TILE_H, BLUE, "Muralha"); // Muralha
+	tipoTile[1].BasicTile(TILE_W,TILE_H, BROWN, "Caminho"); // Caminho
+	tipoTile[2].BasicTile(TILE_W,TILE_H, WHITE, "URSSCamp"); // Campo da URSS
+	tipoTile[3] = new Sprite("EUAcamp","EUACamp", TILE_W,TILE_H);
+	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW, "Base"); // Base
+	tipoTile[5].BasicTile(TILE_W,TILE_H, BLACK, "BottomGUI"); // GUI inferior
 }
 
 bool CampoJogo::PosLoad(char nomeArq[8]){

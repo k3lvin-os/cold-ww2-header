@@ -1,22 +1,22 @@
 
-	struct Sprite{
+	struct Sprite{  
 	
-		// Proprieties
+		// Variáveis
 		int x, y;
-		char *nome;
+		char nome[];
 		void *image;
 		
-		// Functions
+		// Funções
 		void Show();
 		void Move(int changeX, int changeY);
 		void GetImage(char path[], int width, int height);
 		void GoTo(int newX, int newY);
-		void BasicTile(int width, int height, int color);
+		void BasicTile(int width, int height, int color, char *nome);
 	
 		// Constructors	
-		Sprite(char *nome , int beginX,int beginY );
-		Sprite(char path[], char nome[], int width, int height,int beginX, int beginY);
-		Sprite(char path[], char nome[], int width, int height);
+		Sprite(char nomeSprit[] , int beginX,int beginY );
+		Sprite(char path[], char nomeSprit[], int width, int height,int beginX, int beginY);
+		Sprite(char path[], char nomeSprit[], int width, int height);
 		Sprite();
 
 		
@@ -26,7 +26,7 @@
 	};
 	
 	// Cria um quadrado preenchido por uma cor especificada --> protótipo de Tile
-	void Sprite::BasicTile(int width, int height, int color){
+	void Sprite::BasicTile(int width, int height, int color, char *nome){
 		
 		int size;
 		
@@ -38,6 +38,7 @@
 		size = imagesize(0,0,width,height);
 		image = malloc(size);
 		getimage(0,0,width,height,image);
+		nome = nome;
 		
 	}
 	
@@ -70,29 +71,32 @@
 	}
 	
 	// Constructor based in a sprite without image, but with coordinates
-	Sprite::Sprite(char *nome, int beginX,int beginY){
+	Sprite::Sprite(char nomeSprit[], int beginX,int beginY){
 		x = beginX;
 		y = beginY;
-		this->nome = nome;
+		strcpy(nome,nomeSprit);
 	}
 	
 	// Constructor based in a sprite with image and coordinates
-	Sprite::Sprite(char path[], char *nome, int width, int height,int beginX, int beginY){
+	Sprite::Sprite(char path[], char nomeSprit[] , int width, int height,int beginX, int beginY){
 		GetImage(path,width,height);
 		x = beginX;
 		y = beginY;
-		this->nome = nome;
+		strcpy(nome,nomeSprit);
 	}
 	
 	// Constructor based in a sprite with image, but without a specific coordinate
-	Sprite::Sprite(char path[], char *nome , int width, int height){
+	Sprite::Sprite(char path[], char nomeSprit[] , int width, int height){
 		GetImage(path,width,height);
-		this->nome = nome;
+		strcpy(nome,nomeSprit);
+		x = 0;
+		y = 0;
 	}
 	
 	// Constructor without parameters
 	Sprite::Sprite(){
 		x = 0;
 		y = 0;
+		strcpy(nome,"?");
 	}
 	
