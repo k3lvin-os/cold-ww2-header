@@ -20,15 +20,11 @@ int main(){
 	
 	initwindow(TELA_W,TELA_H);
 	
-	// Coloca grade na tela
-
 	// Cria o campo, mostra na tela e no console 
-	CampoJogo *meuCampo = new CampoJogo("Tile.txt");
-	meuCampo->Console();	
-	meuCampo->Mostrar();
-	Grade *minhaGrd = new Grade();
-	minhaGrd->Colocar();
-	meuCampo->Arquiva("Tile.txt");
+	CampoJogo meuCampo;
+	meuCampo.Init("Tile.txt");
+	cleardevice();
+	putimage(0,0,meuCampo.tipoTile[0].image,0);
 	
 	
 	// Quando o usuário apertar algo, o programa fecha

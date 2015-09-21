@@ -1,13 +1,14 @@
 // Este é o cenário principal do jogo
 struct CampoJogo{
 	
-	// Constantes
-	const char QTD_TILE = 6;
+	// Qtd. padrão de tiles de campo de jogo
+	static const int QTD_TILE = 8;
 	
+	// Matriz do Campo de Jogo com o tipo de tile de cada posição
 	int posTile[TILE_QTDX][TILE_QTDY]; 
 	
 	// Tipos de tiles (sprites de tiles)
-	Sprite *tipoTile;	
+	Sprite tipoTile[QTD_TILE];	
 
 	// Funções
 	void Mostrar(); 
@@ -16,17 +17,17 @@ struct CampoJogo{
 	void Zera(int tileZero);
 	void TileLoad();
 	bool PosLoad(char nomeArq[8]);
-	
-	
-	//Construtores
-	CampoJogo();
-	CampoJogo(char nomeArq[8]);
-	
-	//Destrutor (padrão)
-	~CampoJogo(){
-	}	
+
+	//"Construtores" 
+	void Init();
+	void Init(char nomeArq[8]);
+
 };
 
+//=========================================================================
+
+
+// Preenche o campo de jogo com um tile básico
 void CampoJogo::Zera(int tileZero){
 	
 	int i, j;
@@ -39,23 +40,24 @@ void CampoJogo::Zera(int tileZero){
 	}
 }
 
+//=========================================================================
 
 // Coloca os sprites na tela
 void CampoJogo::Mostrar(){
+	
 	int j, i,  meuTipo, x,y;
-	
-	int tecla = 0; // teste
-	
+		
+	// Laço para percorrer a matriz de tiles de campo de jogo
 	for(i = 0; i < TILE_QTDY; i++){ 
 	
 		for(j = 0; j < TILE_QTDX; j++) { 
 			
-			// "Qual é o tipo do tile nos indices atuais"
+			// "Qual é o tipo do tile no indice atual"
 			meuTipo = posTile[j][i];
 	
+			// A posição do tile está em função do indice do tile
 			x = j * TILE_W;
 			y = i * TILE_H;
-			
 			
 			// Coloca o tile na tela
 			putimage(x,y,tipoTile[meuTipo].image,0);
@@ -64,8 +66,11 @@ void CampoJogo::Mostrar(){
 	}
 }
 
+//=========================================================================
+
+
 // Arquiva a matriz de coordenadas dos tiles (cria um arquivo com nome dado e o conteúdo citado)
-void CampoJogo::Arquiva(char nomeArq[8]){
+void CampoJogo::Arquiva(char *nomeArq){
 	
 	// Contadores
 	int i, j;	
@@ -90,8 +95,11 @@ void CampoJogo::Arquiva(char nomeArq[8]){
 	//Fecha o arquivo
 	escreve.close();
 	
-	
+	std:: cout << "\nArquivo gravado com sucesso!\n";
 }
+
+
+//=========================================================================
 
 
 // Imprime a posição dos tiles no console
@@ -110,9 +118,12 @@ void CampoJogo::Console(){
 	
 }
 
-//Construtor  
-CampoJogo::CampoJogo(char nomeArq[8]){
+//=========================================================================
 
+
+//"Construtor" que recebe o nome do arquivo  
+void CampoJogo::Init(char nomeArq[8]){
+		
 		// Carrega os tiles
 		TileLoad();
 		
@@ -120,8 +131,14 @@ CampoJogo::CampoJogo(char nomeArq[8]){
 		PosLoad(nomeArq);
 }
 
-// Construtor que apenas carrega os tiles
-CampoJogo::CampoJogo(){
+//=========================================================================
+
+
+// "Construtor" que apenas carrega os tiles
+void CampoJogo::Init(){
+	
+	// Tile preto para "zerar" o campo de jogo
+	const int T_PRETO = 0;
 	
 	// Zera a matriz com o tile preto
 	Zera(T_PRETO);
@@ -129,25 +146,32 @@ CampoJogo::CampoJogo(){
 	// Carrega os tiles
 	TileLoad();
 }
+
+
+//=========================================================================
 	
-
-
 
 // Carrega os tipos de tiles do campo de jogo	
 void CampoJogo::TileLoad(){
-	
-	// Aloca espaço para os membros do array de estrutura
-	tipoTile = (Sprite *) malloc(sizeof(Sprite) * 6);
-	
+
+	tipoTile[0].BasicTile(TILE_W,TILE_H, BLACK, "Preto"); 
+	tipoTile[1].BasicTile(TILE_W,TILE_H, BROWN, "Marrom"); // Tiles de protótipo
+	tipoTile[2].BasicTile(TILE_W,TILE_H, WHITE, "Branco"); 
+	tipoTile[3].BasicTile(TILE_W,TILE_H, RED,"Vermelho");
+	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW, "Amarelo"); 
 	// Carregue os sprites de campo
-	tipoTile[0].BasicTile(TILE_W,TILE_H, BLUE, "Muralha"); // Muralha
-	tipoTile[1].BasicTile(TILE_W,TILE_H, BROWN, "Caminho"); // Caminho
-	tipoTile[2].BasicTile(TILE_W,TILE_H, WHITE, "URSSCamp"); // Campo da URSS
-	tipoTile[3] = new Sprite("EUAcamp","EUACamp", TILE_W,TILE_H);
-	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW, "Base"); // Base
-	tipoTile[5].BasicTile(TILE_W,TILE_H, BLACK, "BottomGUI"); // GUI inferior
+	tipoTile[5].Init("../../Assets/Campo/eua.bmp","Campo do EUA e Aliados",TILE_W,TILE_H);
+	tipoTile[6].Init("../../Assets/Campo/urss.bmp","Campo da URSS", TILE_W, TILE_H);
+	tipoTile[7].Init("../../Assets/Campo/muro.bmp","Muro de Tijolos Brancos",TILE_W,TILE_H);
+	
+	
+
 }
 
+//=========================================================================
+
+
+// Carrega a matriz do campo de jogo com os dados de um arquivo
 bool CampoJogo::PosLoad(char nomeArq[8]){
 			
 	// Leitor de arquivos

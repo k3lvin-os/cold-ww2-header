@@ -19,6 +19,8 @@ int MidX();
 // Retorna o meio da tela na corrdenada Y
 int MidY();
 
+
+
 	
 
 

@@ -25,7 +25,5 @@
 /*Base numérica decimal (para uso no itoa() e outras funções que necessitam desta constante)*/
 #define DECIMAL 10
 
-/*Indicação de tiles*/
-#define T_PRETO 5
 
 
