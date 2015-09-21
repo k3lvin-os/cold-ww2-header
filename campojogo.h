@@ -153,12 +153,28 @@ void CampoJogo::Init(){
 
 // Carrega os tipos de tiles do campo de jogo	
 void CampoJogo::TileLoad(){
-
+	
+	/*
+			INFORMAÇÕES PARA ACRESENTAR TILES
+		- Primeiramente, aumente o tamanho do array. O número do array
+		deve ser igual a quantidade de tiles que você vai armazenar
+		
+		- Após isso, use BasicTile, caso você queira criar protótipos de tiles
+		,e use Init para criar tiles com imagens bitmpas criados por você
+		
+		- Não se esqueça de ter uma pasta chamada Assets. ELa deve estar
+		no mesmo local que o caminho dos tiles que usam Init, como mostra os 
+		exemplos abaixo. E, obviamente,	ela deve conter
+	    os bitmaps que você especifica no nosso "construtor" Init
+	
+	*/
+	
 	tipoTile[0].BasicTile(TILE_W,TILE_H, BLACK, "Preto"); 
 	tipoTile[1].BasicTile(TILE_W,TILE_H, BROWN, "Marrom"); // Tiles de protótipo
 	tipoTile[2].BasicTile(TILE_W,TILE_H, WHITE, "Branco"); 
 	tipoTile[3].BasicTile(TILE_W,TILE_H, RED,"Vermelho");
 	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW, "Amarelo"); 
+	
 	// Carregue os sprites de campo
 	tipoTile[5].Init("../../Assets/Campo/eua.bmp","Campo do EUA e Aliados",TILE_W,TILE_H);
 	tipoTile[6].Init("../../Assets/Campo/urss.bmp","Campo da URSS", TILE_W, TILE_H);
