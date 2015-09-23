@@ -10,6 +10,7 @@
 		void Show();
 		void Move(int changeX, int changeY);
 		void GetImage(char path[], int width, int height);
+		void GetImage(void** pImg, char path[], int width, int height);
 		void GoTo(int newX, int newY);
 		void BasicTile(int width, int height, int color, char *nome);
 		void Init(char path[], char nomeSprit[], int width, int height);
@@ -66,6 +67,8 @@
 	// Atribui uma imagem ao sprite
 	void Sprite::GetImage(char *path, int width, int height){
 		
+		
+		
 		// Lê e coloca na tela uma imagem
 		readimagefile(path,0,0,width,height); 
 		
@@ -77,6 +80,25 @@
 		
 		// Recebe a imagem
 		getimage(0,0,width,height,image); 
+	}
+	
+	// Manipula um ponteiro void a fim de receber uma imagem  
+	void Sprite::GetImage(void** pImg, char path[], int width, int height){
+		
+		int size;
+		
+		// Lê e coloca na tela uma imagem
+		readimagefile(path,0,0,width,height); 
+		
+		/// Calcula o tamanho da imagem com base na posição
+		size = imagesize(0,0,width,height);
+		
+		// Aloca memória com base no tamanho da imagem
+		*pImg = malloc(size);
+		
+		// Recebe a imagem
+		getimage(0,0,width,height,*pImg); 
+
 	}
 	
 		

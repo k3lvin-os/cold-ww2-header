@@ -25,5 +25,11 @@
 /*Base numérica decimal (para uso no itoa() e outras funções que necessitam desta constante)*/
 #define DECIMAL 10
 
+/*Caminho para encontrar a pasta assets*/
+#define ASSETS "../../Assets"
+
+/*Extensão bitmap*/
+#define BITMAP ".bmp"
+
 
 
