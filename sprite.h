@@ -14,9 +14,9 @@
 		void GoTo(int newX, int newY);
 		void BasicTile(int width, int height, int color, char *nome);
 		void Init(char path[], char nomeSprit[], int width, int height);
-		
-		// Destrutor
-		//~Sprite(){}
+		void Show(void* img, int imgX , int imgY);
+
+
 			
 	};
 	
@@ -55,6 +55,14 @@
 		putimage(x,y,image,0);
 	}
 	
+	// Mostra o sprite que foi passado pelo ponteiro void nas coord. e
+	//especificadas
+	void Sprite::Show(void* img, int imgX , int imgY){
+	 	
+	 	// Coloca a imagem na tela
+		putimage(imgX,imgY,img,0);
+	}
+	
 	// Movimenta o sprite
 	void Sprite::Move(int changeX, int changeY){
 		
@@ -66,9 +74,7 @@
 	
 	// Atribui uma imagem ao sprite
 	void Sprite::GetImage(char *path, int width, int height){
-		
-		
-		
+			
 		// Lê e coloca na tela uma imagem
 		readimagefile(path,0,0,width,height); 
 		
@@ -102,7 +108,7 @@
 	}
 	
 		
-	// "Construtor"
+	// "Construtor"  
 	void Sprite::Init(char *path, char *nomeSprit, int width, int height){
 		
 		// Configura a imagem do sprite

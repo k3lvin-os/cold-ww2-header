@@ -25,14 +25,10 @@ int main(){
 	// Inicialize a janela gráfica
 	initwindow(TELA_W,TELA_H);
 	
+	
+	// Teste com a criação do soldado Chara
 	Soldado meuSold;
-	meuSold.Carrega("/Soldado/Chara/Chara");
-	meuSold.imgAtual = 4;
-	meuSold.peh = 'e';
-	cout << "meuSold.imgAtual = " << meuSold.imgAtual << "\n";
-	meuSold.TrocaImg();
-	cout << "Troquei o pé!!!\n";
-	cout << "meuSold.imgAtual = " << meuSold.imgAtual << "\n";
+	meuSold.Init("Chara");
 	
 
 	
