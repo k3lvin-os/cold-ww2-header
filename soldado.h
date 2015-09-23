@@ -1,14 +1,32 @@
+// Relação entre tipo de sprite e valor
+enum NomeSprit{ FRENTE1 = 0, FRENTE2, FRENTE3,
+	COSTA1, COSTA2, COSTA3,
+	ESQRD1,ESQRD2,ESQRD3,
+	DIREITA1,DIREITA2,DIREITA3,
+	numSprit
+};
+
+// Direção do soldado
+enum Direcao{
+	FRENTE, COSTA, ESQUERDA, DIREITA 
+};
+
 
 struct Soldado{
 	//==========================================================================
 	// Propriedades
-	
+		
+
 	// Quantidades padrões dos soldados
 	static const int VIDA = 100;
 	static const int SPEED = 8;
 	static const int X = 0;
 	static const int Y = 32;
 	const char PEH = 'd';
+	static const Direcao DIRECAO = COSTA;
+	static const int IMGATUAL = 4; // corresponde ao "COSTA2"
+	static const NomeSprit QTD_IMG = numSprit;
+	static const bool IDLE = false;
 		
 	// Vida do soldado ('0' é igual a morte)
 	int vida;
@@ -25,27 +43,18 @@ struct Soldado{
 	// Tipo do soldado
 	char *tipo;
 	
-	// Indica se o pé que o personagem utiizou por ultimo para se movimentar
-	char peh;
-	
-	// Relação entre tipo de sprite e valor
-	enum NomeSprit{ FRENTE1 = 0, FRENTE2, FRENTE3,
- 	COSTA1, COSTA2, COSTA3,
-	  ESQRD1,ESQRD2,ESQRD3,
-	   DIREITA1,DIREITA2,DIREITA3,
-	    numSprit
-	};
-	
 	// Direção do soldado
-	enum Direcao{
-		FRENTE, COSTA, ESQUERDA, DIREITA 
-	};
+	Direcao direcao;
 	
-	// Indices necessários para armazenar as imagens dos solados
-	static const int QTD_IMG = numSprit;
+	// Indica se o pé que o personagem utiizou por ultimo para se movimentar
+	//(isso é usado para saber o próximo sprite de movimentação)
+	char peh;
 	
 	// Imagens (ou sprites) do soldado
 	void *imagens[QTD_IMG];
+	
+	// Indica se o soldado está parado ou não 
+	bool idle;
 	
 	//=============================================================================
 	
@@ -53,14 +62,44 @@ struct Soldado{
 	void Carrega(char rPath[]);
 	void GoTo(int novoX, int novoY);
 	void MoveTo(int destX, int destY);
+	void Move();
 	void Show();
 	void TrocaImg();
-	void TrocaDir(int direcao);
+	void TrocaDir(Direcao trocaDir);
 	
 	// "Construtores"
 	void Init();
 	void Init(char* tipo);
 };
+
+//===========================================================================
+void Soldado::Move(){
+	
+	// Se o personagem não estiver parado
+	if (idle == false){
+		
+		// Verifica a direção e movimenta-se com base nisso
+		
+		
+		if(direcao == ESQUERDA){
+			x -= speed;
+		} 
+		
+		if (direcao == DIREITA){
+			x += speed; 
+		}
+		
+		if( direcao == FRENTE){
+			y += speed;
+		}
+		
+		if(direcao == COSTA){
+			y -= speed;
+		}
+	}
+	
+	
+}
 
 
 //===========================================================================
@@ -73,6 +112,9 @@ void Soldado::Init(){
 	x = X;
 	y = Y;
 	tipo = "default";
+	direcao = COSTA;
+	imgAtual = IMGATUAL;
+	idle = IDLE;
 }
 //===========================================================================
 
@@ -82,21 +124,17 @@ void Soldado::Init(char* tipoSold ){
 	// Caminho para encontrar os sprites dos soldados
 	char *CHARA = "/Soldado/Chara/Chara";
 	
+	// Faz alterações gerais
+	Init();
+	
+	// Faz alterações específicas
 	if(tipoSold == "Chara"){
 		
 		// Carrega as imagens do soldado
 		Carrega(CHARA);
 	}
 	
-	// Outros ifs de outros soldados
 	
-	// Alterações gerais
-	x = X;
-	y = Y;
-	tipo = tipoSold;
-	vida = VIDA;
-	speed = SPEED;
-	peh = PEH;
 }
  
 
@@ -186,7 +224,7 @@ void Soldado::TrocaImg(){
 	// Verifica o indice de imagem e atribui o valor conforme ele
 	switch(iImg){
 		case 1:
-			imgAtual += + 1;
+			imgAtual +=  1;
 			break;
 		case 2:
 			
@@ -206,10 +244,10 @@ void Soldado::TrocaImg(){
 }
 //===========================================================================
 // Troca a direção do soldado
-void Soldado::TrocaDir(int direcao){
+void Soldado::TrocaDir(Direcao trocaDir){
 	
 	// Verifica a direção passada
-	switch(direcao){	
+	switch(trocaDir){	
 		
 		// A imagem atual é igual a direção no movimento 2
 		case FRENTE:
@@ -225,4 +263,8 @@ void Soldado::TrocaDir(int direcao){
 			imgAtual = DIREITA2;
 			break;
 	}
+	
+	// Por fim, recebe o valor da direção
+	direcao = trocaDir;
+	
 }
