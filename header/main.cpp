@@ -27,17 +27,14 @@ int main(){
 	
 	Soldado meuSold;
 	meuSold.Carrega("/Soldado/Chara/Chara");
-	int i;
+	meuSold.imgAtual = 4;
+	meuSold.peh = 'e';
+	cout << "meuSold.imgAtual = " << meuSold.imgAtual << "\n";
+	meuSold.TrocaImg();
+	cout << "Troquei o pé!!!\n";
+	cout << "meuSold.imgAtual = " << meuSold.imgAtual << "\n";
 	
-	for(i = 0; i < meuSold.QTD_IMG; i++){
-		// Espere até que se pressione o espaço
-		while(!GetKeyState(VK_SPACE)&&0x80){}
-		
-		// Coloque a imagem referente ao indice do soldado
-		putimage(0,0,meuSold.imagens[i],0);
-		
-		delay(FPS);
-	}	
+
 	
 	// Quando o usuário apertar algo, o programa fecha
 	while(!kbhit());

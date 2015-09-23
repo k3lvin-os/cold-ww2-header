@@ -1,7 +1,22 @@
 
 struct Soldado{
-	
+	//==========================================================================
 	// Propriedades
+	
+	// Vida do soldado ('0' é igual a morte)
+	int vida;
+	
+	// Sprite ou imagem atual do soldado  
+	int imgAtual;
+	
+	// Coordenadas
+	int x, y;
+	
+	// Nome do soldado
+	char *nome;
+	
+	// Indica se o pé que o personagem utiizou por ultimo para se movimentar
+	char peh;
 	
 	// Relação entre tipo de sprite e valor
 	enum NomeSprit{ FRENTE1 = 0, FRENTE2, FRENTE3,
@@ -17,12 +32,17 @@ struct Soldado{
 	// Imagens (ou sprites) do soldado
 	void *imagens[QTD_IMG];
 	
+	//=============================================================================
+	
 	// Funções
 	void Carrega(char rPath[]);
+	void GoTo(int novoX, int novoY);
+	void MoveTo(int destX, int destY);
+	void TrocaImg();
 };
 
 
-
+//===========================================================================
 // Carrega todas imagens do soldado através do caminho relativo
 // a partir da pasta assets
 void Soldado::Carrega(char rPath[]){
@@ -73,3 +93,36 @@ void Soldado::Carrega(char rPath[]){
 		
 	}
 }  
+
+//========================================================================
+void Soldado::TrocaImg(){
+	
+	int indiceH, iImg;
+	
+	// Faz a troca do indice da imagem atual para o indice humano
+	indiceH = imgAtual + 1;
+	
+	// Calcula o indice de imagem
+	iImg = indiceH % 3; 
+	
+	// Verifica o indice de imagem e atribui o valor conforme ele
+	switch(iImg){
+		case 1:
+			imgAtual += + 1;
+			break;
+		case 2:
+			
+			// Verifica o pé que o soldado utilizou por último
+			if(peh == 'd'){
+				imgAtual -= 1;
+				peh = 'e';
+			} else{
+				imgAtual += 1;
+				peh = 'd';
+			}
+			break;
+		case 3:
+		imgAtual -= 1;
+		break;		
+	}
+}
