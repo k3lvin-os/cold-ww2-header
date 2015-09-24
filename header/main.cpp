@@ -38,8 +38,7 @@ int main(){
 
 	// Soldado que o jogador vai controlar	
 	chara[0].Init("Chara");
-	chara[0].x = getmaxx() / 2;
-	chara[0].y = getmaxy() / 2;
+
 	
 	// Loop do jogo
 	while(gameLoop == true){
@@ -57,56 +56,47 @@ int main(){
 		// Deixa a página em modo desenho
 		setactivepage(pg);
 		
+		// Limpa a tela
+		cleardevice();
+		
 		// Se o usuário apertar uma das teclas de movimento...
-		if( (GetKeyState(VK_LEFT) && 0x80) ||
-		  (GetKeyState(VK_RIGHT) && 0x80)  ||
-		  (GetKeyState(VK_UP) && 0x80)     ||
-		   (GetKeyState(VK_DOWN) && 0x80)
+		if( (GetKeyState(VK_LEFT) & 0x80) ||
+		  (GetKeyState(VK_RIGHT) & 0x80)  ||
+		  (GetKeyState(VK_UP) & 0x80)     ||
+		   (GetKeyState(VK_DOWN) & 0x80)
 			){
 				// Indica o movimento
 				chara[0].idle = false;
-							
-				// O soldado vai fazer um movimento e, por isso, 
-				//troca a imagem
-				chara[0].TrocaImg();
-		
-				// Movimenta o sprite
-				chara[0].Move();	
 			}
 		
 		
-		// Verifica o pressionamento
-		if(GetKeyState(VK_LEFT) && 0x80){
-				
-			// Troca o sprite da direção
-			chara[0].TrocaDir(ESQUERDA);
+		// Verifica a troca de sprites de direção
+		if( GetKeyState(VK_LEFT) & 0x80){
+			
+			// Troca a direção (se for necessário)
+			if (chara[0].direcao != ESQUERDA)
+				chara[0].TrocaDir(ESQUERDA);
 		}
 			
-		else if(GetKeyState(VK_RIGHT) && 0x80){
-				
-			// Troca o sprite da direção
-			chara[0].TrocaDir(DIREITA);
-				
-			// Indica o movimento
-			chara[0].idle = false;
+		else if(GetKeyState(VK_RIGHT) & 0x80){
+			
+			// Troca a direção (se for necessário)
+			if (chara[0].direcao != DIREITA)
+				chara[0].TrocaDir(DIREITA);
 		}
 			
-		else if(GetKeyState(VK_UP) && 0x80){
-				
-			// Troca o sprite da direção
-			chara[0].TrocaDir(FRENTE);
-				
-			// Indica o movimento
-			chara[0].idle = false;
+		else if(GetKeyState(VK_UP) & 0x80){
+			
+			// Troca a direção (se for necessário)
+			if (chara[0].direcao != COSTA)
+				chara[0].TrocaDir(COSTA);
 		}
 			
-		else if(GetKeyState(VK_DOWN) && 0x80){
-				
-			// Troca o sprite da direção
-			chara[0].TrocaDir(COSTA);
-				
-			// Indica o movimento
-			chara[0].idle = false;
+		else if(GetKeyState(VK_DOWN) & 0x80){
+			
+			// Troca a direção (se for necessário)
+			if (chara[0].direcao != FRENTE)
+				chara[0].TrocaDir(FRENTE);
 		}
 		
 		else{
@@ -114,7 +104,22 @@ int main(){
 			// Indica que o soldado está parado
 			chara[0].idle = true;
 		}
+	
 			
+
+		
+		// Verifica se o personagem não está parado
+		if(chara[0].idle != true){
+			
+			
+			// O soldado vai fazer um movimento e, por isso, 
+			//troca a imagem
+			chara[0].TrocaImg();// TESTE
+					
+			// Movimenta o personagem
+			chara[0].Move();
+		}
+		
 		// Mostra o sprite
 		chara[0].Show();
 		

@@ -11,6 +11,11 @@ enum Direcao{
 	FRENTE, COSTA, ESQUERDA, DIREITA 
 };
 
+// Sequência da animção
+enum SeqAnim{
+	DO1ATE3, DO3ATE1
+};
+
 
 struct Soldado{
 	//==========================================================================
@@ -22,7 +27,7 @@ struct Soldado{
 	static const int SPEED = 8;
 	static const int X = 0;
 	static const int Y = 32;
-	const char PEH = 'd';
+	static const SeqAnim SEQANIM = DO1ATE3;
 	static const Direcao DIRECAO = COSTA;
 	static const int IMGATUAL = 4; // corresponde ao "COSTA2"
 	static const NomeSprit QTD_IMG = numSprit;
@@ -46,9 +51,8 @@ struct Soldado{
 	// Direção do soldado
 	Direcao direcao;
 	
-	// Indica se o pé que o personagem utiizou por ultimo para se movimentar
-	//(isso é usado para saber o próximo sprite de movimentação)
-	char peh;
+	// Indica a sequência da animação
+	SeqAnim seqAnim;
 	
 	// Imagens (ou sprites) do soldado
 	void *imagens[QTD_IMG];
@@ -74,13 +78,8 @@ struct Soldado{
 
 //===========================================================================
 void Soldado::Move(){
-	
-	// Se o personagem não estiver parado
-	if (idle == false){
 		
 		// Verifica a direção e movimenta-se com base nisso
-		
-		
 		if(direcao == ESQUERDA){
 			x -= speed;
 		} 
@@ -95,10 +94,7 @@ void Soldado::Move(){
 		
 		if(direcao == COSTA){
 			y -= speed;
-		}
-	}
-	
-	
+		}	
 }
 
 
@@ -115,6 +111,7 @@ void Soldado::Init(){
 	direcao = COSTA;
 	imgAtual = IMGATUAL;
 	idle = IDLE;
+	seqAnim = SEQANIM;
 }
 //===========================================================================
 
@@ -160,9 +157,13 @@ void Soldado::GoTo(int novoX, int novoY){
 // a partir da pasta assets
 void Soldado::Carrega(char rPath[]){
 	
+	// Contador do laço
 	int i;
 	
-	// Cria uma variável do tipo Sprite, a fim de usar uma função
+	// Indice mais humano (indice array + 1)
+	int indiceH;
+	
+	// Cria uma variável do tipo Sprite, a fim de usar uma função dela
 	Sprite imgHandl;
 
 	// Caminho para acessar a pasta com os sprites
@@ -181,16 +182,19 @@ void Soldado::Carrega(char rPath[]){
 		// Agora, adicione o caminho relativo (argumento que foi passado)
 		strcat(caminho,rPath);
 		
+		// Converte o indice do contador para o formato "humano"
+		// que é o número do sprite
+		indiceH = i + 1;
+		
 		// Verifica se o número do sprite é menor que 10 (dois algarismos)
-		if(i < 10){
+		if(indiceH < 10){
 			
 			// Se sim, acresenta-se um '0'
 			strcat(caminho,"0");
 		}
 		
-		// Converte o indice do contador para o formato "humano" (+ 1) - a partir do '0') 
-		//para char array
-		itoa(i + 1,temp,DECIMAL);
+		// Recebe a conversão do número do sprite para o tipo string
+		itoa(indiceH,temp,DECIMAL);
 		
 		// Acresenta esse valor
 		strcat(caminho,temp);
@@ -213,58 +217,58 @@ void Soldado::Carrega(char rPath[]){
 // Troca o indice da animação do soldado na direção atual
 void Soldado::TrocaImg(){
 	
-	int indiceH, iImg;
-	
-	// Faz a troca do indice da imagem atual para o indice humano
-	indiceH = imgAtual + 1;
-	
-	// Calcula o indice de imagem
-	iImg = indiceH % 3; 
+	// Indice da animação
+	int iAnim;
+			
+	// Função para achar o indice da animação
+	iAnim = (imgAtual % 3) + 1;
 	
 	// Verifica o indice de imagem e atribui o valor conforme ele
-	switch(iImg){
+	switch(iAnim){
 		case 1:
 			imgAtual +=  1;
 			break;
 		case 2:
 			
 			// Verifica o pé que o soldado utilizou por último
-			if(peh == 'd'){
-				imgAtual -= 1;
-				peh = 'e';
-			} else{
+			if(seqAnim == DO1ATE3){
 				imgAtual += 1;
-				peh = 'd';
+				seqAnim = DO3ATE1;
+			} else{
+				imgAtual -= 1;
+				seqAnim = DO1ATE3;
 			}
+			
 			break;
 		case 3:
-		imgAtual -= 1;
-		break;		
+			imgAtual -= 1;
+			break;		
 	}
+	std::cout << "\nLogo, troca-se para " << imgAtual;
+
 }
 //===========================================================================
 // Troca a direção do soldado
 void Soldado::TrocaDir(Direcao trocaDir){
-	
-	// Verifica a direção passada
-	switch(trocaDir){	
 		
-		// A imagem atual é igual a direção no movimento 2
-		case FRENTE:
-			imgAtual = FRENTE2;
-			break;
-		case COSTA:
-			imgAtual = COSTA2;
-			break;
-		case ESQUERDA:
-			imgAtual = ESQRD2;
-			break;
-		case DIREITA:
-			imgAtual = DIREITA2;
-			break;
-	}
+		// Recebe o valor da direção
+		direcao = trocaDir;
 	
-	// Por fim, recebe o valor da direção
-	direcao = trocaDir;
-	
+		// Verifica a direção 
+		switch(direcao){	
+			
+			// A imagem atual é igual a direção no movimento 2
+			case FRENTE:
+				imgAtual = FRENTE2;
+				break;
+			case COSTA:
+				imgAtual = COSTA2;
+				break;
+			case ESQUERDA:
+				imgAtual = ESQRD2;
+				break;
+			case DIREITA:
+				imgAtual = DIREITA2;
+				break;
+	}	
 }
