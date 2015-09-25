@@ -43,9 +43,6 @@ int main(){
 	// Loop do jogo
 	while(gameLoop == true){
 		
-		// Limpa a tela
-		cleardevice();
-		
 		// Troca a página
 		if(pg == 1){
 			pg = 2;
