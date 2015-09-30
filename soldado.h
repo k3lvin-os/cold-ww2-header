@@ -65,8 +65,9 @@ struct Soldado{
 	// Funções
 	void Carrega(char rPath[]);
 	void GoTo(int novoX, int novoY);
-	void MoveTo(int destX, int destY);
+	bool MoveDest(int tileX, int tileY);
 	void Move();
+	bool MovUntil(int untilX, int untilY);
 	void Show();
 	void TrocaImg();
 	void TrocaDir(Direcao trocaDir);
@@ -271,4 +272,31 @@ void Soldado::TrocaDir(Direcao trocaDir){
 				imgAtual = DIREITA2;
 				break;
 	}	
+}
+//===========================================================================
+
+// Pathfind dos soldados no bloco de caminho
+bool Soldado::MoveDest(int tileX, int tileY){
+	
+}
+
+// Movimenta-se até chegar em uma coordenada X e Y 
+// (retorna se o soldado chegou ou não)
+bool Soldado::MovUntil(int untilX, int untilY){
+	
+	// Indice a movimento do soldado
+	idle = false;
+	
+	// Se a coordenada do soldado não for igual  a coordenada de
+	// destino
+	if( y != untilY){
+		
+		// Move-se 
+		Move();
+		
+		// Verifica se o soldado chegou ao destino
+		/*if(y == untilY){
+			
+		}*/
+	}
 }
