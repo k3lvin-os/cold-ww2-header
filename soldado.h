@@ -25,7 +25,7 @@ struct Soldado{
 	// Quantidades padrões dos soldados
 	static const int VIDA = 100;
 	static const int SPEED = 8;
-	static const int X = 0;
+	static const int X = 64;
 	static const int Y = 32;
 	static const SeqAnim SEQANIM = DO1ATE3;
 	static const Direcao DIRECAO = COSTA;
@@ -79,6 +79,9 @@ struct Soldado{
 
 //===========================================================================
 void Soldado::Move(){
+		
+		// Troca a imagem de movimento do personagem
+		TrocaImg();
 		
 		// Verifica a direção e movimenta-se com base nisso
 		if(direcao == ESQUERDA){
@@ -203,9 +206,6 @@ void Soldado::Carrega(char rPath[]){
 		// Adicione a especificação de arquivo bitmap
 		strcat(caminho,BITMAP);
 		
-		// Teste
-		std::cout << caminho << "\n"; 
-		
 		// Recebe a imagem especificada pelo caminho
 		imgHandl.GetImage(&imagens[i],caminho,TILE_W,TILE_H);
 		
@@ -274,29 +274,63 @@ void Soldado::TrocaDir(Direcao trocaDir){
 	}	
 }
 //===========================================================================
-
-// Pathfind dos soldados no bloco de caminho
 bool Soldado::MoveDest(int tileX, int tileY){
-	
+	//if(Caminho(tileX, tileY)) CONTINUAR DAQUI
 }
 
+
+//===========================================================================
+
 // Movimenta-se até chegar em uma coordenada X e Y 
-// (retorna se o soldado chegou ou não)
+// e retorna se o soldado chegou ou não
 bool Soldado::MovUntil(int untilX, int untilY){
 	
-	// Indice a movimento do soldado
-	idle = false;
+	/*ATENÇÃO: é necessário que a coordenada seja múltiplo da velocidade*/
+	
+	// Inicialmente, o soldado não chegou ao destino
+	bool movUntil = false;
+	
+	// Verifica o tipo de diferença no eixo y e troca direção com base nisso
+	if(y < untilY && direcao != FRENTE){
+		TrocaDir(FRENTE);
+	} 
+	
+	else if(y > untilY && direcao != COSTA){
+		TrocaDir(COSTA);
+	}
 	
 	// Se a coordenada do soldado não for igual  a coordenada de
 	// destino
 	if( y != untilY){
 		
-		// Move-se 
+		// O soldado se move um pouco
 		Move();
+	} 
+	
+	// Caso o soldado esteja na posiçao Y desejada
+	else{
+		// Verifica o tipo de diferença no eixo x e troca direção com base nisso
+		if(x < untilX && direcao != DIREITA){
+			TrocaDir(DIREITA);
+		} else if(x > untilX && direcao != ESQUERDA ){
+			TrocaDir(ESQUERDA);
+		}
 		
-		// Verifica se o soldado chegou ao destino
-		/*if(y == untilY){
+		// Se a coordenada do soldado não for igual  a coordenada de
+		// destino
+		if(x != untilX){
 			
-		}*/
+			// O soldado se move um pouco
+			Move();
+		}
+		// Caso o soldado também esteja na posição x desejada
+		else{
+			
+			// O soldado chegou ao destino
+			movUntil = true;
+		}
 	}
+	
+	// Retorna se o soldado chegou ou não ao destino
+	return movUntil;
 }

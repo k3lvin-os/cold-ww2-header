@@ -2,7 +2,7 @@
 struct CampoJogo{
 	
 	// Qtd. padrão de tiles de campo de jogo
-	static const int QTD_TILE = 16;
+	static const int QTD_TILE = 12;
 	
 	// Matriz do Campo de Jogo com o tipo de tile de cada posição
 	int posTile[TILE_QTDX][TILE_QTDY]; 
@@ -183,10 +183,6 @@ void CampoJogo::TileLoad(){
 	tipoTile[9].Init("../../Assets/Campo/sacos1.bmp","Trincheira - Baixo",TILE_W,TILE_H);
 	tipoTile[10].Init("../../Assets/Campo/sacos2.bmp","Trincheira - Grama",TILE_W,TILE_H);
 	tipoTile[11].Init("../../Assets/Campo/sacos3.bmp","Trincheira - Neve",TILE_W,TILE_H);
-	tipoTile[12].Init("../../Assets/Campo/torre1.bmp","Torre EUA - Cima",TILE_W,TILE_H);
-	tipoTile[13].Init("../../Assets/Campo/torre2.bmp","Torre EUA - Baixo",TILE_W,TILE_H);
-	tipoTile[14].Init("../../Assets/Campo/torre3.bmp","Torre URSS - Cima",TILE_W,TILE_H);
-	tipoTile[15].Init("../../Assets/Campo/torre4.bmp","Torre URSS - Baixo",TILE_W,TILE_H);
 	
 	
 
