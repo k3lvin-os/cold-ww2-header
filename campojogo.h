@@ -17,6 +17,7 @@ struct CampoJogo{
 	void Zera(int tileZero);
 	void TileLoad();
 	bool PosLoad(char nomeArq[8]);
+	bool PosExist(int tileX, int tileY);
 
 	//"Construtores" 
 	void Init();
@@ -276,7 +277,23 @@ bool CampoJogo::PosLoad(char nomeArq[8]){
 			
 	}
 }
+//=========================================================================
+
+// Verifica se a posição é válida
+bool CampoJogo::PosExist(int tileX, int tileY){
 	
+	// Feedback desta função
+	bool existe;
+	
+	if( ( (tileX >= 0) && (tileX <= (TILE_QTDX - 1) ) )
+	 && ( (tileY >= 0) && (tileY <= (TILE_QTDY - 1) ) ) ){
+	 	existe = true; // A posição é válida
+	 } 
+	 else
+	 	existe = false; // A posição não é válida
+	 	 
+	 return existe; // Retorna feedback
+}	
 	
 
 

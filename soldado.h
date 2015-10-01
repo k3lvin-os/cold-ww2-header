@@ -65,7 +65,7 @@ struct Soldado{
 	// Funções
 	void Carrega(char rPath[]);
 	void GoTo(int novoX, int novoY);
-	bool MoveDest(int tileX, int tileY);
+	bool MoveDest(CampoJogo meuCampo,int tileX, int tileY);
 	void Move();
 	bool MovUntil(int untilX, int untilY);
 	void Show();
@@ -274,8 +274,17 @@ void Soldado::TrocaDir(Direcao trocaDir){
 	}	
 }
 //===========================================================================
-bool Soldado::MoveDest(int tileX, int tileY){
-	//if(Caminho(tileX, tileY)) CONTINUAR DAQUI
+bool Soldado::MoveDest(CampoJogo meuCampo,int tileX, int tileY){
+	
+	// Verifica se o tile existe
+	if(meuCampo.PosExist(tileX, tileY)){
+		
+	}
+	
+	/*// Se o tile de destino for um tile de
+	if(Caminho(tileX, tileY)){
+		
+	}*/
 }
 
 
