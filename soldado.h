@@ -65,7 +65,7 @@ struct Soldado{
 	// Funções
 	void Carrega(char rPath[]);
 	void GoTo(int novoX, int novoY);
-	bool MoveDest(CampoJogo meuCampo,int tileX, int tileY);
+	bool MoveDest(CampoJogo meuCampo,int tileXF, int tileYF);
 	void Move();
 	bool MovUntil(int untilX, int untilY);
 	void Show();
@@ -245,7 +245,6 @@ void Soldado::TrocaImg(){
 			imgAtual -= 1;
 			break;		
 	}
-	std::cout << "\nLogo, troca-se para " << imgAtual;
 
 }
 //===========================================================================
@@ -274,17 +273,87 @@ void Soldado::TrocaDir(Direcao trocaDir){
 	}	
 }
 //===========================================================================
-bool Soldado::MoveDest(CampoJogo meuCampo,int tileX, int tileY){
+bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 	
-	// Verifica se o tile existe
-	if(meuCampo.PosExist(tileX, tileY)){
+	// Armazena a última posição do soldado
+	static int ultTileX, ultTileY;
+	
+	// Calcula o tile do soldado
+	int tileX,  tileY;
 		
+	// Inicialmente, supõe-se que o soldado não chegou ao destino
+	bool moveDest = false;
+	
+	// Calcula o tile atual com base na posição x e y do jogador
+	tileX = x / TILE_W;
+	tileY = y / TILE_H;	
+		
+	// Se o tile existir
+	if(meuCampo.PosExist(tileXF, tileYF)){
+	
+		// Se o tile de destino for um tile de caminho
+		if(meuCampo.Caminho(tileXF, tileYF)){
+			
+
+			
+			/* ========================
+			1 - Verifique se o tile existe no campo de jogo;
+			2 - Verifique se o tile é um tile de caminho;
+			3 - Verfique se o tile não é o último tile percorrido
+			4 - Vá até a nova posição se tudo estiver certo
+			============================*/
+			
+			// Se o soldado não estiver no destino
+			if(tileX != tileXF || tileY != tileYF){
+				
+				// Esquerda
+				if(meuCampo.PosExist(tileX - 1,tileY)){
+					if(meuCampo.Caminho(tileX - 1, tileY)){
+						if(ultTileX != tileX - 1  && ultTileY != tileY ){
+							MovUntil(x - TILE_W,y);
+						}
+					}
+				}
+				
+				// Direita
+				else if(meuCampo.PosExist(tileX + 1,tileY)){
+					if(meuCampo.Caminho(tileX + 1, tileY)){
+						if(ultTileX != tileX + 1  && ultTileY != tileY ){
+							MovUntil(x + TILE_W,y);
+						}
+					}
+				}
+				
+				// Frente
+				else if(meuCampo.PosExist(tileX,tileY + 1)){
+					if(meuCampo.Caminho(tileX, tileY + 1)){
+						if(ultTileX != tileX  && ultTileY != tileY + 1 ){
+							MovUntil(x ,y + TILE_H);
+						}
+					}
+				}
+				
+				// Costa			
+				else if(meuCampo.PosExist(tileX,tileY - 1)){
+					if(meuCampo.Caminho(tileX , tileY - 1)){
+						if(ultTileX != tileX  && ultTileY != tileY - 1 ){
+							MovUntil(x,y - TILE_H);
+						}
+					}
+				}
+				
+		}
+			// Se o soldado estiver no destino
+			else{
+				moveDest = true; // Confirma a chegada ao destino
+			}							
+		}
 	}
+
 	
-	/*// Se o tile de destino for um tile de
-	if(Caminho(tileX, tileY)){
-		
-	}*/
+	// Retorna se o soldado chegou ao destino ou não
+	return moveDest;
+
 }
 
 

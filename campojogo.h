@@ -18,12 +18,36 @@ struct CampoJogo{
 	void TileLoad();
 	bool PosLoad(char nomeArq[8]);
 	bool PosExist(int tileX, int tileY);
+	bool Caminho(int tileX, int tileY);
 
 	//"Construtores" 
 	void Init();
 	void Init(char nomeArq[8]);
 
 };
+//=========================================================================
+
+// Verifica se o tile corresponde a um tile de caminho ou não
+bool CampoJogo::Caminho(int tileX, int tileY){
+	
+	// Feedback da função
+	bool caminho;
+	
+	//Processamento para verificar se é tile de caminho ou não
+	if(posTile[tileX][tileY] == 8 )
+		caminho  = true; 
+	else 
+		caminho = false;
+	
+	// Retorna feedback
+	return caminho;
+}
+
+
+
+
+
+
 
 //=========================================================================
 
