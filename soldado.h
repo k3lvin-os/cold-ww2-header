@@ -33,6 +33,7 @@ struct Soldado{
 	static const int UNDEFINE = -1;
 	static const bool POSCEGO = false;
 	static const bool DEST = false;
+	static const bool VISIVEL = false;
 	
 	// Variáveis	
 	int vida;	
@@ -48,6 +49,7 @@ struct Soldado{
 	int untilPos[2]; // Armazena um destino para o soldado
 	bool posCego; // Indica se soldado passou pelo ponto cego
 	bool dest; // Indica se o soldado chegou ao destino
+	bool visivel; // Indica se o soldado chegou ao ponto visivel
 	
 	//=============================================================================
 	
@@ -61,6 +63,7 @@ struct Soldado{
 	void Show();
 	void TrocaImg();
 	void TrocaDir(Direcao trocaDir);
+	void IA(CampoJogo meuCampo);
 	void UltTile(int *ultTile);
 	
 	// "Construtores"
@@ -111,6 +114,7 @@ void Soldado::Init(){
 	untilPos[1] = UNDEFINE;
 	posCego = POSCEGO;
 	dest = DEST;
+	visivel = VISIVEL;
 }
 //===========================================================================
 
@@ -443,26 +447,24 @@ bool Soldado::MovUntil(){
 	// Indica que se o soldado chegou ou não no destino
 	bool reach;
 	
-	// Se as coordendas de destino foram definidas
-	if(untilPos[0] != UNDEFINE && untilPos[1] != UNDEFINE ){
+	// Se o estilo de movimento foi ativado
+	if(movNUntil == true){
 		
-		// Verifica o tipo de diferença no eixo y e troca direção com base nisso
+		// Verifica o tipo de diferença no eixo y 
+		//e troca direção com base nisso
 		if(y < untilPos[1] && direcao != FRENTE)
 			TrocaDir(FRENTE);	
 		else if(y > untilPos[1] && direcao != COSTA)
 			TrocaDir(COSTA);
 		
-		
-		// Se a coordenada do soldado não for igual  a coordenada de
+		// Se a coordenada do soldado não for igual a coord. de
 		// destino
-		if( y != untilPos[1]){
-			
-			// O soldado move-se um pouco
-			Move();
-		} 
-		
-		// Caso o soldado esteja na posiçao Y desejada
+		if( y != untilPos[1])
+			Move();	// O soldado move-se um pouco
+
+		// Caso o soldado esteja na posiçao Y do destino
 		else{
+			
 			// Verifica o tipo de diferença no eixo x e troca direção com base nisso
 			if(x < untilPos[0] && direcao != DIREITA){
 				TrocaDir(DIREITA);
@@ -477,31 +479,88 @@ bool Soldado::MovUntil(){
 				// O soldado se move um pouco
 				Move();
 			}
-			// Caso o soldado esteja na posição x desejada
-			else{
-				
-				// O soldado chegou ao destino em x e y
-				reach = true;
-				
-				// Altera o estilo de movimentação
-				movNUntil = false;
-				
-				// Reseta os valores de movimentação
-				untilPos[0] = UNDEFINE;
-				untilPos[1] = UNDEFINE;
-			}
-		}
+		
+		}	
 	}
 	
-	// Se as coordendas de destino NÃO foram definidas
-	else{
+	// Se o soldado estiver na posição de destino
+	if(x == untilPos[0] && y == untilPos[1]){
 		
-		// O soldado não tem coordenda de destino
-		// Então, não usa a função de destino. 
+		// Confirma isso através da variável de retorno
+		reach = true;
+		
+		// Altera o estilo de movimentação
+		movNUntil = false;
+		
+		// Reseta os valores de movimentação
+		untilPos[0] = UNDEFINE;
+		untilPos[1] = UNDEFINE;
+	} else{
+		
+		// Nega a chegada através desta variável
 		reach = false;
 	}
 	
 	// Retorna se o soldado chegou no destino ou não
 	return reach;
+}
 
+
+//===========================================================
+// Comportamento geral do soldado
+void Soldado::IA(CampoJogo meuCampo){
+	
+	// Coordenadas do ponto cego
+	int P_CEGOX = X + (TILE_W * 21);
+	int P_CEGOY = Y - (TILE_H * 3);
+		
+	// Se o soldado não estiver no "ponto cego"
+	if(posCego == false){
+		
+		// Se o soldado não souber para onde ir
+		if(movNUntil == false){
+			
+			// Define o ponto cego como destino
+			MovUntil(P_CEGOX,P_CEGOY);
+		}
+		
+		// Movimenta-se até o ponto cego
+		posCego = MovUntil();
+	} 
+	// Se o soldado estiver no "ponto cego"
+	else{
+		
+		// Se o soldado não estiver no ponto visível
+		if(visivel == false){
+				
+				// Se o soldado não souber para onde ir
+				if(movNUntil == false){
+					
+					// Define a coordenada do ponto visível
+					MovUntil(x, 64);
+				} 
+				
+				// Movimente o soldado area coordena do ponto visivel
+				visivel = MovUntil();
+		} 
+		
+		// Se o soldado chegou a área visível
+		else{
+			
+			// Se o soldado não chegou ao destino
+			if(dest  == false){
+				
+				// Se o soldado não souber para onde ir
+				if(movNUntil == false){
+					
+					// Usa a Pathfind
+					dest = MoveDest(meuCampo,DEST1_X,DEST1_Y);
+				} 
+				
+				// Movimenta-se até o ponto definido
+				MovUntil();
+			}
+			
+		}		
+	}
 }
