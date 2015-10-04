@@ -19,10 +19,8 @@ enum SeqAnim{
 
 struct Soldado{
 	//==========================================================================
-	// Propriedades
 		
-
-	// Quantidades padrões dos soldados
+	// Constantes do "construtor" geral do soldado
 	static const int VIDA = 100;
 	static const int SPEED = 8;
 	static const int X = 64;
@@ -31,35 +29,21 @@ struct Soldado{
 	static const Direcao DIRECAO = COSTA;
 	static const int IMGATUAL = 4; // corresponde ao "COSTA2"
 	static const NomeSprit QTD_IMG = numSprit;
-	static const bool IDLE = false;
-		
-	// Vida do soldado ('0' é igual a morte)
-	int vida;
+	static const bool MOVNUNTIL = FALSE;
+	static const int UNDEFINE = -1;
 	
-	// Velocidade do soldado
-	int speed;
-	
-	// Sprite ou imagem atual do soldado  
+	// Variáveis	
+	int vida;	
+	int speed;	
 	int imgAtual;
-	
-	// Coordenadas
-	int x, y;
-	
-	// Tipo do soldado
-	char *tipo;
-	
-	// Direção do soldado
-	Direcao direcao;
-	
-	// Indica a sequência da animação
-	SeqAnim seqAnim;
-	
-	// Imagens (ou sprites) do soldado
-	void *imagens[QTD_IMG];
-	
-	// Indica se o soldado está parado ou não 
-	bool idle;
-	
+	int x, y;	
+	char *tipo; 
+	Direcao direcao; // Para onde ele estar a se movimentar
+	SeqAnim seqAnim; // sequência da animação(1,2 ou 3)
+	void *imagens[QTD_IMG];	// Imagens/ Sprites do soldado
+	bool movNUntil; // Flag para indicar 
+					//movimentação baseada na função MovUntil
+	int untilPos[2]; // Armazena um destino para o soldado
 	//=============================================================================
 	
 	// Funções
@@ -67,7 +51,8 @@ struct Soldado{
 	void GoTo(int novoX, int novoY);
 	bool MoveDest(CampoJogo meuCampo,int tileXF, int tileYF);
 	void Move();
-	bool MovUntil(int untilX, int untilY);
+	void MovUntil(int untilX, int untilY);
+	bool MovUntil();
 	void Show();
 	void TrocaImg();
 	void TrocaDir(Direcao trocaDir);
@@ -104,7 +89,7 @@ void Soldado::Move(){
 
 
 //===========================================================================
-// "Construtor sem parâmetros"
+// "Construtor" sem parâmetros
 void Soldado::Init(){
 	
 	// qtd. de vida inicial
@@ -115,8 +100,10 @@ void Soldado::Init(){
 	tipo = "default";
 	direcao = COSTA;
 	imgAtual = IMGATUAL;
-	idle = IDLE;
 	seqAnim = SEQANIM;
+	movNUntil = MOVNUNTIL;
+	untilPos[0] = UNDEFINE;
+	untilPos[1] = UNDEFINE;
 }
 //===========================================================================
 
@@ -232,7 +219,7 @@ void Soldado::TrocaImg(){
 			break;
 		case 2:
 			
-			// Verifica o pé que o soldado utilizou por último
+			// Verifica o tipo de sequencia e altera com base nisso
 			if(seqAnim == DO1ATE3){
 				imgAtual += 1;
 				seqAnim = DO3ATE1;
@@ -318,9 +305,7 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 	bool moveDest = false;
 	
 	// Recebe as coordendas do ultimo tile do soldado
-	//int *ultTile = (int *) malloc(sizeof(int) * 2);
 	int ultTile[2];
-	
 	UltTile(ultTile);
 	
 	// Calcula o tile atual com base na posição x e y do soldado
@@ -426,57 +411,90 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 
 
 //===========================================================================
-
 // Movimenta-se até chegar em uma coordenada X e Y 
 // e retorna se o soldado chegou ou não
-bool Soldado::MovUntil(int untilX, int untilY){
+
+void Soldado::MovUntil(int untilX, int untilY){
 	
-	/*ATENÇÃO: é necessário que a coordenada seja múltiplo da velocidade*/
+	//=======================================================
+	/*ATENÇÃO: é necessário que a coordenada seja múltiplo da velocidade*/	
+	//=======================================================
 	
-	// Inicialmente, o soldado não chegou ao destino
-	bool movUntil = false;
+	// Recebe as coordenadas de destino
+	untilPos[0] = untilX;
+	untilPos[1] = untilY;
 	
-	// Verifica o tipo de diferença no eixo y e troca direção com base nisso
-	if(y < untilY && direcao != FRENTE){
-		TrocaDir(FRENTE);
-	} 
+	// Altera o estilo de movimentação
+	movNUntil = true;
+}
+
+//========================================================
+
+/*Movimenta-se até a coordenada registrada no soldado*/
+bool Soldado::MovUntil(){
 	
-	else if(y > untilY && direcao != COSTA){
-		TrocaDir(COSTA);
-	}
+	// Indica que se o soldado chegou ou não no destino
+	bool reach;
 	
-	// Se a coordenada do soldado não for igual  a coordenada de
-	// destino
-	if( y != untilY){
+	// Se as coordendas de destino foram definidas
+	if(untilPos[0] != UNDEFINE && untilPos[1] != UNDEFINE ){
 		
-		// O soldado se move um pouco
-		Move();
-	} 
-	
-	// Caso o soldado esteja na posiçao Y desejada
-	else{
-		// Verifica o tipo de diferença no eixo x e troca direção com base nisso
-		if(x < untilX && direcao != DIREITA){
-			TrocaDir(DIREITA);
-		} else if(x > untilX && direcao != ESQUERDA ){
-			TrocaDir(ESQUERDA);
-		}
+		// Verifica o tipo de diferença no eixo y e troca direção com base nisso
+		if(y < untilPos[1] && direcao != FRENTE)
+			TrocaDir(FRENTE);	
+		else if(y > untilPos[1] && direcao != COSTA)
+			TrocaDir(COSTA);
+		
 		
 		// Se a coordenada do soldado não for igual  a coordenada de
 		// destino
-		if(x != untilX){
+		if( y != untilPos[1]){
 			
-			// O soldado se move um pouco
+			// O soldado move-se um pouco
 			Move();
-		}
-		// Caso o soldado também esteja na posição x desejada
+		} 
+		
+		// Caso o soldado esteja na posiçao Y desejada
 		else{
+			// Verifica o tipo de diferença no eixo x e troca direção com base nisso
+			if(x < untilPos[0] && direcao != DIREITA){
+				TrocaDir(DIREITA);
+			} else if(x > untilPos[0] && direcao != ESQUERDA ){
+				TrocaDir(ESQUERDA);
+			}
 			
-			// O soldado chegou ao destino
-			movUntil = true;
+			// Se a coordenada do soldado não for igual  a coordenada de
+			// destino
+			if(x != untilPos[0]){
+				
+				// O soldado se move um pouco
+				Move();
+			}
+			// Caso o soldado esteja na posição x desejada
+			else{
+				
+				// O soldado chegou ao destino em x e y
+				reach = true;
+				
+				// Altera o estilo de movimentação
+				movNUntil = false;
+				
+				// Reseta os valores de movimentação
+				untilPos[0] = UNDEFINE;
+				untilPos[1] = UNDEFINE;
+			}
 		}
 	}
 	
-	// Retorna se o soldado chegou ou não ao destino
-	return movUntil;
+	// Se as coordendas de destino NÃO foram definidas
+	else{
+		
+		// O soldado não tem coordenda de destino
+		// Então, não usa a função de destino. 
+		reach = false;
+	}
+	
+	// Retorna se o soldado chegou no destino ou não
+	return reach;
+
 }
