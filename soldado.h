@@ -31,6 +31,8 @@ struct Soldado{
 	static const NomeSprit QTD_IMG = numSprit;
 	static const bool MOVNUNTIL = FALSE;
 	static const int UNDEFINE = -1;
+	static const bool POSCEGO = false;
+	static const bool DEST = false;
 	
 	// Variáveis	
 	int vida;	
@@ -44,6 +46,9 @@ struct Soldado{
 	bool movNUntil; // Flag para indicar 
 					//movimentação baseada na função MovUntil
 	int untilPos[2]; // Armazena um destino para o soldado
+	bool posCego; // Indica se soldado passou pelo ponto cego
+	bool dest; // Indica se o soldado chegou ao destino
+	
 	//=============================================================================
 	
 	// Funções
@@ -104,6 +109,8 @@ void Soldado::Init(){
 	movNUntil = MOVNUNTIL;
 	untilPos[0] = UNDEFINE;
 	untilPos[1] = UNDEFINE;
+	posCego = POSCEGO;
+	dest = DEST;
 }
 //===========================================================================
 

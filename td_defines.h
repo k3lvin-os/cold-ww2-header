@@ -31,5 +31,9 @@
 /*Extensão bitmap*/
 #define BITMAP ".bmp"
 
+/*Destino dos soldados da URSS*/
+#define DEST1_X 35
+#define DEST1_Y 2
+
 
 
