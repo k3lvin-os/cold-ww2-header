@@ -1,6 +1,6 @@
 // Relação entre tipo de sprite e valor
-enum NomeSprit{ FRENTE1 = 0, FRENTE2, FRENTE3,
-	COSTA1, COSTA2, COSTA3,
+enum NomeSprit{ CIMA1 = 0, CIMA2, CIMA3,
+	BAIXO1, BAIXO2, BAIXO3,
 	ESQRD1,ESQRD2,ESQRD3,
 	DIREITA1,DIREITA2,DIREITA3,
 	numSprit
@@ -8,7 +8,7 @@ enum NomeSprit{ FRENTE1 = 0, FRENTE2, FRENTE3,
 
 // Direção do soldado
 enum Direcao{
-	FRENTE, COSTA, ESQUERDA, DIREITA 
+	CIMA, BAIXO, ESQUERDA, DIREITA 
 };
 
 // Sequência da animção
@@ -26,8 +26,8 @@ struct Soldado{
 	static const int X = 64;
 	static const int Y = 32;
 	static const SeqAnim SEQANIM = DO1ATE3;
-	static const Direcao DIRECAO = COSTA;
-	static const int IMGATUAL = 4; // corresponde ao "COSTA2"
+	static const Direcao DIRECAO = BAIXO;
+	static const int IMGATUAL = 4; // corresponde ao "BAIXO2"
 	static const NomeSprit QTD_IMG = numSprit;
 	static const bool MOVNUNTIL = FALSE;
 	static const int UNDEFINE = -1;
@@ -72,6 +72,7 @@ struct Soldado{
 };
 
 //===========================================================================
+// Movimenta o soldado com base na direção dele
 void Soldado::Move(){
 		
 		// Troca a imagem de movimento do personagem
@@ -86,11 +87,11 @@ void Soldado::Move(){
 			x += speed; 
 		}
 		
-		if( direcao == FRENTE){
+		if( direcao == CIMA){
 			y += speed;
 		}
 		
-		if(direcao == COSTA){
+		if(direcao == BAIXO){
 			y -= speed;
 		}	
 }
@@ -106,7 +107,7 @@ void Soldado::Init(){
 	x = X;
 	y = Y;
 	tipo = "default";
-	direcao = COSTA;
+	direcao = BAIXO;
 	imgAtual = IMGATUAL;
 	seqAnim = SEQANIM;
 	movNUntil = MOVNUNTIL;
@@ -118,7 +119,8 @@ void Soldado::Init(){
 }
 //===========================================================================
 
-// "Construtor" que recebe o tipo de soldado e atribui valores baseado nisso
+// "Construtor" que recebe o tipo de soldado 
+//e atribui valores baseado nisso
 void Soldado::Init(char* tipoSold ){
 	
 	// Caminho para encontrar os sprites dos soldados
@@ -146,14 +148,14 @@ void Soldado::GoTo(int novoX, int novoY){
 }
 //===========================================================================
 // Mostra o soldado
-	void Soldado::Show(){
-		
-		// Cria uma variável para utilizar o gerenciador do sprite
-		Sprite spritHnd;
-		
-		// Mostra o sprite atual
-		spritHnd.Show(imagens[imgAtual],x,y);
-	}
+void Soldado::Show(){
+
+	// Cria uma variável para utilizar o gerenciador do sprite
+	Sprite spritHnd;
+
+	// Mostra o sprite atual
+	spritHnd.Show(imagens[imgAtual],x,y);
+}
 
 //===========================================================================
 // Carrega todas imagens do soldado através do caminho relativo
@@ -176,7 +178,6 @@ void Soldado::Carrega(char rPath[]){
 	char temp[3]; 
 				
 	for(i = 0; i < QTD_IMG; i++){
-
 		
 		// O caminho exato - com o numero do sprite - ainda não foi calculado
 		// Então copie o caminho para a pasta assets
@@ -210,8 +211,6 @@ void Soldado::Carrega(char rPath[]){
 		
 	}
 }  
-
-
 
 //========================================================================
 // Troca o indice da animação do soldado na direção atual
@@ -257,11 +256,11 @@ void Soldado::TrocaDir(Direcao trocaDir){
 		switch(direcao){	
 			
 			// A imagem atual é igual a direção no movimento 2
-			case FRENTE:
-				imgAtual = FRENTE2;
+			case CIMA:
+				imgAtual = CIMA2;
 				break;
-			case COSTA:
-				imgAtual = COSTA2;
+			case BAIXO:
+				imgAtual = BAIXO2;
 				break;
 			case ESQUERDA:
 				imgAtual = ESQRD2;
@@ -272,10 +271,10 @@ void Soldado::TrocaDir(Direcao trocaDir){
 	}	
 }
 
+//=====================================================
 // Calcula o último tile que o soldado esteve
 void Soldado::UltTile(int *ultTile){
 	
-
 	// Assume, incialmente o valor das coordenadas atuais
 	ultTile[0] = x / TILE_W;
 	ultTile[1] = y / TILE_H;
@@ -283,18 +282,18 @@ void Soldado::UltTile(int *ultTile){
 	// Verifica o último movimento feito 
 	switch(direcao){
 		
-		//Calcula a última coordenada com base nisso
+		//Calcula último movimento feito 
 		case ESQUERDA:
 			ultTile[0] += 1; // Inverso da esquerda (direita)
 			break;
 		case DIREITA:
 			ultTile[0] -= 1; // Inverso da direita (esquerda)
 			break;
-		case COSTA:
-			ultTile[1] += 1; // Inverso da costa (frente)
+		case BAIXO:
+			ultTile[1] += 1; // Inverso de para baixo (cima)
 			break;
-		case FRENTE:
-			ultTile[1] -= 1; // Inverso da frente (costa)
+		case CIMA:
+			ultTile[1] -= 1; // Inverso de para cima (baixo)
 			break;
 	}
 	
@@ -302,8 +301,9 @@ void Soldado::UltTile(int *ultTile){
 }
 
 //===========================================================================
+
+// Vai até o tile de destino com a pathfind
 bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
-	
 	
 	// Calcula o tile do soldado
 	int tileX,  tileY;
@@ -322,18 +322,15 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 	// Calcula o tile atual com base na posição x e y do soldado
 	tileX = x / TILE_W;
 	tileY = y / TILE_H;	
-	
-
 		
 	// Se o tile existir
 	if(meuCampo.PosExist(tileXF, tileYF)){
 	
 		// Se o tile de destino for um tile de caminho
 		if(meuCampo.Caminho(tileXF, tileYF)){
-			
-
-			
+					
 			/* ========================
+			Após verificar o tile de destino...
 			1 - Verifique se o tile existe no campo de jogo;
 			2 - Verifique se o tile é um tile de caminho;
 			3 - Verfique se o tile não é o último tile percorrido
@@ -378,7 +375,7 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 					}
 				}
 				
-				// Frente
+				// Cima
 				if(myPath == false && meuCampo.PosExist(tileX,tileY + 1) ){
 					if(meuCampo.Caminho(tileX, tileY + 1)){
 						if(ultTile[0] != tileX  || ultTile[1] != tileY + 1 ){
@@ -392,7 +389,7 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 					}
 				}
 				
-				// Costa			
+				// Baixo			
 				if(myPath == false && meuCampo.PosExist(tileX,tileY - 1)){
 					if(meuCampo.Caminho(tileX , tileY - 1)){
 						if(ultTile[0] != tileX  || ultTile[1] != tileY - 1 ){
@@ -422,9 +419,9 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 
 
 //===========================================================================
-// Movimenta-se até chegar em uma coordenada X e Y 
-// e retorna se o soldado chegou ou não
 
+/* Movimenta-se até chegar em uma coordenada X e Y 
+ e retorna se o soldado chegou ou não*/
 void Soldado::MovUntil(int untilX, int untilY){
 	
 	//=======================================================
@@ -452,10 +449,10 @@ bool Soldado::MovUntil(){
 		
 		// Verifica o tipo de diferença no eixo y 
 		//e troca direção com base nisso
-		if(y < untilPos[1] && direcao != FRENTE)
-			TrocaDir(FRENTE);	
-		else if(y > untilPos[1] && direcao != COSTA)
-			TrocaDir(COSTA);
+		if(y < untilPos[1] && direcao != CIMA)
+			TrocaDir(CIMA);	
+		else if(y > untilPos[1] && direcao != BAIXO)
+			TrocaDir(BAIXO);
 		
 		// Se a coordenada do soldado não for igual a coord. de
 		// destino

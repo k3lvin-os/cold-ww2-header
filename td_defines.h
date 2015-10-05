@@ -17,7 +17,7 @@
 #define TILE_QTDY 22
 
 /*FPS do jogo*/
-#define FPS 30
+#define FPS 60
 
 /*Teclado*/
 #define ESC 27
