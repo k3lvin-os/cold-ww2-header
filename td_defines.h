@@ -35,5 +35,7 @@
 #define DEST1_X 35
 #define DEST1_Y 2
 
+#define MAXTROPA 4
+
 
 

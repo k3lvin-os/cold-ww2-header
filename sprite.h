@@ -14,6 +14,7 @@
 		void GoTo(int newX, int newY);
 		void BasicTile(int width, int height, int color, char *nome);
 		void Init(char path[], char nomeSprit[], int width, int height);
+		void Init();
 		void Show(void* img, int imgX , int imgY);
 
 
@@ -120,5 +121,12 @@
 		// Começa por uma posição padrão
 		x = 0;
 		y = 0;
+	}
+	
+	// "Construtor" sem parâmetros
+	void Sprite::Init(){
+		x = 0;
+		y = 0;
+		nome = "?";
 	}
 	

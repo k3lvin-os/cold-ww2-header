@@ -11,7 +11,8 @@ struct CampoJogo{
 	Sprite tipoTile[QTD_TILE];	
 
 	// Funções
-	void Mostrar(); 
+	void Mostrar();
+	void Mostrar(int tX0,int tY0,int tXF,int tYF);
 	void Console();
 	void Arquiva(char nomeArq[8]);
 	void Zera(int tileZero);
@@ -19,12 +20,25 @@ struct CampoJogo{
 	bool PosLoad(char nomeArq[8]);
 	bool PosExist(int tileX, int tileY);
 	bool Caminho(int tileX, int tileY);
+	void LimpaD();
 
 	//"Construtores" 
 	void Init();
 	void Init(char nomeArq[8]);
 
 };
+//=========================================================================
+
+// Limpa a zona de carregamento de imagens
+void CampoJogo::LimpaD(){
+
+	// Zona de desenho
+	Mostrar(0,0,2,2);
+}
+
+
+
+
 //=========================================================================
 
 // Verifica se o tile corresponde a um tile de caminho ou não
@@ -90,6 +104,33 @@ void CampoJogo::Mostrar(){
 	
 	}
 }
+//=========================================================================
+
+// Coloca os sprites de campo apenas aonde determinado
+void CampoJogo::Mostrar(int tX0,int tY0,int tXF,int tYF){
+	
+	int j, i,  meuTipo, x,y;
+		
+	// Laço para percorrer a matriz de tiles de campo de jogo
+	for(i = tY0; i < tYF; i++){ 
+	
+		for(j = tX0; j < tXF; j++) { 
+			
+			// "Qual é o tipo do tile no indice atual"
+			meuTipo = posTile[j][i];
+	
+			// A posição do tile está em função do indice do tile
+			x = j * TILE_W;
+			y = i * TILE_H;
+			
+			// Coloca o tile na tela
+			putimage(x,y,tipoTile[meuTipo].image,0);
+		}
+	
+	}
+}
+
+
 
 //=========================================================================
 

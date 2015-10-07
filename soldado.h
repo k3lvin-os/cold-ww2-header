@@ -162,20 +162,13 @@ void Soldado::Show(){
 // a partir da pasta assets
 void Soldado::Carrega(char rPath[]){
 	
-	// Contador do laço
-	int i;
 	
-	// Indice mais humano (indice array + 1)
-	int indiceH;
-	
-	// Cria uma variável do tipo Sprite, a fim de usar uma função dela
-	Sprite imgHandl;
+	int i; // contador
+	int indiceH;	// Indice mais humano (indice array + 1)
+	Sprite imgHandl; // Para manipular imagens
+	char caminho[70]; 	// Caminho para acessar a pasta
+	char temp[3]; // indice do loop em char array
 
-	// Caminho para acessar a pasta com os sprites
-	char caminho[70]; 
-	
-	// Variável temporária que recebe o o indice do loop em char array
-	char temp[3]; 
 				
 	for(i = 0; i < QTD_IMG; i++){
 		
