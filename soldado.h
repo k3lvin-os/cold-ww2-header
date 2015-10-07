@@ -34,13 +34,14 @@ struct Soldado{
 	static const bool POSCEGO = false;
 	static const bool DEST = false;
 	static const bool VISIVEL = false;
+	static const bool SAIU = false;
 	
 	// Variáveis	
 	int vida;	
 	int speed;	
 	int imgAtual;
 	int x, y;	
-	char *tipo; 
+	char *tipo;
 	Direcao direcao; // Para onde ele estar a se movimentar
 	SeqAnim seqAnim; // sequência da animação(1,2 ou 3)
 	void *imagens[QTD_IMG];	// Imagens/ Sprites do soldado
@@ -50,7 +51,9 @@ struct Soldado{
 	bool posCego; // Indica se soldado passou pelo ponto cego
 	bool dest; // Indica se o soldado chegou ao destino
 	bool visivel; // Indica se o soldado chegou ao ponto visivel
-	
+	bool saiu;
+	Soldado *prox;	// Próxima célula da lista encadeada
+
 	//=============================================================================
 	
 	// Funções
@@ -65,11 +68,55 @@ struct Soldado{
 	void TrocaDir(Direcao trocaDir);
 	void IA(CampoJogo meuCampo);
 	void UltTile(int *ultTile);
-	
+	Soldado* Insere(Soldado *soldado0, char* tipo);
+	void Morre(Soldado anterior);
+	void Enviar(Soldado *soldado0, CampoJogo meuCampo);
+
+
 	// "Construtores"
-	void Init();
 	void Init(char* tipo);
+	void Init();
 };
+
+//===========================================================================
+
+// Envia todos soldados ativos
+void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo){
+
+
+	Soldado *pSold;
+	
+	for(pSold = soldado0->prox; pSold != NULL; pSold = pSold->prox){
+		
+		// Enquanto o soldado estiver vivo
+		if(pSold->vida >=0){
+			
+			// Mostra soldado
+			pSold->Show();
+			
+			// Usa IA 
+			pSold->IA(meuCampo);
+			
+		}
+
+	}
+}
+
+
+//===========================================================================
+
+// Insere um novo soldado na lista encadeada
+Soldado* Soldado::Insere(Soldado *soldado0, char * tipo){
+	Soldado *novo;
+	novo = (Soldado *) malloc(sizeof(Soldado));
+	novo->Init(tipo); // Inicializa o soldado
+	novo->prox = prox;
+	prox = novo;
+	
+	// Retorna a nova tropa
+	return novo;
+}
+
 
 //===========================================================================
 // Movimenta o soldado com base na direção dele
@@ -116,6 +163,8 @@ void Soldado::Init(){
 	posCego = POSCEGO;
 	dest = DEST;
 	visivel = VISIVEL;
+	saiu = SAIU;
+	prox = NULL;
 }
 //===========================================================================
 
@@ -506,6 +555,7 @@ void Soldado::IA(CampoJogo meuCampo){
 		
 	// Se o soldado não estiver no "ponto cego"
 	if(posCego == false){
+		
 		
 		// Se o soldado não souber para onde ir
 		if(movNUntil == false){

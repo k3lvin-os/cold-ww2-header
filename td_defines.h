@@ -17,7 +17,7 @@
 #define TILE_QTDY 22
 
 /*FPS do jogo*/
-#define FPS 60
+#define FPS 30
 
 /*Teclado*/
 #define ESC 27
@@ -35,7 +35,11 @@
 #define DEST1_X 35
 #define DEST1_Y 2
 
+/*Qtd. de soldados nas tropas*/
 #define MAXTROPA 4
+
+/*Delay de envio de soldados (10 s)*/
+#define S_DELAY 1 
 
 
 
