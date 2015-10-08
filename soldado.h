@@ -180,8 +180,8 @@ Soldado* Soldado::Insere(Soldado *soldado0, char * tipo){
 	Soldado *novo;
 	novo = (Soldado *) malloc(sizeof(Soldado));
 	novo->Init(tipo); // Inicializa o soldado
-	novo->prox = prox;
-	prox = novo;
+	novo->prox = soldado0->prox;
+	soldado0->prox = novo;
 	
 	// Retorna a nova tropa
 	return novo;
