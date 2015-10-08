@@ -61,22 +61,92 @@ struct Soldado{
 	void GoTo(int novoX, int novoY);
 	bool MoveDest(CampoJogo meuCampo,int tileXF, int tileYF);
 	void Move();
-	void MovUntil(int untilX, int untilY);
+	void Until(int untilX, int untilY);
 	bool MovUntil();
 	void Show();
 	void TrocaImg();
 	void TrocaDir(Direcao trocaDir);
-	void IA(CampoJogo meuCampo);
+	void IA(CampoJogo meuCampo, Soldado *soldado0);
 	void UltTile(int *ultTile);
 	Soldado* Insere(Soldado *soldado0, char* tipo);
-	void Morre(Soldado anterior);
+	void Morre(Soldado *anterior);
+	void Remove(Soldado *anterior);
 	void Enviar(Soldado *soldado0, CampoJogo meuCampo);
+	void LimpaNo(Soldado *soldado0);
+	void Chegou(Soldado *anterior);
+	Soldado* Anterior(Soldado *soldado0);
 
 
 	// "Construtores"
 	void Init(char* tipo);
 	void Init();
 };
+
+//==================================================================
+
+// Calcula o soldado anterior a partir posição atual 
+Soldado* Soldado::Anterior(Soldado *soldado0){
+	Soldado *p;
+	Soldado *atual;
+	
+	atual = this;
+	p = soldado0;
+	
+	while( p != NULL && p->prox != atual)
+		p = p->prox;
+		
+	return p;
+}
+
+
+//===========================================================================
+// Comportamento encadeada pela morte do soldado
+void Soldado::Morre(Soldado *anterior){
+	// Insira o comportamento de morte aqui (algum som, troca de sprite,...)
+	//[...]
+	
+	// Reomove o soldado da lista encadeada
+	Remove(anterior);
+}
+
+//===========================================================================
+
+// Comportamento do soldado ao chegar na base inimiga
+void Soldado::Chegou(Soldado *anterior){
+	
+	// Insira o comportamento de infrigir dano aqui
+	//[...]
+	
+	// Remove o soldado da lista encadeada
+	Remove(anterior);
+}
+
+
+//===========================================================================
+// Remove o soldado da lista encadeada com base em seu antecessor
+void Soldado::Remove(Soldado *anterior){
+	Soldado *remove;
+	remove = anterior->prox;
+	anterior->prox = remove->prox;
+	free(remove);
+}
+
+
+
+//===========================================================================
+// Limpa nó da lista encadeada
+void Soldado::LimpaNo(Soldado *soldado0){
+	Soldado *p, *aux;
+	p = soldado0;
+	while(p != NULL){
+		aux = p;
+		p = p->prox;
+		free(aux->imagens);
+		free(aux);
+	}
+	soldado0 = NULL;	
+}
+
 
 //===========================================================================
 
@@ -95,7 +165,7 @@ void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo){
 			pSold->Show();
 			
 			// Usa IA 
-			pSold->IA(meuCampo);
+			pSold->IA(meuCampo, soldado0);
 			
 		}
 
@@ -395,8 +465,8 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 							// um caminho válido
 							myPath = true;
 							
-							// Move o soldado
-							MovUntil(x - TILE_W,y);
+							// Registra uma coordenada de movimentação
+							Until(x - TILE_W,y);
 						}
 					}
 				}
@@ -411,8 +481,8 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 							// um caminho válido
 							myPath = true;
 							
-							// Move o soldado
-							MovUntil(x + TILE_W,y);
+							// Registra uma coordenada de movimentação
+							Until(x + TILE_W,y);
 						}
 					}
 				}
@@ -426,7 +496,8 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 							// um caminho válido
 							myPath = true;
 							
-							MovUntil(x ,y + TILE_H);
+							// Registra uma coordenada de movimentação
+							Until(x ,y + TILE_H);
 						}
 					}
 				}
@@ -440,7 +511,8 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 							// um caminho válido
 							myPath = true;
 							
-							MovUntil(x,y - TILE_H);
+							// Registra uma coordenada de movimentação
+							Until(x,y - TILE_H);
 						}
 					}
 				}
@@ -462,9 +534,8 @@ bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
 
 //===========================================================================
 
-/* Movimenta-se até chegar em uma coordenada X e Y 
- e retorna se o soldado chegou ou não*/
-void Soldado::MovUntil(int untilX, int untilY){
+/*Registra uma coordenada de movimentação*/
+void Soldado::Until(int untilX, int untilY){
 	
 	//=======================================================
 	/*ATENÇÃO: é necessário que a coordenada seja múltiplo da velocidade*/	
@@ -547,7 +618,9 @@ bool Soldado::MovUntil(){
 
 //===========================================================
 // Comportamento geral do soldado
-void Soldado::IA(CampoJogo meuCampo){
+void Soldado::IA(CampoJogo meuCampo, Soldado *soldado0){
+	
+	Soldado *anterior;
 	
 	// Coordenadas do ponto cego
 	int P_CEGOX = X + (TILE_W * 21);
@@ -561,7 +634,7 @@ void Soldado::IA(CampoJogo meuCampo){
 		if(movNUntil == false){
 			
 			// Define o ponto cego como destino
-			MovUntil(P_CEGOX,P_CEGOY);
+			Until(P_CEGOX,P_CEGOY);
 		}
 		
 		// Movimenta-se até o ponto cego
@@ -576,8 +649,8 @@ void Soldado::IA(CampoJogo meuCampo){
 				// Se o soldado não souber para onde ir
 				if(movNUntil == false){
 					
-					// Define a coordenada do ponto visível
-					MovUntil(x, 64);
+					// Define a coordenada do ponto visível como destino
+					Until(x, 64);
 				} 
 				
 				// Movimente o soldado area coordena do ponto visivel
@@ -599,6 +672,13 @@ void Soldado::IA(CampoJogo meuCampo){
 				
 				// Movimenta-se até o ponto definido
 				MovUntil();
+			} else{
+				
+				// Calcula o soldado anterior (para exclusão do atual)
+				anterior = Anterior(soldado0);
+				
+				// Executa comportamento de chegar na base inimiga
+				Chegou(anterior);
 			}
 			
 		}		

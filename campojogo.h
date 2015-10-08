@@ -21,6 +21,7 @@ struct CampoJogo{
 	bool PosExist(int tileX, int tileY);
 	bool Caminho(int tileX, int tileY);
 	void LimpaD();
+	void LimpaMem();
 
 	//"Construtores" 
 	void Init();
@@ -29,16 +30,23 @@ struct CampoJogo{
 };
 //=========================================================================
 
+// Limpa a memória que foi alocada dinamicamente 
+// aos membros da struct CampoJogo
+void CampoJogo::LimpaMem(){
+	
+	free(tipoTile);
+}
+
+
+
+//=========================================================================
+
 // Limpa a zona de carregamento de imagens
 void CampoJogo::LimpaD(){
 
 	// Zona de desenho
 	Mostrar(0,0,2,2);
 }
-
-
-
-
 //=========================================================================
 
 // Verifica se o tile corresponde a um tile de caminho ou não
