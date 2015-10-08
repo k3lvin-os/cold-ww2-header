@@ -39,7 +39,7 @@
 #define MAXTROPA 4
 
 /*Delay de envio de soldados (10 s)*/
-#define S_DELAY 1 
+#define S_DELAY 1
 
 
 

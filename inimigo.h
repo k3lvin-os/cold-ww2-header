@@ -21,12 +21,15 @@ struct Inimigo{
 	
 	
 	Inimigo* Insere(Inimigo *inimigo0, char * tipo);
+	void Envia(Inimigo *soldado0);
+	void Remove(Inimigo *anterior);
+	Inimigo* Anterior(Inimigo *inimigo0);
+	void LimpaNo(Inimigo *inimigo0);
 	
 	
 };
 //==================================================
 // Insere um inimigo na lista encadeada
-
 Inimigo* Inimigo::Insere(Inimigo *inimigo0, char * tipo){
 	Inimigo *novo;
 	novo = (Inimigo *) malloc(sizeof(Inimigo));
@@ -35,15 +38,30 @@ Inimigo* Inimigo::Insere(Inimigo *inimigo0, char * tipo){
 	
 	return novo;
 }
-/*Soldado* Soldado::Insere(Soldado *soldado0, char * tipo){
-	Soldado *novo;
-	novo = (Soldado *) malloc(sizeof(Soldado));
-	novo->Init(tipo); // Inicializa o soldado
-	novo->prox = prox;
-	prox = novo;
-	
-	// Retorna a nova tropa
-	return novo;
-}
-*/
 
+//======================================================
+// Limpa lista encadeada
+void Inimigo::LimpaNo(Inimigo *inimigo0){
+	Inimigo *p, *aux;
+	p = inimigo0;
+	while (p != NULL){
+		aux = p;
+		p->prox;
+		free(aux->inimigo);
+		free(aux);
+	}
+	inimigo0 = NULL;
+}
+//====================================================
+/*// Limpa nó da lista encadeada
+void Soldado::LimpaNo(Soldado *soldado0){
+	Soldado *p, *aux;
+	p = soldado0;
+	while(p != NULL){
+		aux = p;
+		p = p->prox;
+		free(aux->imagens);
+		free(aux);
+	}
+	soldado0 = NULL;	
+}*/
