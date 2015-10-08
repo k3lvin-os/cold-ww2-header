@@ -154,12 +154,12 @@ void Soldado::LimpaNo(Soldado *soldado0){
 void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo){
 
 
-	Soldado *pSold;
+	Soldado *pSold, *anterior;
 	
 	for(pSold = soldado0->prox; pSold != NULL; pSold = pSold->prox){
 		
-		// Enquanto o soldado estiver vivo
-		if(pSold->vida >=0){
+		// Se a vida do soldado é maior que 0
+		if(pSold->vida > 0){
 			
 			// Mostra soldado
 			pSold->Show();
@@ -167,6 +167,15 @@ void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo){
 			// Usa IA 
 			pSold->IA(meuCampo, soldado0);
 			
+		} // Caso contrário
+		else{
+			
+			// Calcula o soldado anterior ao atual
+			anterior = Anterior(soldado0);
+			
+			// Soldado morre 
+			//(como é uma lista encadeada, é necessário passar o anterior)		
+			pSold->Morre(anterior);
 		}
 
 	}
