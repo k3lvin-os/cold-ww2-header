@@ -5,23 +5,13 @@
 
 struct Inimigo{
 	
+	// Propriedades
 	Soldado *inimigo;
 	Inimigo *prox;
 	
-	/*Funções que serão necessárias
-	
-	Soldado* Insere(Soldado *soldado0, char* tipo);
-	void Remove(Soldado *anterior);
-	void Enviar(Soldado *soldado0, CampoJogo meuCampo);
-	void LimpaNo(Soldado *soldado0);
-	void Chegou(Soldado *anterior);
-	Soldado* Anterior(Soldado *soldado0);
-
-	*/
-	
-	
+	// Funções
 	Inimigo* Insere(Inimigo *inimigo0, char * tipo);
-	void Envia(Inimigo *soldado0);
+	void Envia(Inimigo *inimigo0); // NÃO DESENVOLVIDA AINDA
 	void Remove(Inimigo *anterior);
 	Inimigo* Anterior(Inimigo *inimigo0);
 	void LimpaNo(Inimigo *inimigo0);
@@ -53,15 +43,27 @@ void Inimigo::LimpaNo(Inimigo *inimigo0){
 	inimigo0 = NULL;
 }
 //====================================================
-/*// Limpa nó da lista encadeada
-void Soldado::LimpaNo(Soldado *soldado0){
-	Soldado *p, *aux;
-	p = soldado0;
-	while(p != NULL){
-		aux = p;
+//Remove o inimigo da lista encadeada com base em seu antecessor
+void Inimigo::Remove(Inimigo *anterior){
+	Inimigo *remove;
+	remove = anterior->prox;
+	anterior->prox = remove->prox;
+	free(remove);
+}
+
+//=======================================================
+// Calcula o inimigo que atencede a posição atual
+Inimigo* Inimigo::Anterior(Inimigo *inimigo0){
+	Inimigo *p;
+	Inimigo *atual;
+	
+	atual = this;
+	p = inimigo0;
+	
+	while( p != NULL && p->prox != atual)
 		p = p->prox;
-		free(aux->imagens);
-		free(aux);
-	}
-	soldado0 = NULL;	
-}*/
+		
+	return p;
+}
+		
+
