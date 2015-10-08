@@ -631,65 +631,50 @@ void Soldado::IA(CampoJogo meuCampo, Soldado *soldado0){
 	
 	Soldado *anterior;
 	
-	// Coordenadas do ponto cego
 	int P_CEGOX = X + (TILE_W * 21);
 	int P_CEGOY = Y - (TILE_H * 3);
-		
-	// Se o soldado não estiver no "ponto cego"
+	
+	
+	// Ponto cego da tela
 	if(posCego == false){
 		
+		if(movNUntil == false){		 // destino foi definido?
 		
-		// Se o soldado não souber para onde ir
-		if(movNUntil == false){
-			
-			// Define o ponto cego como destino
-			Until(P_CEGOX,P_CEGOY);
+			Until(P_CEGOX,P_CEGOY);  // define destino
 		}
-		
-		// Movimenta-se até o ponto cego
-		posCego = MovUntil();
+		posCego = MovUntil(); // move-se até destino
 	} 
-	// Se o soldado estiver no "ponto cego"
-	else{
+	
+	// Região visivel
+	if(posCego == true && visivel == false){
 		
-		// Se o soldado não estiver no ponto visível
-		if(visivel == false){
-				
-				// Se o soldado não souber para onde ir
-				if(movNUntil == false){
-					
-					// Define a coordenada do ponto visível como destino
-					Until(x, 64);
-				} 
-				
-				// Movimente o soldado area coordena do ponto visivel
-				visivel = MovUntil();
-		} 
+		if(movNUntil == false){				
+			
+			Until(x, 64);
+		} 			
+			visivel = MovUntil();
+	} 
 		
-		// Se o soldado chegou a área visível
-		else{
+	// Uso da pathfind	
+	if(posCego == true && visivel == true && dest == false){
 			
-			// Se o soldado não chegou ao destino
-			if(dest  == false){
 				
-				// Se o soldado não souber para onde ir
-				if(movNUntil == false){
-					
-					// Usa a Pathfind
-					dest = MoveDest(meuCampo,DEST1_X,DEST1_Y);
-				} 
-				
-				// Movimenta-se até o ponto definido
-				MovUntil();
-			} else{
-				
-				// Calcula o soldado anterior (para exclusão do atual)
-				anterior = Anterior(soldado0);
-				
-				// Executa comportamento de chegar na base inimiga
-				Chegou(anterior);
-			}
-			
-		}		
+		if(movNUntil == false){	
+			dest = MoveDest(meuCampo,DEST1_X,DEST1_Y);
+		} 		
+		MovUntil();
 	}
+	
+	// Chegada ao destino		
+	if(posCego == true && visivel == true && dest == true){
+	
+		// Calcula o soldado anterior (para exclusão do atual)
+		anterior = Anterior(soldado0);
+				
+		// Executa comportamento de chegar na base inimiga
+		Chegou(anterior);
+	}
+			
+		
 }
+
