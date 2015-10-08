@@ -68,8 +68,8 @@ struct Soldado{
 	void TrocaDir(Direcao trocaDir);
 	void IA(CampoJogo meuCampo, Soldado *soldado0);
 	void UltTile(int *ultTile);
-	Soldado* Insere(Soldado *soldado0, char* tipo);
 	void Morre(Soldado *anterior);
+	Soldado* Insere(Soldado *soldado0, char* tipo);
 	void Remove(Soldado *anterior);
 	void Enviar(Soldado *soldado0, CampoJogo meuCampo);
 	void LimpaNo(Soldado *soldado0);
