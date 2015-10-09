@@ -22,7 +22,7 @@ struct Soldado{
 		
 	// Constantes do "construtor" geral do soldado
 	static const int VIDA = 100;
-	static const int SPEED = 8;
+	static const int SPEED = 4;
 	static const int X = 64;
 	static const int Y = 32;
 	static const SeqAnim SEQANIM = DO1ATE3;
@@ -251,8 +251,9 @@ void Soldado::Init(){
 //e atribui valores baseado nisso
 void Soldado::Init(char* tipoSold ){
 	
-	// Caminho para encontrar os sprites dos soldados
+	// Caminhos para encontrar os sprites dos soldados
 	char *CHARA = "/Soldado/Chara/Chara";
+	char *EUA = "/Soldado/Eua/Eua";
 	
 	// Faz alterações gerais
 	Init();
@@ -263,6 +264,12 @@ void Soldado::Init(char* tipoSold ){
 		// Carrega as imagens do soldado
 		Carrega(CHARA);
 	}
+	else if(tipoSold == "Eua"){
+		
+		Carrega(EUA);
+	}
+	
+	
 	
 	
 }
