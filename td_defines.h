@@ -41,5 +41,13 @@
 /*Delay de envio de soldados (10 s)*/
 #define S_DELAY 1
 
+/*Horário das ondas de soldados*/
+#define ONDA1 30
+#define ONDA2 90
+#define ONDA3 150
+#define ONDA4 210
+#define ONDAF 300
+#define END 360
+
 
 
