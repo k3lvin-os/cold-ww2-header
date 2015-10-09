@@ -35,6 +35,7 @@ struct Soldado{
 	static const bool DEST = false;
 	static const bool VISIVEL = false;
 	static const bool SAIU = false;
+	static const int PRECO = 10;
 	
 	// Variáveis	
 	int vida;	
@@ -53,6 +54,7 @@ struct Soldado{
 	bool visivel; // Indica se o soldado chegou ao ponto visivel
 	bool saiu;
 	Soldado *prox;	// Próxima célula da lista encadeada
+	int preco;
 
 	//=============================================================================
 	
@@ -75,6 +77,7 @@ struct Soldado{
 	void LimpaNo(Soldado *soldado0);
 	void Chegou(Soldado *anterior);
 	Soldado* Anterior(Soldado *soldado0);
+	bool Compra(int *dinheiro);
 
 
 	// "Construtores"
@@ -83,6 +86,25 @@ struct Soldado{
 };
 
 //==================================================================
+
+// Valida a compra de um soldado
+bool Soldado::Compra(int *dinheiro){
+	
+	/*Se o dinheiro for suficiente*/
+	if(*dinheiro >= PRECO){
+		
+		// Paga o soldado e valida a compra
+		dinheiro -= PRECO;
+		return true;
+	}else{
+		
+		// Não compra nada u.u
+		return false;
+	}	
+	
+}
+
+//====================================================================
 
 // Calcula o soldado anterior a partir posição atual 
 Soldado* Soldado::Anterior(Soldado *soldado0){
@@ -229,6 +251,7 @@ void Soldado::Init(){
 	
 	// qtd. de vida inicial
 	vida = VIDA;
+	preco = PRECO;
 	speed = SPEED;
 	x = X;
 	y = Y;
@@ -268,10 +291,7 @@ void Soldado::Init(char* tipoSold ){
 		
 		Carrega(EUA);
 	}
-	
-	
-	
-	
+
 }
  
 

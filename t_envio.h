@@ -31,9 +31,9 @@ bool T_Envio::Valida(){
 	// Se se o tempo de delay passou
 	if(difftime(agora,marcador) >= S_DELAY){
 			
-			// Envia o soldado
-			time(&marcador);
+			// Envia o soldado e reinicia o marcador
 			envia = true; 
+			time(&marcador);
 	}
 	// Caso contrário, não envia
 	else

@@ -50,4 +50,18 @@
 #define END 360
 
 
+// Posição do soldado dos EUA
+#define GUIEuaX  1000
+#define GUIEuaY  TELA_H - (TILE_H * 3)
+
+// Posição do dinheiro do jogador
+#define MONEY_X 1095
+#define MONEY_Y 685
+
+
+// Opções para lado do jogador
+#define LADO1 "Aliados Capitalistas"
+#define LADO2 "Aliados Comunistas"
+
+
 
