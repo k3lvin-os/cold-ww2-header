@@ -39,7 +39,7 @@
 #define MAXTROPA 4
 
 /*Delay de envio de soldados (10 s)*/
-#define S_DELAY 1
+#define S_DELAY 1.5
 
 /*Horário das ondas de soldados*/
 #define ONDA1 30
@@ -55,7 +55,7 @@
 #define GUIEuaY  TELA_H - (TILE_H * 3)
 
 // Posição do dinheiro do jogador
-#define MONEY_X 1095
+#define MONEY_X 1050
 #define MONEY_Y 685
 
 

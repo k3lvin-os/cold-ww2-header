@@ -65,6 +65,12 @@ void Jogador::MostraGUI(){
 		GUISold.GoTo(GUIEuaX,GUIEuaY);
 		GUISold.Show();
 		
+		// Cor do texto
+		setcolor(GREEN);
+		
+		// Estilo da fonte
+		settextstyle(BOLD_FONT, HORIZ_DIR, 1);
+		
 		// Dinheiro do jogador
 		outtextxy(MONEY_X,MONEY_Y,textDin );
 	}

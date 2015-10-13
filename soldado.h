@@ -22,7 +22,7 @@ struct Soldado{
 		
 	// Constantes do "construtor" geral do soldado
 	static const int VIDA = 100;
-	static const int SPEED = 4;
+	static const int SPEED = 8;
 	static const int X = 64;
 	static const int Y = 32;
 	static const SeqAnim SEQANIM = DO1ATE3;
@@ -46,6 +46,7 @@ struct Soldado{
 	Direcao direcao; // Para onde ele estar a se movimentar
 	SeqAnim seqAnim; // sequência da animação(1,2 ou 3)
 	void *imagens[QTD_IMG];	// Imagens/ Sprites do soldado
+	void *mascaras[QTD_IMG];
 	bool movNUntil; // Flag para indicar 
 					//movimentação baseada na função MovUntil
 	int untilPos[2]; // Armazena um destino para o soldado
@@ -94,7 +95,7 @@ bool Soldado::Compra(int *dinheiro){
 	if(*dinheiro >= PRECO){
 		
 		// Paga o soldado e valida a compra
-		dinheiro -= PRECO;
+		*dinheiro -= PRECO;
 		return true;
 	}else{
 		
@@ -164,6 +165,7 @@ void Soldado::LimpaNo(Soldado *soldado0){
 		aux = p;
 		p = p->prox;
 		free(aux->imagens);
+		free(aux->mascaras);
 		free(aux);
 	}
 	soldado0 = NULL;	
@@ -305,12 +307,14 @@ void Soldado::GoTo(int novoX, int novoY){
 // Mostra o soldado
 void Soldado::Show(){
 
-	// Cria uma variável para utilizar o gerenciador do sprite
-	Sprite spritHnd;
-
-	// Mostra o sprite atual
-	spritHnd.Show(imagens[imgAtual],x,y);
+	// Mostra a máscara primeiro
+	putimage(x,y,mascaras[imgAtual],AND_PUT);
+	
+	// Mostra a imagem
+	putimage(x,y,imagens[imgAtual],OR_PUT);
 }
+
+
 
 //===========================================================================
 // Carrega todas imagens do soldado através do caminho relativo
@@ -321,18 +325,20 @@ void Soldado::Carrega(char rPath[]){
 	int i; // contador
 	int indiceH;	// Indice mais humano (indice array + 1)
 	Sprite imgHandl; // Para manipular imagens
-	char caminho[70]; 	// Caminho para acessar a pasta
+	char pathImg[60]; 	// Caminho para acessar a imagem
+	char pathMask[60]; // Caminho para acessar a mascara da imagem
 	char temp[3]; // indice do loop em char array
+	
 
 				
 	for(i = 0; i < QTD_IMG; i++){
 		
 		// O caminho exato - com o numero do sprite - ainda não foi calculado
 		// Então copie o caminho para a pasta assets
-		strcpy(caminho,ASSETS);
+		strcpy(pathImg,ASSETS);
 		
 		// Agora, adicione o caminho relativo (argumento que foi passado)
-		strcat(caminho,rPath);
+		strcat(pathImg,rPath);
 		
 		// Converte o indice do contador para o formato "humano"
 		// que é o número do sprite
@@ -342,20 +348,30 @@ void Soldado::Carrega(char rPath[]){
 		if(indiceH < 10){
 			
 			// Se sim, acresenta-se um '0'
-			strcat(caminho,"0");
+			strcat(pathImg,"0");
 		}
 		
 		// Recebe a conversão do número do sprite para o tipo string
 		itoa(indiceH,temp,DECIMAL);
 		
 		// Acresenta esse valor
-		strcat(caminho,temp);
+		strcat(pathImg,temp);
+		
+		// Recebe o caminho da imagem até agora na máscara
+		strcpy(pathMask,pathImg);
+		
+		//Acresenta o 'M' que representa uma máscara
+		strcat(pathMask,"M");
 		
 		// Adicione a especificação de arquivo bitmap
-		strcat(caminho,BITMAP);
+		strcat(pathImg,BITMAP);
+		strcat(pathMask,BITMAP);
 		
-		// Recebe a imagem especificada pelo caminho
-		imgHandl.GetImage(&imagens[i],caminho,TILE_W,TILE_H);
+		// Recebe a imagem especificada pelo caminho da imagem
+		imgHandl.GetImage(&imagens[i],pathImg,TILE_W,TILE_H);
+		
+		// Recebe a imagem especificada pelo caminho da máscara
+		imgHandl.GetImage(&mascaras[i],pathMask,TILE_W,TILE_H);
 		
 	}
 }  
