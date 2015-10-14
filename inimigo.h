@@ -11,13 +11,34 @@ struct Inimigo{
 	
 	// Funções
 	Inimigo* Insere(Inimigo *inimigo0, char * tipo);
-	void Envia(Inimigo *inimigo0); // NÃO DESENVOLVIDA AINDA
+	void SoldEixo(Jogador meuJog, Jogador outroJog)
+	void Envia(Inimigo *inimigo0, int qtdInimigo);
 	void Remove(Inimigo *anterior);
 	Inimigo* Anterior(Inimigo *inimigo0);
 	void LimpaNo(Inimigo *inimigo0);
 	
 	
 };
+
+//======================================================
+// Insere soldados do eixo para ambos jogadores
+
+void Inimigo::SoldEixo(Jogador *meuJog, Jogador *outroJog, Time_t tempoJogo){
+	if(tempoJogo == ONDA1){
+		Insere()
+	}
+}
+
+//===================================================
+
+
+//==================================================
+// Envia os inimigos conforme o marcador de tempo
+/*void Inimigo::Envia(Inimigo *inimigo0, int qtdInimigo){
+	
+}*/
+
+
 //==================================================
 // Insere um inimigo na lista encadeada
 Inimigo* Inimigo::Insere(Inimigo *inimigo0, char * tipo){

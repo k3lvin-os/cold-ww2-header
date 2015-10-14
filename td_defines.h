@@ -42,12 +42,15 @@
 #define S_DELAY 1.5
 
 /*Horário das ondas de soldados*/
-#define ONDA1 30
-#define ONDA2 90
-#define ONDA3 150
-#define ONDA4 210
-#define ONDAF 300
-#define END 360
+#define ONDA1 30 // 30 s
+#define ONDA2 90 // 1 m 30 s
+#define ONDA3 150 // 2 m 30 s
+#define ONDA4 210 // 3 m 30 s
+#define ONDAF 270 // 4 m 30 s
+
+// Define o inicio e o fim do jogo
+#define BEGIN 0 // 0 s 
+#define END 330 // 5 m 30 s 
 
 
 // Posição do soldado dos EUA
@@ -62,6 +65,8 @@
 // Opções para lado do jogador
 #define LADO1 "Aliados Capitalistas"
 #define LADO2 "Aliados Comunistas"
+
+
 
 
 

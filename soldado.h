@@ -34,7 +34,7 @@ struct Soldado{
 	static const bool POSCEGO = false;
 	static const bool DEST = false;
 	static const bool VISIVEL = false;
-	static const bool SAIU = false;
+	static const bool LIBERADO = false;
 	static const int PRECO = 10;
 	
 	// Variáveis	
@@ -53,8 +53,8 @@ struct Soldado{
 	bool posCego; // Indica se soldado passou pelo ponto cego
 	bool dest; // Indica se o soldado chegou ao destino
 	bool visivel; // Indica se o soldado chegou ao ponto visivel
-	bool saiu;
-	Soldado *prox;	// Próxima célula da lista encadeada
+	bool liberado; // Indica se o soldado foi liberado da fila de inimigos
+ 	Soldado *prox;	// Próxima célula da lista encadeada
 	int preco;
 
 	//=============================================================================
@@ -266,8 +266,8 @@ void Soldado::Init(){
 	untilPos[1] = UNDEFINE;
 	posCego = POSCEGO;
 	dest = DEST;
+	liberado = LIBERADO;
 	visivel = VISIVEL;
-	saiu = SAIU;
 	prox = NULL;
 }
 //===========================================================================
@@ -670,12 +670,12 @@ bool Soldado::MovUntil(){
 
 //===========================================================
 // Comportamento geral do soldado
-void Soldado::IA(CampoJogo meuCampo, Soldado *soldado0){
+void Soldado::IA(CampoJogo meuCampo, Jogador *meuJog){
 	
 	Soldado *anterior;
 	
-	int P_CEGOX = X + (TILE_W * 21);
-	int P_CEGOY = Y - (TILE_H * 3);
+	int P_CEGOX = X;
+	int P_CEGOY = -64;
 	
 	
 	// Ponto cego da tela
@@ -685,11 +685,20 @@ void Soldado::IA(CampoJogo meuCampo, Soldado *soldado0){
 		
 			Until(P_CEGOX,P_CEGOY);  // define destino
 		}
+	
 		posCego = MovUntil(); // move-se até destino
-	} 
+		
+		// Se o soldado chegou ao ponto cego
+		if(posCego == true){
+			
+			// Adiciona soldado a fila de espera
+			meuJog->inimigo0->Insere(this,this->tipo);
+		}
+		
+	}
 	
 	// Região visivel
-	if(posCego == true && visivel == false){
+	if(posCego == true && liberado == true && visivel == false){
 		
 		if(movNUntil == false){				
 			
@@ -699,7 +708,7 @@ void Soldado::IA(CampoJogo meuCampo, Soldado *soldado0){
 	} 
 		
 	// Uso da pathfind	
-	if(posCego == true && visivel == true && dest == false){
+	if(posCego == true && liberado == true && visivel == true && dest == false){
 			
 				
 		if(movNUntil == false){	
@@ -709,10 +718,10 @@ void Soldado::IA(CampoJogo meuCampo, Soldado *soldado0){
 	}
 	
 	// Chegada ao destino		
-	if(posCego == true && visivel == true && dest == true){
+	if(posCego == true && liberado == true && visivel == true && dest == true){
 	
 		// Calcula o soldado anterior (para exclusão do atual)
-		anterior = Anterior(soldado0);
+		anterior = Anterior(meuJog->soldado0);
 				
 		// Executa comportamento de chegar na base inimiga
 		Chegou(anterior);
