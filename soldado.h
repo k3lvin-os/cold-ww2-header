@@ -74,7 +74,7 @@ struct Soldado{
 	void Morre(Soldado *anterior);
 	Soldado* Insere(Soldado *soldado0, char* tipo);
 	void Remove(Soldado *anterior);
-	void Enviar(Soldado *soldado0, CampoJogo meuCampo, Soldado *inimigo0);
+	void Enviar(Soldado *soldado0, CampoJogo meuCampo);
 	void LimpaNo(Soldado *soldado0);
 	void Chegou(Soldado *anterior);
 	Soldado* Anterior(Soldado *soldado0);
@@ -175,7 +175,7 @@ void Soldado::LimpaNo(Soldado *soldado0){
 //===========================================================================
 
 // Envia todos soldados ativos
-void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo, Soldado *inimigo0){
+void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo){
 
 
 	Soldado *pSold, *anterior;
