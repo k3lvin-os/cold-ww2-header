@@ -17,7 +17,7 @@ struct Jogador{
 	===========================*/
 	
 	// Cabeça da lista encadeada de inimigos
-	Inimigo *inimigo0;
+	Soldado *inimigo0;
 	
 	// Cabeça da lista encadeada de soldados do jogador
 	Soldado *soldado0;
@@ -61,7 +61,7 @@ void Jogador::MostraGUI(){
 	if(lado == LADO1){
 		
 		// Soldado dos EUA
-		GUISold.Init("Eua");
+		GUISold.Init("Urss");
 		GUISold.GoTo(GUIEuaX,GUIEuaY);
 		GUISold.Show();
 		
@@ -88,7 +88,7 @@ void Jogador::InputGUI(){
 		mouseX = mousex();
 		mouseY = mousey();
 		
-		// Ícone do soldado dos EUA	
+		// Ícone do soldado da URSS
 		if(mouseX >= GUIEuaX && mouseX <= GUIEuaX + TILE_W &&
 		mouseY >= GUIEuaY && mouseY <= GUIEuaY + TILE_H) {
 			
@@ -99,7 +99,7 @@ void Jogador::InputGUI(){
 				if (soldado0->Compra(&dinheiro) == true){
 						
 					// Se tudo estiver certo, insere um novo soldado
-					soldado0->Insere(soldado0,"Eua");
+					soldado0->Insere(soldado0,"Urss");
 				}				
 			}
 		}
@@ -110,7 +110,7 @@ void Jogador::InputGUI(){
 // "Construtor" geral 
 void Jogador::Init(){
 	
-	inimigo0 = (Inimigo *) malloc(sizeof(Inimigo));
+	inimigo0 = (Soldado *) malloc(sizeof(Soldado));
 	inimigo0->prox = NULL;
 	soldado0 = (Soldado *) malloc(sizeof(Soldado));
 	soldado0->prox = NULL;

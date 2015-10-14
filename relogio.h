@@ -35,7 +35,6 @@ bool Relogio::Verifica(){
 	// Teste - Converte o tempo de jogo para int
 	gTimeInt = (int) gameTime;
 	
-	std::cout << gTimeInt << std::endl;
 	
 	// Cor usual do texto
 	setcolor(YELLOW);

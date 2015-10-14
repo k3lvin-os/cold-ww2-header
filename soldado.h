@@ -23,8 +23,8 @@ struct Soldado{
 	// Constantes do "construtor" geral do soldado
 	static const int VIDA = 100;
 	static const int SPEED = 8;
-	static const int X = 64;
-	static const int Y = 32;
+	static const int X = 0;
+	static const int Y = 0;
 	static const SeqAnim SEQANIM = DO1ATE3;
 	static const Direcao DIRECAO = BAIXO;
 	static const int IMGATUAL = 4; // corresponde ao "BAIXO2"
@@ -62,19 +62,19 @@ struct Soldado{
 	// Funções
 	void Carrega(char rPath[]);
 	void GoTo(int novoX, int novoY);
-	bool MoveDest(CampoJogo meuCampo,int tileXF, int tileYF);
+	bool Pathfind(CampoJogo meuCampo,int tileXF, int tileYF);
 	void Move();
 	void Until(int untilX, int untilY);
 	bool MovUntil();
 	void Show();
 	void TrocaImg();
 	void TrocaDir(Direcao trocaDir);
-	void IA(CampoJogo meuCampo, Soldado *soldado0);
+	void IA(Soldado *soldado0, CampoJogo meuCampo);
 	void UltTile(int *ultTile);
 	void Morre(Soldado *anterior);
 	Soldado* Insere(Soldado *soldado0, char* tipo);
 	void Remove(Soldado *anterior);
-	void Enviar(Soldado *soldado0, CampoJogo meuCampo);
+	void Enviar(Soldado *soldado0, CampoJogo meuCampo, Soldado *inimigo0);
 	void LimpaNo(Soldado *soldado0);
 	void Chegou(Soldado *anterior);
 	Soldado* Anterior(Soldado *soldado0);
@@ -175,35 +175,57 @@ void Soldado::LimpaNo(Soldado *soldado0){
 //===========================================================================
 
 // Envia todos soldados ativos
-void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo){
+void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo, Soldado *inimigo0){
 
 
 	Soldado *pSold, *anterior;
 	
+	// Percorre a lista encadeada de soldados
 	for(pSold = soldado0->prox; pSold != NULL; pSold = pSold->prox){
 		
-		// Se a vida do soldado é maior que 0
-		if(pSold->vida > 0){
+		// Se a vida do soldado é maior que 0 e o soldado não chegou ao destino
+		if(pSold->vida > 0 && pSold->dest != true){
 			
 			// Mostra soldado
 			pSold->Show();
 			
 			// Usa IA 
-			pSold->IA(meuCampo, soldado0);
+			pSold->IA(soldado0,meuCampo);
 			
-		} // Caso contrário
+			/*//Se o soldado chegou ao ponto cego
+			if(posCego == true){
+			
+				// Adiciona soldado a fila de espera
+				inimigo0->Insere(this,this->tipo);
+			}*/
+			
+		} 
+		
+		// Caso contrário
 		else{
 			
-			// Calcula o soldado anterior ao atual
+			// Calcula o soldado anterior na lista encadeada
 			anterior = Anterior(soldado0);
 			
-			// Soldado morre 
-			//(como é uma lista encadeada, é necessário passar o anterior)		
-			pSold->Morre(anterior);
+			// Se o soldado chegou ao destino
+			if(pSold->dest == true){
+			
+				// Soldado infrige dano e morre
+				pSold->Chegou(anterior);	
+			}
+			
+			// Caso o soldado tenha o hp menor ou igual a 0
+			else{
+			
+				// Soldado morre 
+				pSold->Morre(anterior);	
+			}
+			
 		}
-
 	}
+
 }
+
 
 
 //===========================================================================
@@ -279,6 +301,7 @@ void Soldado::Init(char* tipoSold ){
 	// Caminhos para encontrar os sprites dos soldados
 	char *CHARA = "/Soldado/Chara/Chara";
 	char *EUA = "/Soldado/Eua/Eua";
+	char *URSS = "/Soldado/Urss/Urss";
 	
 	// Faz alterações gerais
 	Init();
@@ -289,10 +312,17 @@ void Soldado::Init(char* tipoSold ){
 		// Carrega as imagens do soldado
 		Carrega(CHARA);
 	}
-	else if(tipoSold == "Eua"){
+	else if(tipoSold == "Urss"){
 		
+		x = 64;
+		y = 64;
+		Carrega(URSS);
+	}
+	
+	else if(tipoSold == "Eua"){
 		Carrega(EUA);
 	}
+	
 
 }
  
@@ -467,7 +497,7 @@ void Soldado::UltTile(int *ultTile){
 //===========================================================================
 
 // Vai até o tile de destino com a pathfind
-bool Soldado::MoveDest(CampoJogo meuCampo,int tileXF, int tileYF){
+bool Soldado::Pathfind(CampoJogo meuCampo,int tileXF, int tileYF){
 	
 	// Calcula o tile do soldado
 	int tileX,  tileY;
@@ -670,11 +700,11 @@ bool Soldado::MovUntil(){
 
 //===========================================================
 // Comportamento geral do soldado
-void Soldado::IA(CampoJogo meuCampo, Jogador *meuJog){
+void Soldado::IA(Soldado *soldado0, CampoJogo meuCampo){
 	
 	Soldado *anterior;
 	
-	int P_CEGOX = X;
+	int P_CEGOX = x; 
 	int P_CEGOY = -64;
 	
 	
@@ -686,15 +716,7 @@ void Soldado::IA(CampoJogo meuCampo, Jogador *meuJog){
 			Until(P_CEGOX,P_CEGOY);  // define destino
 		}
 	
-		posCego = MovUntil(); // move-se até destino
-		
-		// Se o soldado chegou ao ponto cego
-		if(posCego == true){
-			
-			// Adiciona soldado a fila de espera
-			meuJog->inimigo0->Insere(this,this->tipo);
-		}
-		
+		posCego = MovUntil(); // move-se até destino	
 	}
 	
 	// Região visivel
@@ -712,20 +734,12 @@ void Soldado::IA(CampoJogo meuCampo, Jogador *meuJog){
 			
 				
 		if(movNUntil == false){	
-			dest = MoveDest(meuCampo,DEST1_X,DEST1_Y);
+			dest = Pathfind(meuCampo,DEST1_X,DEST1_Y);
 		} 		
 		MovUntil();
 	}
 	
-	// Chegada ao destino		
-	if(posCego == true && liberado == true && visivel == true && dest == true){
-	
-		// Calcula o soldado anterior (para exclusão do atual)
-		anterior = Anterior(meuJog->soldado0);
-				
-		// Executa comportamento de chegar na base inimiga
-		Chegou(anterior);
-	}
+
 			
 		
 }
