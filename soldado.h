@@ -773,7 +773,7 @@ void Soldado::Liberar(Soldado *inimigo0, int qtdInim){
 		 pSold->liberado = true;
 		 
 		 // Coloca os soldados na posição necessária
-		 pSold->GoTo(736,-64); 
+		 pSold->GoTo(736,32); 
 		
 		// Libera a posição na lista encadeada de inimigos 
 		 free(pSold);

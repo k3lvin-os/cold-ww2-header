@@ -1,4 +1,4 @@
-// Este é o cenário principal do jogo
+// Este é o cenário do gameplay do jogo
 struct CampoJogo{
 	
 	// Qtd. padrão de tiles de campo de jogo
@@ -44,32 +44,22 @@ void CampoJogo::LimpaMem(){
 // Limpa a zona de carregamento de imagens
 void CampoJogo::LimpaD(){
 
-	// Zona de desenho
-	Mostrar(0,0,2,2);
+	Mostrar(0,0,2,2); // Intervalo de tiles de desenho
 }
 //=========================================================================
 
 // Verifica se o tile corresponde a um tile de caminho ou não
 bool CampoJogo::Caminho(int tileX, int tileY){
-	
-	// Feedback da função
+
 	bool caminho;
 	
-	//Processamento para verificar se é tile de caminho ou não
-	if(posTile[tileX][tileY] == 8 )
+	if(posTile[tileX][tileY] == CAMINHO )
 		caminho  = true; 
 	else 
 		caminho = false;
 	
-	// Retorna feedback
 	return caminho;
 }
-
-
-
-
-
-
 
 //=========================================================================
 
@@ -79,11 +69,10 @@ void CampoJogo::Zera(int tileZero){
 	
 	int i, j;
 	
-	// Preenche todas posições da matriz com o valor passado	
 	for( i =0; i < TILE_QTDY; i++){
-		for(j = 0; j < TILE_QTDX; j++){
+		for(j = 0; j < TILE_QTDX; j++)
 			posTile[j][i] = tileZero;
-		}
+		
 	}
 }
 
@@ -94,19 +83,15 @@ void CampoJogo::Mostrar(){
 	
 	int j, i,  meuTipo, x,y;
 		
-	// Laço para percorrer a matriz de tiles de campo de jogo
 	for(i = 0; i < TILE_QTDY; i++){ 
 	
 		for(j = 0; j < TILE_QTDX; j++) { 
 			
-			// "Qual é o tipo do tile no indice atual"
 			meuTipo = posTile[j][i];
 	
-			// A posição do tile está em função do indice do tile
 			x = j * TILE_W;
 			y = i * TILE_H;
 			
-			// Coloca o tile na tela
 			putimage(x,y,tipoTile[meuTipo].image,0);
 		}
 	
@@ -119,19 +104,15 @@ void CampoJogo::Mostrar(int tX0,int tY0,int tXF,int tYF){
 	
 	int j, i,  meuTipo, x,y;
 		
-	// Laço para percorrer a matriz de tiles de campo de jogo
 	for(i = tY0; i < tYF; i++){ 
 	
 		for(j = tX0; j < tXF; j++) { 
 			
-			// "Qual é o tipo do tile no indice atual"
 			meuTipo = posTile[j][i];
 	
-			// A posição do tile está em função do indice do tile
 			x = j * TILE_W;
 			y = i * TILE_H;
 			
-			// Coloca o tile na tela
 			putimage(x,y,tipoTile[meuTipo].image,0);
 		}
 	
@@ -143,30 +124,25 @@ void CampoJogo::Mostrar(int tX0,int tY0,int tXF,int tYF){
 //=========================================================================
 
 
-// Arquiva a matriz de coordenadas dos tiles (cria um arquivo com nome dado e o conteúdo citado)
+// Arquiva a matriz de coordenadas dos tiles
+// (cria um arquivo com nome dado e o conteúdo citado)
 void CampoJogo::Arquiva(char *nomeArq){
 	
-	// Contadores
 	int i, j;	
 	
-	// Mainpulador de arquivos	
 	std::ofstream escreve;
 	
-	// Abre o arquivo
 	escreve.open(nomeArq);
 	
-	// Escreve o conteúdo da matriz de posições no arquivo
 	for(i = 0; i < TILE_QTDY; i++){
 		for(j = 0; j < TILE_QTDX; j++){
 
-			// Escreve a posição e separa o conteúdo
 			escreve << posTile[j][i];
 			escreve << "|"; 
 
 		}
 	}
 
-	//Fecha o arquivo
 	escreve.close();
 	
 	std:: cout << "\nArquivo gravado com sucesso!\n";
@@ -198,10 +174,7 @@ void CampoJogo::Console(){
 //"Construtor" que recebe o nome do arquivo  
 void CampoJogo::Init(char nomeArq[8]){
 		
-		// Carrega os tiles
 		TileLoad();
-		
-		// Carrega a posição dos tiles
 		PosLoad(nomeArq);
 }
 
@@ -211,13 +184,7 @@ void CampoJogo::Init(char nomeArq[8]){
 // "Construtor" que apenas carrega os tiles
 void CampoJogo::Init(){
 	
-	// Tile preto para "zerar" o campo de jogo
-	const int T_PRETO = 0;
-	
-	// Zera a matriz com o tile preto
 	Zera(T_PRETO);
-	
-	// Carrega os tiles
 	TileLoad();
 }
 
@@ -268,74 +235,49 @@ void CampoJogo::TileLoad(){
 // Carrega a matriz do campo de jogo com os dados de um arquivo
 bool CampoJogo::PosLoad(char nomeArq[8]){
 			
-	// Leitor de arquivos
 	std::ifstream leitor;
-	
-	// Leitor de caracteres dos arquivos
 	char c;
-	
-	// Avalia se todas as coordenadas da matriz foram preenchidas
 	bool mtxCheia = false;
-	
-	// Contadores
 	int i, j;
-	
-	// Variável que recebe o valor da posição em formato char 
 	char temp[4] = "   ";
-	
-	// Contador para a variável temp
 	int  tempPos = 0;
 	
-	// Abre o arquivo
 	leitor.open(nomeArq);
 	
-	// Verifica se o arquivo NÃO foi aberto
 	if(!leitor.is_open()){
 		std::cout << "Não foi possível abrir o arquivo " << nomeArq[8];
 		return false;
 	}
-	 else{
+	else{
 		
 	
-		i = 0;  // Contadores para alocar corretamente as posições
+		i = 0;  
 		j = 0;
 		
-		// Lê os caracteres até chegar no fim do arquivo
 		while(leitor.get(c) && mtxCheia!= true ){
 			
 			// Verifique se o char é um valor númerico na tabela ASC
 			if (c >= 48 && c <= 57 ){
 				
-				// Recebe o caracter
 				temp[tempPos] = c;
 				
-				// Vai para o próximo indice do array de char
 				tempPos++;
 			} 
 			
-			// Caso for um separador
 			else if(c == '|'){
 				
-				// Converte e Transfere o valor para a matriz de posições de tiles (matriz de inteiros)
 				posTile[j][i] = atoi(temp);
-			    
-				// Zera o conteúdo da variável temporária
-				strcpy(temp, "   ");
-				
-				// Retorna para o primeiro indice do array temporário
+			 	strcpy(temp, "   ");
 				tempPos = 0;
-			    
-			    // Vai para a próxima coluna
-			    j++;
+				j++;
 		
-				// Verificações de fim de dos indices
 			    if(j == TILE_QTDX){
 					
 					j = 0;
 			    	i++;
 			    	
 					if(i == TILE_QTDY)
-						mtxCheia = true; // Isso faz o programa sair do laço de leitura
+						mtxCheia = true; 
 					
 				}
 				
@@ -343,29 +285,25 @@ bool CampoJogo::PosLoad(char nomeArq[8]){
 			
 		}
 		
-		// Fecha o arquivo
 		leitor.close();
-		
 		return true;
 			
 	}
 }
 //=========================================================================
 
-// Verifica se a posição é válida
+// Verifica se a coordenada de tile é válida
 bool CampoJogo::PosExist(int tileX, int tileY){
 	
-	// Feedback desta função
 	bool existe;
 	
 	if( ( (tileX >= 0) && (tileX <= (TILE_QTDX - 1) ) )
-	 && ( (tileY >= 0) && (tileY <= (TILE_QTDY - 1) ) ) ){
-	 	existe = true; // A posição é válida
-	 } 
+	 && ( (tileY >= 0) && (tileY <= (TILE_QTDY - 1) ) ) )
+	 	existe = true; 
 	 else
-	 	existe = false; // A posição não é válida
+	 	existe = false; 
 	 	 
-	 return existe; // Retorna feedback
+	 return existe; 
 }	
 	
 

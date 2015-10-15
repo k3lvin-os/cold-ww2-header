@@ -4,6 +4,12 @@
 #define TELA_W 1280
 #define TELA_H 704
 
+/*Tile de caminho*/
+#define CAMINHO 8
+
+/*Tile de cor preta*/
+#define T_PRETO 0
+
 /*Dimensões da tela do editor de sprites*/
 #define EDIT_W 1280
 #define EDIT_H 736
