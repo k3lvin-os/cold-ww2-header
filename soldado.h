@@ -66,9 +66,7 @@ struct Soldado{
 	/*Funções relativas a lista encadeada empregada no tipo Soldado*/
 	void Morre(Soldado *anterior);
 	Soldado* Insere(Soldado *soldado0, char* tipo);
-	Soldado* Aloca(Soldado *soldado0);
 	void Remove(Soldado *anterior);
-	void Envia(Soldado *soldado0 ,CampoJogo meuCampo);
 	void LimpaNo(Soldado *soldado0);
 	void Chegou(Soldado *anterior);
 	Soldado* Anterior(Soldado *soldado0);
@@ -166,67 +164,6 @@ void Soldado::LimpaNo(Soldado *soldado0){
 	}
 	soldado0 = NULL;	
 }
-
-
-//===========================================================================
-
-// Envia todos soldados ativos
-void Soldado::Envia(Soldado *soldado0 , CampoJogo meuCampo){
-
-	Soldado *novoIni;
-	Soldado *pSold, *anterior;
-	
-	// Percorre a lista encadeada de soldados
-	for(pSold = soldado0->prox; pSold != NULL; pSold = pSold->prox){
-		
-		// Se a vida do soldado é maior que 0 e o soldado não chegou ao destino
-		if(pSold->vida > 0 && pSold->dest != true){
-			
-			// Mostra soldado
-			pSold->Show();
-			
-			// Usa IA 
-			pSold->IA(meuCampo);
-			
-		} 
-		
-		// Caso contrário
-		else{
-			
-			// Calcula o soldado anterior na lista encadeada
-			anterior = Anterior(soldado0);
-			
-			// Se o soldado chegou ao destino
-			if(pSold->dest == true){
-			
-				// Soldado infrige dano e morre
-				pSold->Chegou(anterior);	
-			}
-			
-			// Caso o soldado tenha o hp menor ou igual a 0
-			else{
-			
-				// Soldado morre 
-				pSold->Morre(anterior);	
-			}
-			
-		}
-	}
-
-}
-
-
-
-//===========================================================================
-// Apenas aloca uma posição na lista encadeada
-Soldado* Soldado::Aloca(Soldado *soldado0){
-	Soldado *novo;
-	novo = (Soldado *) malloc(sizeof(Soldado));
-	
-	return novo;
-}
-//===============================================================
-
 
 // Insere um novo soldado na lista encadeada
 Soldado* Soldado::Insere(Soldado *soldado0, char * tipo){
