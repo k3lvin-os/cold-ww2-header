@@ -66,11 +66,10 @@ struct Soldado{
 	Soldado* Insere(Soldado *soldado0, char* tipo);
 	Soldado* Aloca(Soldado *soldado0);
 	void Remove(Soldado *anterior);
-	void Enviar(Soldado *soldado0, Soldado *inimigo0, CampoJogo meuCampo);
+	void Enviar(Soldado *soldado0 ,CampoJogo meuCampo);
 	void LimpaNo(Soldado *soldado0);
 	void Chegou(Soldado *anterior);
 	Soldado* Anterior(Soldado *soldado0);
-	void Liberar(Soldado *inimigo0, int qtdInim);
 	bool Compra(int *dinheiro);
 
 
@@ -168,7 +167,7 @@ void Soldado::LimpaNo(Soldado *soldado0){
 //===========================================================================
 
 // Envia todos soldados ativos
-void Soldado::Enviar(Soldado *soldado0 , Soldado *inimigo0, CampoJogo meuCampo){
+void Soldado::Enviar(Soldado *soldado0 , CampoJogo meuCampo){
 
 	Soldado *novoIni;
 	Soldado *pSold, *anterior;
@@ -188,15 +187,7 @@ void Soldado::Enviar(Soldado *soldado0 , Soldado *inimigo0, CampoJogo meuCampo){
 			//Se o soldado chegou ao ponto cego
 			if(pSold->posCego == true){
 			
-				// Aloca espaço para um soldado na lista de inimigos
-				novoIni = inimigo0->Aloca(soldado0);
-				
-				// Recebe o endereço do novo soldado na lista de inimigos
-				novoIni = pSold;
-				
-				// Organiza a lista encadeada de inimigos
-				novoIni->prox = inimigo0->prox;
-				inimigo0->prox = novoIni;
+				// ???
 				
 			}
 			
@@ -756,31 +747,4 @@ void Soldado::IA(CampoJogo meuCampo){
 }
 
 //=====================================================================
-// Libera soldados da fila de espera para atacar o campo adversário
-void Soldado::Liberar(Soldado *inimigo0, int qtdInim){
-	Soldado *pSold;
-	
-	// Começa pela posição depois da cabeça da lista
-	pSold = inimigo0->prox;
-	
-	// Contador
-	int i = 0;
-	
-	// Enquanto houver soldados para serem enviados ao campo adversário...
-	while(pSold != NULL && i< qtdInim){
-		 
-		 // Libera os soldados
-		 pSold->liberado = true;
-		 
-		 // Coloca os soldados na posição necessária
-		 pSold->GoTo(736,32); 
-		
-		// Libera a posição na lista encadeada de inimigos 
-		 free(pSold);
-		
-		 // Passo
-		 i++;
-		 pSold->prox;
-	}
-}
 

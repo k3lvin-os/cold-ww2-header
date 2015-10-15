@@ -15,10 +15,7 @@ struct Jogador{
 	/*=========================
 			Propriedades
 	===========================*/
-	
-	// Cabeça da lista encadeada de inimigos
-	Soldado *inimigo0;
-	
+
 	// Cabeça da lista encadeada de soldados do jogador
 	Soldado *soldado0;
 	
@@ -113,8 +110,6 @@ void Jogador::InputGUI(){
 // "Construtor" geral 
 void Jogador::Init(){
 	
-	inimigo0 = (Soldado *) malloc(sizeof(Soldado));
-	inimigo0->prox = NULL;
 	soldado0 = (Soldado *) malloc(sizeof(Soldado));
 	soldado0->prox = NULL;
 	dinheiro = DINHEIRO;
