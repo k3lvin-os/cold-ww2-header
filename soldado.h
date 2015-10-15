@@ -62,14 +62,18 @@ struct Soldado{
 	void TrocaDir(Direcao trocaDir);
 	void IA(CampoJogo meuCampo);
 	void UltTile(int *ultTile);
+	
+	/*Funções relativas a lista encadeada empregada no tipo Soldado*/
 	void Morre(Soldado *anterior);
 	Soldado* Insere(Soldado *soldado0, char* tipo);
 	Soldado* Aloca(Soldado *soldado0);
 	void Remove(Soldado *anterior);
-	void Enviar(Soldado *soldado0 ,CampoJogo meuCampo);
+	void Envia(Soldado *soldado0 ,CampoJogo meuCampo);
 	void LimpaNo(Soldado *soldado0);
 	void Chegou(Soldado *anterior);
 	Soldado* Anterior(Soldado *soldado0);
+	
+	/*Funções que não estão na devida struct*/
 	bool Compra(int *dinheiro);
 
 
@@ -167,7 +171,7 @@ void Soldado::LimpaNo(Soldado *soldado0){
 //===========================================================================
 
 // Envia todos soldados ativos
-void Soldado::Enviar(Soldado *soldado0 , CampoJogo meuCampo){
+void Soldado::Envia(Soldado *soldado0 , CampoJogo meuCampo){
 
 	Soldado *novoIni;
 	Soldado *pSold, *anterior;
@@ -309,7 +313,7 @@ void Soldado::Init(char* tipoSold ){
 	else if(tipoSold == "Urss"){
 		
 		x = 64;
-		y = 64;
+		y = 32;
 		Carrega(URSS);
 	}
 	
