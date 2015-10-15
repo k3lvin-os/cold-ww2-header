@@ -4,6 +4,22 @@
 #define TELA_W 1280
 #define TELA_H 704
 
+/*Caminho para as imagens dos soldados*/
+#define CHARA "/Soldado/Chara/Chara"
+#define EUA  "/Soldado/Eua/Eua"
+#define URSS  "/Soldado/Urss/Urss"
+
+/*Ponto cego dos EUA 
+(local onde as tropas do EUA não podem ser visualizadas)*/
+#define EUACEGOX 64
+#define EUACEGOY -64
+
+/*Ponto cego da URSS
+(local onde as tropas do EUA não podem ser visualizadas)*/
+#define URSSCEGOX 736
+#define URSSCEGOY -64
+
+
 /*Tile de caminho*/
 #define CAMINHO 8
 

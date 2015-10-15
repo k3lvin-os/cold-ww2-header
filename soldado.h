@@ -22,7 +22,7 @@ struct Soldado{
 		
 	// Constantes do "construtor" geral do soldado
 	static const int VIDA = 100;
-	static const int SPEED = 4;
+	static const int SPEED = 8;
 	static const int IMGATUAL = 4; // corresponde ao "BAIXO2"
 	static const NomeSprit QTD_IMG = numSprit;
 	static const int UNDEFINE = -1;
@@ -60,7 +60,7 @@ struct Soldado{
 	void Show();
 	void TrocaImg();
 	void TrocaDir(Direcao trocaDir);
-	void IA(CampoJogo meuCampo);
+	void IA(CampoJogo meuCampo, TDelay *tempoEspera);
 	void UltTile(int *ultTile);
 	
 	/*Funções relativas a lista encadeada empregada no tipo Soldado*/
@@ -233,15 +233,13 @@ void Soldado::Init(){
 //e atribui valores baseado nisso
 void Soldado::Init(char* tipoSold ){
 	
-	// Caminhos para encontrar os sprites dos soldados
-	char *CHARA = "/Soldado/Chara/Chara";
-	char *EUA = "/Soldado/Eua/Eua";
-	char *URSS = "/Soldado/Urss/Urss";
+
 	
 	// Faz alterações gerais
 	Init();
 	
 	// Faz alterações específicas
+	tipo = tipoSold;
 	if(tipoSold == "Chara"){
 		
 		// Carrega as imagens do soldado
@@ -635,12 +633,19 @@ bool Soldado::MovUntil(){
 
 //===========================================================
 // Comportamento geral do soldado
-void Soldado::IA(CampoJogo meuCampo){
+void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 	
 	Soldado *anterior;
 	
-	int P_CEGOX = x; 
-	int P_CEGOY = -64;
+	int pCegoX, pCegoY;
+	
+	if(tipo == "Eua"){
+		pCegoX = EUACEGOX;
+		pCegoY = EUACEGOY;
+	} else if (tipo == "Urss"){
+		pCegoX = URSSCEGOX;
+		pCegoY = URSSCEGOY;
+	}
 	
 	
 	// Ponto cego da tela
@@ -648,14 +653,18 @@ void Soldado::IA(CampoJogo meuCampo){
 		
 		if(movNUntil == false){		 // destino foi definido?
 		
-			Until(P_CEGOX,P_CEGOY);  // define destino
+			Until(pCegoX,pCegoY);  // define destino
 		}
 	
 		posCego = MovUntil(); // move-se até destino
 		
-		if(posCego == true){
-			speed = 2* speed;
-		}	
+	}
+	
+	// Tempo de espera
+	if(posCego == true && liberado == false){
+		
+		liberado = tempoEspera->Valida();
+		
 	}
 	
 	// Região visivel
