@@ -1,6 +1,6 @@
 
-/*Recebe e atualiza o tempo de envio de soldados*/
-struct T_Envio{
+/*Trabalha com o delay para algumas funcionanlidades do jogo*/
+struct TDelay{
 	
 	// Marcador de tempo
 	time_t marcador;
@@ -15,12 +15,12 @@ struct T_Envio{
 };
 
 // Inicializa o marcador de tempo
-void T_Envio::Init(){
+void TDelay::Init(){
 	time(&marcador);
 }
 
 // Valida o envio do soldado
-bool T_Envio::Valida(){
+bool TDelay::Valida(){
 	
 	bool envia;
 	
@@ -41,7 +41,3 @@ bool T_Envio::Valida(){
 		
 	return envia;
 }
-
-
-
-

@@ -1,8 +1,6 @@
 
-
-
-
-
+// Representa o jogador do game em um dos dois avatares
+// (Churchill ou Stallin)
 struct Jogador{
 	
 	/*=========================
@@ -26,7 +24,10 @@ struct Jogador{
 	char* lado;
 	
 	// Marcador de tempo de envio de soldados
-	T_Envio envioSold;
+	TDelay envioSold;
+	
+	// Marcador de tempo para espera de inimigos
+	TDelay esperaIni;
 	
 	// Dinheiro do jogador
 	int dinheiro;	
@@ -65,13 +66,9 @@ void Jogador::MostraGUI(){
 		GUISold.GoTo(GUIEuaX,GUIEuaY);
 		GUISold.Show();
 		
-		// Cor do texto
+		// GUI do Dinheiro
 		setcolor(GREEN);
-		
-		// Estilo da fonte
 		settextstyle(BOLD_FONT, HORIZ_DIR, 1);
-		
-		// Dinheiro do jogador
 		outtextxy(MONEY_X,MONEY_Y,textDin );
 	}
 	
@@ -83,12 +80,11 @@ void Jogador::InputGUI(){
 	
 	int mouseX, mouseY;
 	
-	// Verifica o click do mouse
 	if(GetKeyState(VK_LBUTTON) & 0x80){
 		mouseX = mousex();
 		mouseY = mousey();
 		
-		// Ícone do soldado da URSS
+		// Valida click no icone do soldado da URSS
 		if(mouseX >= GUIEuaX && mouseX <= GUIEuaX + TILE_W &&
 		mouseY >= GUIEuaY && mouseY <= GUIEuaY + TILE_H) {
 			
@@ -114,6 +110,7 @@ void Jogador::Init(){
 	soldado0->prox = NULL;
 	dinheiro = DINHEIRO;
 	envioSold.Init();
+	esperaIni.Init();
 	vida = VIDA;
 	lado = NULL;
 }

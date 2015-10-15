@@ -1,4 +1,6 @@
-struct Relogio{
+/*Relógio do jogo*/
+
+struct GameTime{
 	
 	time_t marcador;
 	
@@ -8,7 +10,7 @@ struct Relogio{
 
 
 // Inicializa o relógio do jogo
-void Relogio::Init(){
+void GameTime::Init(){
 	time(&marcador);
 }
 
@@ -16,7 +18,7 @@ void Relogio::Init(){
 //========================================================================
 // Verifica tempo de jogo e age com base nele
 
-bool Relogio::Verifica(){
+bool GameTime::Verifica(){
 	
 	bool fimJogo = false;
 	
