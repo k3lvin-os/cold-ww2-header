@@ -23,18 +23,9 @@ struct Soldado{
 	// Constantes do "construtor" geral do soldado
 	static const int VIDA = 100;
 	static const int SPEED = 8;
-	static const int X = 0;
-	static const int Y = 0;
-	static const SeqAnim SEQANIM = DO1ATE3;
-	static const Direcao DIRECAO = BAIXO;
 	static const int IMGATUAL = 4; // corresponde ao "BAIXO2"
 	static const NomeSprit QTD_IMG = numSprit;
-	static const bool MOVNUNTIL = FALSE;
 	static const int UNDEFINE = -1;
-	static const bool POSCEGO = false;
-	static const bool DEST = false;
-	static const bool VISIVEL = false;
-	static const bool LIBERADO = false;
 	static const int PRECO = 10;
 	
 	// Variáveis	
@@ -69,15 +60,17 @@ struct Soldado{
 	void Show();
 	void TrocaImg();
 	void TrocaDir(Direcao trocaDir);
-	void IA(Soldado *soldado0, CampoJogo meuCampo);
+	void IA(CampoJogo meuCampo);
 	void UltTile(int *ultTile);
 	void Morre(Soldado *anterior);
 	Soldado* Insere(Soldado *soldado0, char* tipo);
+	Soldado* Aloca(Soldado *soldado0);
 	void Remove(Soldado *anterior);
-	void Enviar(Soldado *soldado0, CampoJogo meuCampo);
+	void Enviar(Soldado *soldado0, Soldado *inimigo0, CampoJogo meuCampo);
 	void LimpaNo(Soldado *soldado0);
 	void Chegou(Soldado *anterior);
 	Soldado* Anterior(Soldado *soldado0);
+	void Liberar(Soldado *inimigo0, int qtdInim);
 	bool Compra(int *dinheiro);
 
 
@@ -175,9 +168,9 @@ void Soldado::LimpaNo(Soldado *soldado0){
 //===========================================================================
 
 // Envia todos soldados ativos
-void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo){
+void Soldado::Enviar(Soldado *soldado0 , Soldado *inimigo0, CampoJogo meuCampo){
 
-
+	Soldado *novoIni;
 	Soldado *pSold, *anterior;
 	
 	// Percorre a lista encadeada de soldados
@@ -190,14 +183,22 @@ void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo){
 			pSold->Show();
 			
 			// Usa IA 
-			pSold->IA(soldado0,meuCampo);
+			pSold->IA(meuCampo);
 			
-			/*//Se o soldado chegou ao ponto cego
-			if(posCego == true){
+			//Se o soldado chegou ao ponto cego
+			if(pSold->posCego == true){
 			
-				// Adiciona soldado a fila de espera
-				inimigo0->Insere(this,this->tipo);
-			}*/
+				// Aloca espaço para um soldado na lista de inimigos
+				novoIni = inimigo0->Aloca(soldado0);
+				
+				// Recebe o endereço do novo soldado na lista de inimigos
+				novoIni = pSold;
+				
+				// Organiza a lista encadeada de inimigos
+				novoIni->prox = inimigo0->prox;
+				inimigo0->prox = novoIni;
+				
+			}
 			
 		} 
 		
@@ -229,6 +230,15 @@ void Soldado::Enviar(Soldado *soldado0, CampoJogo meuCampo){
 
 
 //===========================================================================
+// Apenas aloca uma posição na lista encadeada
+Soldado* Soldado::Aloca(Soldado *soldado0){
+	Soldado *novo;
+	novo = (Soldado *) malloc(sizeof(Soldado));
+	
+	return novo;
+}
+//===============================================================
+
 
 // Insere um novo soldado na lista encadeada
 Soldado* Soldado::Insere(Soldado *soldado0, char * tipo){
@@ -277,19 +287,19 @@ void Soldado::Init(){
 	vida = VIDA;
 	preco = PRECO;
 	speed = SPEED;
-	x = X;
-	y = Y;
+	x = 0;
+	y = 0;
 	tipo = "default";
 	direcao = BAIXO;
-	imgAtual = IMGATUAL;
-	seqAnim = SEQANIM;
-	movNUntil = MOVNUNTIL;
+	imgAtual = 4;
+	seqAnim = DO1ATE3;
 	untilPos[0] = UNDEFINE;
 	untilPos[1] = UNDEFINE;
-	posCego = POSCEGO;
-	dest = DEST;
-	liberado = LIBERADO;
-	visivel = VISIVEL;
+	posCego = false;
+	dest = false;
+	liberado = false;
+	visivel = false;
+	movNUntil = false;
 	prox = NULL;
 }
 //===========================================================================
@@ -700,7 +710,7 @@ bool Soldado::MovUntil(){
 
 //===========================================================
 // Comportamento geral do soldado
-void Soldado::IA(Soldado *soldado0, CampoJogo meuCampo){
+void Soldado::IA(CampoJogo meuCampo){
 	
 	Soldado *anterior;
 	
@@ -720,17 +730,18 @@ void Soldado::IA(Soldado *soldado0, CampoJogo meuCampo){
 	}
 	
 	// Região visivel
-	if(posCego == true && liberado == true && visivel == false){
+	if(liberado == true && visivel == false){
 		
 		if(movNUntil == false){				
 			
 			Until(x, 64);
-		} 			
-			visivel = MovUntil();
+		} 	
+				
+		visivel = MovUntil();
 	} 
 		
 	// Uso da pathfind	
-	if(posCego == true && liberado == true && visivel == true && dest == false){
+	if(visivel == true && dest == false){
 			
 				
 		if(movNUntil == false){	
@@ -742,5 +753,34 @@ void Soldado::IA(Soldado *soldado0, CampoJogo meuCampo){
 
 			
 		
+}
+
+//=====================================================================
+// Libera soldados da fila de espera para atacar o campo adversário
+void Soldado::Liberar(Soldado *inimigo0, int qtdInim){
+	Soldado *pSold;
+	
+	// Começa pela posição depois da cabeça da lista
+	pSold = inimigo0->prox;
+	
+	// Contador
+	int i = 0;
+	
+	// Enquanto houver soldados para serem enviados ao campo adversário...
+	while(pSold != NULL && i< qtdInim){
+		 
+		 // Libera os soldados
+		 pSold->liberado = true;
+		 
+		 // Coloca os soldados na posição necessária
+		 pSold->GoTo(736,-64); 
+		
+		// Libera a posição na lista encadeada de inimigos 
+		 free(pSold);
+		
+		 // Passo
+		 i++;
+		 pSold->prox;
+	}
 }
 

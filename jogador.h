@@ -40,7 +40,10 @@ struct Jogador{
 	
 	void MostraGUI();
 	void InputGUI();
+	void NovoIni();
+	void EnviaIni();
 	
+		
 	// "Construtores"
 	void Init();
 	void Init(char* meuLado);
@@ -99,7 +102,7 @@ void Jogador::InputGUI(){
 				if (soldado0->Compra(&dinheiro) == true){
 						
 					// Se tudo estiver certo, insere um novo soldado
-					soldado0->Insere(soldado0,"Urss");
+ 					soldado0->Insere(soldado0,"Urss");
 				}				
 			}
 		}
