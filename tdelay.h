@@ -6,7 +6,8 @@ struct TDelay{
 	time_t marcador;
 	
 	// Função
-	bool Valida();
+	bool DelayEnvio();
+	char SoldOnda();
 	
 	// "Construtor"
 	void Init();
@@ -19,12 +20,12 @@ void TDelay::Init(){
 	time(&marcador);
 }
 
-// Valida o envio do soldado
-bool TDelay::Valida(){
+// Valida o delay de envio de personagem
+bool TDelay::DelayEnvio(){
 	
-	bool envia;
 	
 	// Calcula o horário atual
+	bool envia;
 	time_t agora;
 	time(&agora);
 	
@@ -41,3 +42,44 @@ bool TDelay::Valida(){
 		
 	return envia;
 }
+
+
+//=======================================================================
+// Verifica e retorna se é hora de mandar uma onda de soldados (Eixo IA)
+char TDelay::SoldOnda(){
+	
+	time_t agora;
+	int gTimeInt;
+	char onda;
+	double gameTime;
+
+	time(&agora);
+	gameTime = difftime(agora,marcador);
+	gTimeInt = (int) gameTime;
+	
+	switch(gTimeInt){
+		case BEGIN:
+			onda = '0';
+			break;
+		case ONDA1:
+			onda = '1';
+			break;
+		case ONDA2:
+			onda = '2';
+			break;
+		case ONDA3:
+			onda = '3';
+			break;
+		case ONDA4:
+			onda = '4';
+			break;
+		case ONDAF:
+			onda = 'F';
+			break;
+		default:
+			onda = SEM_ONDA;
+			break;
+	}
+	return onda;
+}
+

@@ -84,14 +84,14 @@ void Jogador::InputGUI(){
 		mouseX = mousex();
 		mouseY = mousey();
 		
-		// Valida click no icone do soldado da URSS
+		// DelayEnvio click no icone do soldado da URSS
 		if(mouseX >= GUIEuaX && mouseX <= GUIEuaX + TILE_W &&
 		mouseY >= GUIEuaY && mouseY <= GUIEuaY + TILE_H) {
 			
-			// Valida o delay
-			if(envioSold.Valida() == true){
+			// DelayEnvio o delay
+			if(envioSold.DelayEnvio() == true){
 				
-				// Valida a compra
+				// DelayEnvio a compra
 				if (soldado0->Compra(&dinheiro) == true){
 						
 					// Se tudo estiver certo, insere um novo soldado
@@ -116,12 +116,9 @@ void Jogador::Init(){
 }
 
 //=================================================================
-// "Construtor" específico
+// Chama o construtor geral e também passa dados específicos
 void Jogador::Init(char *meuLado){
 	
-	// Chama o constutor geral
 	Init();
-	
-	// Passa os dados específicos
-	lado = meuLado;
+	lado = meuLado;	
 }

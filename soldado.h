@@ -83,7 +83,7 @@ struct Soldado{
 
 //==================================================================
 
-// Valida a compra de um soldado
+// DelayEnvio a compra de um soldado
 bool Soldado::Compra(int *dinheiro){
 	
 	/*Se o dinheiro for suficiente*/
@@ -245,6 +245,7 @@ void Soldado::Init(char* tipoSold ){
 		
 		Carrega(CHARA); // Por enquanto o soldado será representado pelo
 						// personagem Chara
+		preco = 0; 		
 	}
 	else if(tipoSold == "Urss"){
 		
@@ -684,7 +685,7 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 	// Tempo de espera
 	if(posCego == true && liberado == false){
 		
-		liberado = tempoEspera->Valida();
+		liberado = tempoEspera->DelayEnvio();
 		
 	}
 	

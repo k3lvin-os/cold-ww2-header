@@ -10,9 +10,9 @@
 #define URSS  "/Soldado/Urss/Urss"
 
 /*Ponto cego dos EUA 
-(local onde as tropas do EUA não podem ser visualizadas)*/
+(local onde as tropas da URSS não podem ser visualizadas)*/
 #define EUACEGOX 64
-#define EUACEGOY -64
+#define EUACEGOY -64 // Corrigir esses valores
 
 /*Ponto cego da URSS
 (local onde as tropas do EUA não podem ser visualizadas)*/
@@ -70,6 +70,9 @@
 #define ONDA4 210 // 3 m 30 s
 #define ONDAF 270 // 4 m 30 s
 
+// Representa que não há onda há serem enviadas
+#define SEM_ONDA '?'
+
 // Define o inicio e o fim do jogo
 #define BEGIN 0 // 0 s 
 #define END 330 // 5 m 30 s 
@@ -87,6 +90,9 @@
 // Opções para lado do jogador
 #define LADO1 "Aliados Capitalistas"
 #define LADO2 "Aliados Comunistas"
+#define LADO3 "Eixo"
+
+
 
 
 
