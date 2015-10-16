@@ -58,6 +58,7 @@ struct Soldado{
 	void Until(int untilX, int untilY);
 	bool MovUntil();
 	void Show();
+	void Show(bool mask);
 	void TrocaImg();
 	void TrocaDir(Direcao trocaDir);
 	void IA(CampoJogo meuCampo, TDelay *tempoEspera);
@@ -240,10 +241,10 @@ void Soldado::Init(char* tipoSold ){
 	
 	// Faz alterações específicas
 	tipo = tipoSold;
-	if(tipoSold == "Chara"){
+	if(tipoSold == "Nazi"){
 		
-		// Carrega as imagens do soldado
-		Carrega(CHARA);
+		Carrega(CHARA); // Por enquanto o soldado será representado pelo
+						// personagem Chara
 	}
 	else if(tipoSold == "Urss"){
 		
@@ -275,6 +276,24 @@ void Soldado::Show(){
 	
 	// Mostra a imagem
 	putimage(x,y,imagens[imgAtual],OR_PUT);
+}
+
+// Mostra o soldado - versão que permite usar ou não a máscara
+void Soldado::Show(bool mask){
+	
+	if (mask == true){
+			
+			//Mostra a máscara primeiro
+			putimage(x,y,mascaras[imgAtual],AND_PUT);
+	
+			// Mostra a imagem
+			putimage(x,y,imagens[imgAtual],OR_PUT);
+	} 
+	else
+		putimage(x,y,imagens[imgAtual],0);	
+	
+	
+
 }
 
 
@@ -642,10 +661,12 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 	if(tipo == "Eua"){
 		pCegoX = EUACEGOX;
 		pCegoY = EUACEGOY;
-	} else if (tipo == "Urss"){
+	} 
+	else if (tipo == "Urss"){
 		pCegoX = URSSCEGOX;
 		pCegoY = URSSCEGOY;
 	}
+
 	
 	
 	// Ponto cego da tela
