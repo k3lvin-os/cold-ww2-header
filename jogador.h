@@ -59,7 +59,7 @@ void Jogador::MostraGUI(){
 	itoa(dinheiro,buffer,10);
 	strcat(textDin,buffer);
 	
-	if(lado == LADO1){
+	if(lado == LADO2){
 		
 		// Soldado dos EUA
 		GUISold.Init("Urss");

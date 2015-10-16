@@ -11,7 +11,7 @@
 
 /*Ponto cego dos EUA 
 (local onde as tropas da URSS não podem ser visualizadas)*/
-#define EUACEGOX 64
+#define EUACEGOX 512
 #define EUACEGOY -64 // Corrigir esses valores
 
 /*Ponto cego da URSS
