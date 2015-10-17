@@ -2,7 +2,7 @@
 struct CampoJogo{
 	
 	// Qtd. padrão de tiles de campo de jogo
-	static const int QTD_TILE = 12;
+	static const int QTD_TILE = 30;
 	
 	// Matriz do Campo de Jogo com o tipo de tile de cada posição
 	int posTile[TILE_QTDX][TILE_QTDY]; 
@@ -53,7 +53,7 @@ bool CampoJogo::Caminho(int tileX, int tileY){
 
 	bool caminho;
 	
-	if(posTile[tileX][tileY] == CAMINHO )
+	if(posTile[tileX][tileY] >= 18 && posTile[tileX][tileY] <= 29 )
 		caminho  = true; 
 	else 
 		caminho = false;
@@ -216,14 +216,32 @@ void CampoJogo::TileLoad(){
 	tipoTile[3].BasicTile(TILE_W,TILE_H, RED,"Vermelho");
 	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW, "Amarelo"); 
 	
-	// Carregue os sprites de campo
+	// Sprites de campo
 	tipoTile[5].Init("../../Assets/Campo/eua.bmp","Campo do EUA e Aliados",TILE_W,TILE_H);
 	tipoTile[6].Init("../../Assets/Campo/urss.bmp","Campo da URSS", TILE_W, TILE_H);
 	tipoTile[7].Init("../../Assets/Campo/muro.bmp","Muro de Tijolos Brancos",TILE_W,TILE_H);
-	tipoTile[8].Init("../../Assets/Campo/rota.bmp","Rota dos Soldados",TILE_W,TILE_H);
+	tipoTile[8].Init("../../Assets/Campo/rota0.bmp","Rota dos Soldados",TILE_W,TILE_H);
 	tipoTile[9].Init("../../Assets/Campo/sacos1.bmp","Trincheira - Baixo",TILE_W,TILE_H);
 	tipoTile[10].Init("../../Assets/Campo/sacos2.bmp","Trincheira - Grama",TILE_W,TILE_H);
 	tipoTile[11].Init("../../Assets/Campo/sacos3.bmp","Trincheira - Neve",TILE_W,TILE_H);
+	tipoTile[12].Init("../../Assets/Campo/cerca1.bmp","Cerca - Grama",TILE_W,TILE_H);
+	tipoTile[13].Init("../../Assets/Campo/cerca2.bmp","Cerca 1 - Grama",TILE_W,TILE_H);
+	tipoTile[14].Init("../../Assets/Campo/cerca3.bmp","Cerca 2 - Grama",TILE_W,TILE_H);
+	tipoTile[15].Init("../../Assets/Campo/cerca4.bmp","Cerca - Neve",TILE_W,TILE_H);
+	tipoTile[16].Init("../../Assets/Campo/cerca5.bmp","Cerca 1 - Neve",TILE_W,TILE_H);
+	tipoTile[17].Init("../../Assets/Campo/cerca6.bmp","Cerca 2 - Neve",TILE_W,TILE_H);
+	tipoTile[18].Init("../../Assets/Campo/rota1a.bmp","Rota - Horiz Grama",TILE_W,TILE_H);
+	tipoTile[19].Init("../../Assets/Campo/rota2a.bmp","Rota - Verti Grama",TILE_W,TILE_H);
+	tipoTile[20].Init("../../Assets/Campo/rota3a.bmp","Rota - Sup Esq Grama",TILE_W,TILE_H);
+	tipoTile[21].Init("../../Assets/Campo/rota4a.bmp","Rota - Sup Dir Grama",TILE_W,TILE_H);
+	tipoTile[22].Init("../../Assets/Campo/rota5a.bmp","Rota - Inf Esq Grama",TILE_W,TILE_H);
+	tipoTile[23].Init("../../Assets/Campo/rota6a.bmp","Rota - Inf Dir Grama",TILE_W,TILE_H);
+	tipoTile[24].Init("../../Assets/Campo/rota1b.bmp","Rota - Horiz Neve",TILE_W,TILE_H);
+	tipoTile[25].Init("../../Assets/Campo/rota2b.bmp","Rota - Verti Neve",TILE_W,TILE_H);
+	tipoTile[26].Init("../../Assets/Campo/rota3b.bmp","Rota - Sup Esq Neve",TILE_W,TILE_H);
+	tipoTile[27].Init("../../Assets/Campo/rota4b.bmp","Rota - Sup Dir Neve",TILE_W,TILE_H);
+	tipoTile[28].Init("../../Assets/Campo/rota5b.bmp","Rota - Inf Esq Neve",TILE_W,TILE_H);
+	tipoTile[29].Init("../../Assets/Campo/rota6b.bmp","Rota - Inf Dir Neve",TILE_W,TILE_H);
 	
 	
 

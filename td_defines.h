@@ -8,6 +8,7 @@
 #define CHARA "/Soldado/Chara/Chara"
 #define EUA  "/Soldado/Eua/Eua"
 #define URSS  "/Soldado/Urss/Urss"
+#define NAZI "/Soldado/Nazi/Nazi"
 
 /*Ponto cego dos EUA 
 (local onde as tropas da URSS não podem ser visualizadas)*/
@@ -16,7 +17,7 @@
 
 /*Ponto cego da URSS
 (local onde as tropas do EUA não podem ser visualizadas)*/
-#define URSSCEGOX 736
+#define URSSCEGOX 768
 #define URSSCEGOY -64
 
 
@@ -62,6 +63,9 @@
 
 /*Delay de envio de soldados (10 s)*/
 #define S_DELAY 1.5
+
+/*Delay de fila de espera dos soldados*/
+#define ESPERA_DELAY 2
 
 /*Horário das ondas de soldados*/
 #define ONDA1 30 // 30 s

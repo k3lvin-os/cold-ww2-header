@@ -30,8 +30,8 @@ bool TDelay::DelayEnvio(){
 	time_t agora;
 	time(&agora);
 	
-	// Se se o tempo de delay passou
-	if(difftime(agora,marcador) >= S_DELAY){
+	// Se o tempo de delay passou
+	if(difftime(agora,marcador) >= ESPERA_DELAY){
 			
 			// Envia o soldado e reinicia o marcador
 			envia = true; 

@@ -58,7 +58,6 @@ struct Soldado{
 	void Until(int untilX, int untilY);
 	bool MovUntil();
 	void Show();
-	void Show(bool mask);
 	void TrocaImg();
 	void TrocaDir(Direcao trocaDir);
 	void IA(CampoJogo meuCampo, TDelay *tempoEspera);
@@ -243,10 +242,12 @@ void Soldado::Init(char* tipoSold ){
 	tipo = tipoSold;
 	if(tipoSold == "Nazi"){
 		
-		Carrega(CHARA); // Por enquanto o soldado será representado pelo
-						// personagem Chara
-		preco = 0; 		
+		Carrega(NAZI);
+						
+		preco = 0;
+		posCego = true; 		
 	}
+	
 	else if(tipoSold == "Urss"){
 		
 		x = 64;
@@ -278,26 +279,6 @@ void Soldado::Show(){
 	// Mostra a imagem
 	putimage(x,y,imagens[imgAtual],OR_PUT);
 }
-
-// Mostra o soldado - versão que permite usar ou não a máscara
-void Soldado::Show(bool mask){
-	
-	if (mask == true){
-			
-			//Mostra a máscara primeiro
-			putimage(x,y,mascaras[imgAtual],AND_PUT);
-	
-			// Mostra a imagem
-			putimage(x,y,imagens[imgAtual],OR_PUT);
-	} 
-	else
-		putimage(x,y,imagens[imgAtual],0);	
-	
-	
-
-}
-
-
 
 //===========================================================================
 // Carrega todas imagens do soldado através do caminho relativo
@@ -363,32 +344,47 @@ void Soldado::Carrega(char rPath[]){
 // Troca o indice da animação do soldado na direção atual
 void Soldado::TrocaImg(){
 	
-	// Indice da animação
+	bool trocaImg;
 	int iAnim;
-			
-	// Função para achar o indice da animação
-	iAnim = (imgAtual % 3) + 1;
 	
-	// Verifica o indice de imagem e atribui o valor conforme ele
-	switch(iAnim){
-		case 1:
-			imgAtual +=  1;
-			break;
-		case 2:
-			
-			// Verifica o tipo de sequencia e altera com base nisso
-			if(seqAnim == DO1ATE3){
-				imgAtual += 1;
-				seqAnim = DO3ATE1;
-			} else{
+	/*===========================================*/
+	// Deixa a animação mais lenta
+	if(direcao == DIREITA || direcao == ESQUERDA){
+		
+		if(x % 16 == 0)
+			trocaImg = true;
+		else
+			trocaImg = false;
+	}
+	else 
+		trocaImg = true;
+	/*=================================*/
+		
+
+	if(trocaImg == true){
+		
+		iAnim = (imgAtual % 3) + 1;
+		switch(iAnim){
+			case 1:
+				imgAtual +=  1;
+				break;
+			case 2:
+				
+				// Verifica o tipo de sequencia e altera com base nisso
+				if(seqAnim == DO1ATE3){
+					imgAtual += 1;
+					seqAnim = DO3ATE1;
+				} else{
+					imgAtual -= 1;
+					seqAnim = DO1ATE3;
+				}
+				
+				break;
+			case 3:
 				imgAtual -= 1;
-				seqAnim = DO1ATE3;
-			}
-			
-			break;
-		case 3:
-			imgAtual -= 1;
-			break;		
+				break;		
+		}
+
 	}
 
 }
@@ -693,7 +689,6 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 	if(liberado == true && visivel == false){
 		
 		if(movNUntil == false){				
-			
 			Until(x, 64);
 		} 	
 				
