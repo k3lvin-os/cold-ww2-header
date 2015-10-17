@@ -8,6 +8,7 @@ struct TDelay{
 	// Função
 	bool DelayEnvio();
 	char SoldOnda();
+	int GameTime();
 	
 	// "Construtor"
 	void Init();
@@ -48,19 +49,13 @@ bool TDelay::DelayEnvio(){
 // Verifica e retorna se é hora de mandar uma onda de soldados (Eixo IA)
 char TDelay::SoldOnda(){
 	
-	time_t agora;
 	int gTimeInt;
 	char onda;
-	double gameTime;
 
-	time(&agora);
-	gameTime = difftime(agora,marcador);
-	gTimeInt = (int) gameTime;
+
+	gTimeInt = GameTime();
 	
 	switch(gTimeInt){
-		case BEGIN:
-			onda = '0';
-			break;
 		case ONDA1:
 			onda = '1';
 			break;
@@ -78,8 +73,21 @@ char TDelay::SoldOnda(){
 			break;
 		default:
 			onda = SEM_ONDA;
-			break;
 	}
 	return onda;
+}
+
+
+/*Calcula quanto tempo se passou desde que o marcador começou a marcar o tempo */
+int TDelay::GameTime(){
+	time_t agora;
+	int gTimeInt;
+	double gameTime;
+	
+	time(&agora);
+	gameTime = difftime(agora,marcador);
+	gTimeInt = (int) gameTime;
+	
+	return gTimeInt;
 }
 
