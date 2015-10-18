@@ -29,32 +29,33 @@ void Lider::Init(){
 	x = 0;
 	y = 0;
 	nome = "default";
-	imgAtual = NORMAL;
+	imgAtual = 0;
 	delayImg.Init();
 }
 
 // "Construtor" específico do líder
 void Lider::Init(char *nomeLider){
 	
+	Init();
 	nome = nomeLider;
-	
 		
-	if(nomeLider == "Roosevelt"){
+	if(nome == "Roosevelt"){
 		x = 0;
-		y = TILE_H * 18;
+		y = TILE_H * 19;
 		Carrega(PATH_ROOSEVELT);	
 	}
 	
-	else if(nomeLider == "Stalin"){
+	else if(nome == "Stalin"){
 		x = TILE_W * 38;
-		y = TILE_H * 18;
+		y = TILE_H * 19;
 		Carrega(PATH_STALLIN);
 	}
 	
 	else{
-		x = TELA_W / 2;
-		y = 0;
+		x = 608;
+		y = 64;
 		Carrega(PATH_HITLER);
+		imgAtual = BRAVO;
 	}
 	
 
@@ -71,7 +72,7 @@ void Lider::Carrega(char *rPath){
 	char temp[3]; 
 				
 	for(i = 0; i < QTD_IMG; i++){
-
+		
 		strcpy(pathImg,ASSETS);
 		strcat(pathImg,rPath);
 		
@@ -83,15 +84,9 @@ void Lider::Carrega(char *rPath){
 		strcat(pathImg,temp);
 
 		strcat(pathImg,BITMAP);
-		readimagefile(pathImg,0,0,LIDER_TILEW,LIDER_TILEH);
-		size = imagesize(0,0,LIDER_TILEW,LIDER_TILEH);
-		imagens[i] = malloc(size);
-		getimage(0,0,LIDER_TILEW,LIDER_TILEH,imagens[i]);
+		strcat(pathImg,"\0");
 		
-		
-		//imagens[i] = GetImage(pathImg,LIDER_TILEW,LIDER_TILEH);
-		
-		std::cout << pathImg << std::endl;		
+		imagens[i] = GetImage(pathImg,LIDER_TILEW,LIDER_TILEH);
 	}
 }
 
