@@ -332,10 +332,10 @@ void Soldado::Carrega(char rPath[]){
 		strcat(pathMask,BITMAP);
 		
 		// Recebe a imagem especificada pelo caminho da imagem
-		imgHandl.GetImage(&imagens[i],pathImg,TILE_W,TILE_H);
+		GetImage(&imagens[i],pathImg,TILE_W,TILE_H);
 		
 		// Recebe a imagem especificada pelo caminho da máscara
-		imgHandl.GetImage(&mascaras[i],pathMask,TILE_W,TILE_H);
+		GetImage(&mascaras[i],pathMask,TILE_W,TILE_H);
 		
 	}
 }  
