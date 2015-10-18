@@ -63,7 +63,8 @@ void Lider::Init(char *nomeLider){
 
 // Carrega as imagens do líder
 void Lider::Carrega(char *rPath){
-		
+	
+	int size;	
 	int i, indiceH;	
 	Sprite imgHandl; 
 	char pathImg[60]; 	
@@ -82,8 +83,13 @@ void Lider::Carrega(char *rPath){
 		strcat(pathImg,temp);
 
 		strcat(pathImg,BITMAP);
+		readimagefile(pathImg,0,0,LIDER_TILEW,LIDER_TILEH);
+		size = imagesize(0,0,LIDER_TILEW,LIDER_TILEH);
+		imagens[i] = malloc(size);
+		getimage(0,0,LIDER_TILEW,LIDER_TILEH,imagens[i]);
 		
-		GetImage(&imagens[i],pathImg,LIDER_TILEW,LIDER_TILEH);
+		
+		//imagens[i] = GetImage(pathImg,LIDER_TILEW,LIDER_TILEH);
 		
 		std::cout << pathImg << std::endl;		
 	}
