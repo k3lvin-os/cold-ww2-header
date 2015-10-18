@@ -30,7 +30,10 @@ struct Jogador{
 	TDelay esperaIni;
 	
 	// Dinheiro do jogador
-	int dinheiro;	
+	int dinheiro;
+	
+	// Avatar do jogador (Roosevalt, Stallin ou Hitler)
+	Lider meuLider;	
 	
 	/*===========================
 				Funções
@@ -121,4 +124,13 @@ void Jogador::Init(char *meuLado){
 	
 	Init();
 	lado = meuLado;	
+	if(meuLado == LADO1)
+		meuLider.Init("Roosevelt");
+		
+	else if(meuLado == LADO2)
+		meuLider.Init("Stalin");
+
+	else
+		meuLider.Init("Hitler");
+	
 }

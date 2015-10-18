@@ -44,7 +44,7 @@ void CampoJogo::LimpaMem(){
 // Limpa a zona de carregamento de imagens
 void CampoJogo::LimpaD(){
 
-	Mostrar(0,0,2,2); // Intervalo de tiles de desenho
+	Mostrar(0,0,4,4); // Intervalo de tiles de desenho
 }
 //=========================================================================
 

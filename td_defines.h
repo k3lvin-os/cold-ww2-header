@@ -10,6 +10,10 @@
 #define URSS  "/Soldado/Urss/Urss"
 #define NAZI "/Soldado/Nazi/Nazi"
 
+#define PATH_HITLER "/Lider/Hitler/Hitler"
+#define PATH_ROOSEVELT "/Lider/Roosevelt/Roosevelt"
+#define PATH_STALLIN "/Lider/Stalin/Stalin"
+
 /*Ponto cego dos EUA 
 (local onde as tropas da URSS não podem ser visualizadas)*/
 #define EUACEGOX 512
@@ -95,6 +99,10 @@
 #define LADO1 "Aliados Capitalistas"
 #define LADO2 "Aliados Comunistas"
 #define LADO3 "Eixo"
+
+// Tamanho das imagens dos lideres
+#define LIDER_TILEW 64
+#define LIDER_TILEH 96
 
 
 

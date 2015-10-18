@@ -286,55 +286,32 @@ void Soldado::Show(){
 void Soldado::Carrega(char rPath[]){
 	
 	
-	int i; // contador
-	int indiceH;	// Indice mais humano (indice array + 1)
-	Sprite imgHandl; // Para manipular imagens
-	char pathImg[60]; 	// Caminho para acessar a imagem
-	char pathMask[60]; // Caminho para acessar a mascara da imagem
-	char temp[3]; // indice do loop em char array
-	
-
+	int i, indiceH;	
+	Sprite imgHandl; 
+	char pathImg[60]; 	
+	char pathMask[60];
+	char temp[3]; 
 				
 	for(i = 0; i < QTD_IMG; i++){
-		
-		// O caminho exato - com o numero do sprite - ainda não foi calculado
-		// Então copie o caminho para a pasta assets
+
 		strcpy(pathImg,ASSETS);
-		
-		// Agora, adicione o caminho relativo (argumento que foi passado)
 		strcat(pathImg,rPath);
-		
-		// Converte o indice do contador para o formato "humano"
-		// que é o número do sprite
 		indiceH = i + 1;
 		
-		// Verifica se o número do sprite é menor que 10 (dois algarismos)
-		if(indiceH < 10){
-			
-			// Se sim, acresenta-se um '0'
+		if(indiceH < 10)
 			strcat(pathImg,"0");
-		}
 		
-		// Recebe a conversão do número do sprite para o tipo string
 		itoa(indiceH,temp,DECIMAL);
-		
-		// Acresenta esse valor
 		strcat(pathImg,temp);
-		
-		// Recebe o caminho da imagem até agora na máscara
 		strcpy(pathMask,pathImg);
 		
-		//Acresenta o 'M' que representa uma máscara
 		strcat(pathMask,"M");
 		
-		// Adicione a especificação de arquivo bitmap
 		strcat(pathImg,BITMAP);
 		strcat(pathMask,BITMAP);
 		
-		// Recebe a imagem especificada pelo caminho da imagem
 		GetImage(&imagens[i],pathImg,TILE_W,TILE_H);
 		
-		// Recebe a imagem especificada pelo caminho da máscara
 		GetImage(&mascaras[i],pathMask,TILE_W,TILE_H);
 		
 	}
