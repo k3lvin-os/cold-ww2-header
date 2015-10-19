@@ -9,6 +9,7 @@ struct TDelay{
 	bool DelayEnvio();
 	char SoldOnda();
 	int GameTime();
+	bool DelayFuria();
 	
 	// "Construtor"
 	void Init();
@@ -56,6 +57,9 @@ char TDelay::SoldOnda(){
 	gTimeInt = GameTime();
 	
 	switch(gTimeInt){
+		case BEGIN:
+			onda = '0';
+			break;
 		case ONDA1:
 			onda = '1';
 			break;

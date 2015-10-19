@@ -85,6 +85,9 @@
 #define BEGIN 0 // 0 s 
 #define END 330 // 5 m 30 s 
 
+// Tempo de fúria dos lideres
+#define TEMPOFURIA 2000 // 3 s
+
 
 // Posição do soldado dos EUA
 #define GUIEuaX  1000

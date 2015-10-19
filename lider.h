@@ -13,14 +13,20 @@ struct Lider{
 	int imgAtual;			// Imagem atual do lider
 	TDelay delayImg;		// Delay do lider ao tomar dano
 	void *imagens[QTD_IMG];	// Imagens/ Sprites do soldado
+	bool furia;
+	TDelay tempoFuria;      // Tempo que o líder fica em estado de fúria
 	
 	
 	// Métodos
 	void Show();
-	void TrocaImg();
+	void TrocaImg(ImgLider minhaImg);
 	void Carrega(char *rPath);
 	void Init();
 	void Init(char *nomeLider);
+	void Furia();
+	void VerificaImg(int vidaJogador);
+	void VerificaFuria();
+
 	
 	
 };
@@ -31,8 +37,36 @@ void Lider::Init(){
 	nome = "default";
 	imgAtual = 0;
 	delayImg.Init();
+	furia = false;
+	tempoFuria.marcador = NULL;
 }
 
+// Verifica qual imagem do lider deve ser mostrada
+void Lider::VerificaImg(int vidaJogador){
+	if(vidaJogador <= 0)
+		imgAtual = MORTO; 	
+	else if(furia == true)
+		imgAtual = BRAVO;
+	else
+		imgAtual =  NORMAL;
+	
+}
+
+
+//==========================================================================
+// Verifica o estado de fúria do líder
+void Lider::VerificaFuria(){
+	time_t agora;
+	time(&agora);
+	if(furia == true){
+		if(difftime(agora,tempoFuria.marcador) >= TEMPOFURIA ){
+			furia = false;
+			tempoFuria.marcador = NULL;	
+		} 
+	}
+}
+
+//==========================================================================
 // "Construtor" específico do líder
 void Lider::Init(char *nomeLider){
 	
@@ -40,13 +74,13 @@ void Lider::Init(char *nomeLider){
 	nome = nomeLider;
 		
 	if(nome == "Roosevelt"){
-		x = 0;
+		x = TILE_W * 38;
 		y = TILE_H * 19;
 		Carrega(PATH_ROOSEVELT);	
 	}
 	
 	else if(nome == "Stalin"){
-		x = TILE_W * 38;
+		x = 0;
 		y = TILE_H * 19;
 		Carrega(PATH_STALLIN);
 	}
@@ -62,6 +96,7 @@ void Lider::Init(char *nomeLider){
 	
 }
 
+//==========================================================================
 // Carrega as imagens do líder
 void Lider::Carrega(char *rPath){
 	
@@ -90,9 +125,20 @@ void Lider::Carrega(char *rPath){
 	}
 }
 
+//==========================================================================
 // Mostra o lider
 void Lider::Show(){
 	putimage(x,y,imagens[imgAtual],0);
 }
+
+//==========================================================================
+// Afirma que o lider está em furioso - o que leva a troca de imagem por um
+// período
+void Lider::Furia(){
+	furia = true;
+	tempoFuria.Init();
+}
+
+
 	
 

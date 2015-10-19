@@ -2,7 +2,7 @@
 struct CampoJogo{
 	
 	// Qtd. padrão de tiles de campo de jogo
-	static const int QTD_TILE = 30;
+	static const int QTD_TILE = 42;
 	
 	// Matriz do Campo de Jogo com o tipo de tile de cada posição
 	int posTile[TILE_QTDX][TILE_QTDY]; 
@@ -242,6 +242,18 @@ void CampoJogo::TileLoad(){
 	tipoTile[27].Init("../../Assets/Campo/rota4b.bmp","Rota - Sup Dir Neve",TILE_W,TILE_H);
 	tipoTile[28].Init("../../Assets/Campo/rota5b.bmp","Rota - Inf Esq Neve",TILE_W,TILE_H);
 	tipoTile[29].Init("../../Assets/Campo/rota6b.bmp","Rota - Inf Dir Neve",TILE_W,TILE_H);
+	tipoTile[30].Init("../../Assets/Campo/baseeua1.bmp","Base EUA - Parte 1",TILE_W,TILE_H);
+	tipoTile[31].Init("../../Assets/Campo/baseeua2.bmp","Base EUA - Parte 2",TILE_W,TILE_H);
+	tipoTile[32].Init("../../Assets/Campo/baseeua3.bmp","Base EUA - Parte 3",TILE_W,TILE_H);
+	tipoTile[33].Init("../../Assets/Campo/baseeua4.bmp","Base EUA - Parte 4",TILE_W,TILE_H);
+	tipoTile[34].Init("../../Assets/Campo/baseeua5.bmp","Base EUA - Parte 5",TILE_W,TILE_H);
+	tipoTile[35].Init("../../Assets/Campo/baseeua6.bmp","Base EUA - Parte 6",TILE_W,TILE_H);
+	tipoTile[36].Init("../../Assets/Campo/baseurss1.bmp","Base URSS - Parte 1",TILE_W,TILE_H);
+	tipoTile[37].Init("../../Assets/Campo/baseurss2.bmp","Base URSS - Parte 2",TILE_W,TILE_H);
+	tipoTile[38].Init("../../Assets/Campo/baseurss3.bmp","Base URSS - Parte 3",TILE_W,TILE_H);
+	tipoTile[39].Init("../../Assets/Campo/baseurss4.bmp","Base URSS - Parte 4",TILE_W,TILE_H);
+	tipoTile[40].Init("../../Assets/Campo/baseurss5.bmp","Base URSS - Parte 5",TILE_W,TILE_H);
+	tipoTile[41].Init("../../Assets/Campo/baseurss6.bmp","Base URSS - Parte 6",TILE_W,TILE_H);
 	
 	
 
