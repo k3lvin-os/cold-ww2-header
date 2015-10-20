@@ -658,7 +658,10 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 	// Tempo de espera
 	if(posCego == true && liberado == false){
 		
-		liberado = tempoEspera->DelayEnvio();
+		liberado = tempoEspera->PassouDelay(ESPERA_DELAY);
+		
+		if(liberado == true)
+			tempoEspera->Atualiza();
 		
 	}
 	

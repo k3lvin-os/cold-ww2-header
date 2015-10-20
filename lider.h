@@ -36,7 +36,7 @@ void Lider::Init(){
 	y = 0;
 	nome = "default";
 	imgAtual = 0;
-	delayImg.Init();
+	delayImg.Atualiza();
 	furia = false;
 	tempoFuria.marcador = NULL;
 }
@@ -54,17 +54,7 @@ void Lider::VerificaImg(int vidaJogador){
 
 
 //==========================================================================
-// Verifica o estado de fúria do líder
-void Lider::VerificaFuria(){
-	time_t agora;
-	time(&agora);
-	if(furia == true){
-		if(difftime(agora,tempoFuria.marcador) >= TEMPOFURIA ){
-			furia = false;
-			tempoFuria.marcador = NULL;	
-		} 
-	}
-}
+
 
 //==========================================================================
 // "Construtor" específico do líder
@@ -136,9 +126,17 @@ void Lider::Show(){
 // período
 void Lider::Furia(){
 	furia = true;
-	tempoFuria.Init();
+	tempoFuria.Atualiza();
 }
 
 
+void Lider::VerificaFuria(){
 	
+	bool passou;
+	if(furia == true){
+		passou = tempoFuria.PassouDelay(TEMPOFURIA);
+		if(passou == true)
+			furia = false;
+	}
+}
 

@@ -71,19 +71,31 @@
 /*Delay de fila de espera dos soldados*/
 #define ESPERA_DELAY 2
 
+/*Qtd. de ondas de nazistas que o jogo lança*/
+#define QTD_ONDA 11
+
 /*Horário das ondas de soldados*/
-#define ONDA1 30 // 30 s
-#define ONDA2 90 // 1 m 30 s
-#define ONDA3 150 // 2 m 30 s
-#define ONDA4 210 // 3 m 30 s
-#define ONDAF 270 // 4 m 30 s
+#define ONDA1 15 
+#define ONDA2 30 // 3 m para o ataque final
+#define ONDA3 45   
+#define ONDA4 75
+#define ONDA5 90 // 2 m para o ataque final
+#define ONDA6 105
+#define ONDA7 135
+#define ONDA8 150 // 1 m para o ataque final
+#define ONDA9 165
+#define ONDA10 210 // 1ª onda ataque final
+#define ONDA11 240 // 2ª onda ataque final
+
+#define FINALCOUNTDOWN 180 // Relogio regressivo
+
 
 // Representa que não há onda há serem enviadas
 #define SEM_ONDA '?'
 
 // Define o inicio e o fim do jogo
 #define BEGIN 0 // 0 s 
-#define END 330 // 5 m 30 s 
+#define END 270 // 5 m 30 s 
 
 // Tempo de fúria dos lideres
 #define TEMPOFURIA 2000 // 3 s

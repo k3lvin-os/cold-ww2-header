@@ -6,43 +6,39 @@ struct TDelay{
 	time_t marcador;
 	
 	// Função
-	bool DelayEnvio();
+	bool PassouDelay(int delay);
 	char SoldOnda();
 	int GameTime();
-	bool DelayFuria();
+	bool VerificaFuria();
 	
-	// "Construtor"
-	void Init();
+	// Atualiza o timer
+	void Atualiza();
 	
 
 };
 
-// Inicializa o marcador de tempo
-void TDelay::Init(){
+// Atualiza o marcador de tempo
+void TDelay::Atualiza(){
 	time(&marcador);
 }
 
-// Valida o delay de envio de personagem
-bool TDelay::DelayEnvio(){
+
+
+
+
+
+// Valida o delay 
+bool TDelay::PassouDelay(int delay){
 	
-	
-	// Calcula o horário atual
-	bool envia;
+	bool passou;
 	time_t agora;
 	time(&agora);
+	int diferenca = (int ) difftime(agora,marcador);
 	
-	// Se o tempo de delay passou
-	if(difftime(agora,marcador) >= ESPERA_DELAY){
-			
-			// Envia o soldado e reinicia o marcador
-			envia = true; 
-			time(&marcador);
-	}
-	// Caso contrário, não envia
+	if(diferenca >= delay)	
+		return true; 
 	else
-		envia = false;
-		
-	return envia;
+		return false; 
 }
 
 
@@ -72,8 +68,26 @@ char TDelay::SoldOnda(){
 		case ONDA4:
 			onda = '4';
 			break;
-		case ONDAF:
-			onda = 'F';
+		case ONDA5:
+			onda = '5';
+			break;
+		case ONDA6:
+			onda = '6';
+			break;
+		case ONDA7:
+			onda = '7';
+			break;
+		case ONDA8:
+			onda = '8';
+			break;
+		case ONDA9:
+			onda = '9';
+			break;
+		case ONDA10:
+			onda = '10';
+			break;
+		case ONDA11:
+			onda = '11';
 			break;
 		default:
 			onda = SEM_ONDA;

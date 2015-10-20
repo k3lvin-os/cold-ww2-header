@@ -87,17 +87,15 @@ void Jogador::InputGUI(){
 		mouseX = mousex();
 		mouseY = mousey();
 		
-		// DelayEnvio click no icone do soldado da URSS
 		if(mouseX >= GUIEuaX && mouseX <= GUIEuaX + TILE_W &&
 		mouseY >= GUIEuaY && mouseY <= GUIEuaY + TILE_H) {
 			
-			// DelayEnvio o delay
-			if(envioSold.DelayEnvio() == true){
+			if(envioSold.PassouDelay(ESPERA_DELAY) == true){
 				
-				// DelayEnvio a compra
+				envioSold.Atualiza();	
+			
 				if (soldado0->Compra(&dinheiro) == true){
 						
-					// Se tudo estiver certo, insere um novo soldado
  					soldado0->Insere(soldado0,"Urss");
 				}				
 			}
@@ -112,8 +110,8 @@ void Jogador::Init(){
 	soldado0 = (Soldado *) malloc(sizeof(Soldado));
 	soldado0->prox = NULL;
 	dinheiro = DINHEIRO;
-	envioSold.Init();
-	esperaIni.Init();
+	envioSold.Atualiza();
+	esperaIni.Atualiza();
 	vida = VIDA;
 	lado = NULL;
 }
