@@ -64,12 +64,12 @@ void OndaEixo::Verifica(char onda, char* dest,  CampoJogo meuCampo){
 	if(onda != SEM_ONDA){
 		
 		if(dest == LADO2){
-			soldX = EUACEGOX;
-			soldY = EUACEGOY;
+			soldX = ENTRADAURSSX;
+			soldY = ENTRADAURSSY;
 		} 
 		else if(dest == LADO1){
-			soldX = URSSCEGOX;
-			soldY = URSSCEGOY;
+			soldX = ENTRADAEUAX;
+			soldY = ENTRADAEUAY;
 		}
 		
 		switch(onda){

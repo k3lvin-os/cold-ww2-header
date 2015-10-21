@@ -250,12 +250,14 @@ void Soldado::Init(char* tipoSold ){
 	
 	else if(tipoSold == "Urss"){
 		
-		x = 64;
-		y = 32;
+		x = TILE_W * 2;
+		y = TILE_H * 1;
 		Carrega(URSS);
 	}
 	
 	else if(tipoSold == "Eua"){
+		x = TILE_W * 37;
+		y = TILE_H * 1;
 		Carrega(EUA);
 	}
 	
@@ -630,16 +632,21 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 	
 	Soldado *anterior;
 	
-	int pCegoX, pCegoY;
+	int pCegoX, pCegoY, destTX, destTY;
 	
 	if(tipo == "Eua"){
-		pCegoX = EUACEGOX;
-		pCegoY = EUACEGOY;
+		pCegoX = ENTRADAURSSX;
+		pCegoY = ENTRADAURSSY;
+		destTX = DEST_EUA_TX;
+		destTY = DEST_EUA_TY;
 	} 
 	else if (tipo == "Urss"){
-		pCegoX = URSSCEGOX;
-		pCegoY = URSSCEGOY;
+		pCegoX = ENTRADAEUAX;
+		pCegoY = ENTRADAEUAY;
+		destTX = DEST_URSS_TX;
+		destTY = DEST_URSS_TY;
 	}
+	
 
 	
 	
@@ -680,7 +687,7 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 			
 				
 		if(movNUntil == false){	
-			dest = Pathfind(meuCampo,DEST1_X,DEST1_Y);
+			dest = Pathfind(meuCampo,destTX,destTY);
 		} 		
 		MovUntil();
 	}

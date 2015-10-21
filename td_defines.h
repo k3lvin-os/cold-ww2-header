@@ -16,13 +16,13 @@
 
 /*Ponto cego dos EUA 
 (local onde as tropas da URSS não podem ser visualizadas)*/
-#define EUACEGOX 512
-#define EUACEGOY -64 // Corrigir esses valores
+#define ENTRADAURSSX TILE_W * 15
+#define ENTRADAURSSY -64 // Corrigir esses valores
 
 /*Ponto cego da URSS
 (local onde as tropas do EUA não podem ser visualizadas)*/
-#define URSSCEGOX 768
-#define URSSCEGOY -64
+#define ENTRADAEUAX 768
+#define ENTRADAEUAY -64
 
 
 /*Tile de caminho*/
@@ -58,9 +58,14 @@
 /*Extensão bitmap*/
 #define BITMAP ".bmp"
 
-/*Destino dos soldados da URSS*/
-#define DEST1_X 35
-#define DEST1_Y 2
+/*Destino dos soldados da URSS (em tile)*/
+#define DEST_URSS_TX 35
+#define DEST_URSS_TY 2
+
+/*Destino dos soldados do EUA (em tile)*/
+#define DEST_EUA_TX 4
+#define DEST_EUA_TY 2
+
 
 /*Qtd. de soldados nas tropas*/
 #define MAXTROPA 4
@@ -102,8 +107,8 @@
 
 
 // Posição da GUI do soldado EUA
-#define GUI_EUA_X  1000
-#define GUI_EUA_Y  TELA_H - (TILE_H * 3)
+#define GUI_EUA_X  TILE_W * 33
+#define GUI_EUA_Y  TILE_H * 20
 
 // Posição da GUI do soldado URSS
 #define GUI_URSS_X TILE_W * 6 
@@ -113,13 +118,26 @@
 #define URSS_TEXT_X TILE_W * 6
 #define URSS_TEXT_Y TILE_H * 21
 
+// Posição do texto do soldado dos EUA
+#define EUA_TEXT_X TILE_W * 33
+#define EUA_TEXT_Y TILE_W * 21
+
+// Posição da palavra soldado na URSS 
+#define SOLD_URSS_X TILE_W * 4
+#define SOLD_URSS_Y TILE_H * 19
+
+// Posição da palavra soldado nos EUA
+#define SOLD_EUA_X TILE_W * 32
+#define SOLD_EUA_Y TILE_H * 19
+
+
 // Posição do texto da torre
 #define TORRE_TEXT_X TILE_W * 19
 #define TORRE_TEXT_Y TILE_H * 18
 
 // Posição do dinheiro do jogador
-#define MONEY_USA_X 1050 
-#define MONEY_USA_Y 685 
+#define MONEY_EUA_X 22 * TILE_W 
+#define MONEY_EUA_Y 21 * TILE_H 
 #define MONEY_URSS_X 14 * TILE_W - 10
 #define MONEY_URSS_Y 21 * TILE_H 	
 
