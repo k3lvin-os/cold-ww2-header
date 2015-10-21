@@ -6,13 +6,16 @@ struct OndaEixo{
 	// Manipula os dados da IA (Eixo)
 	Jogador *eixoIA;
 	
+	// Indica o destino dos soldados da IA
+	char *dest;
+	
 	//"Construtores"
 	void Init();
 	void Init(Jogador *oEixoIA);
 	
 	// Funções
-	void Verifica(char onda, char* dest,CampoJogo meuCampo);
-	void InsereEixo(int x, int y, int qtdIni, int nFlag);
+	void Verifica(char onda, char* chegou,CampoJogo meuCampo);
+	void InsereEixo(int x, int y, int qtd, int nFlag);
 
 
 };
@@ -20,6 +23,8 @@ struct OndaEixo{
 // "Construtor" sem parâmetros - incializa as flags
 void OndaEixo::Init(){
 	int i;
+	
+	dest = NULL;
 	for(i = 0; i < QTD_ONDA;i++)
 		onda[i] = false;
 }
@@ -32,7 +37,7 @@ void OndaEixo::Init(Jogador *oEixoIA){
 
 
 // Procedimento de inserir soldado do eixo
-void OndaEixo::InsereEixo(int x, int y, int qtdIni, int nFlag){
+void OndaEixo::InsereEixo(int x, int y, int qtd, int nFlag){
 
 	int i;
 	Soldado *pSold;
@@ -41,9 +46,9 @@ void OndaEixo::InsereEixo(int x, int y, int qtdIni, int nFlag){
 	
 	if(onda[nFlag] == false){
 		
-		for(i = 0; i < qtdIni; i++){
+		for(i = 0; i < qtd; i++){
 			
-			pSold = soldado0->Insere(soldado0,"Nazi");
+			pSold = soldado0->Insere(soldado0,"Nazi",dest);
 			pSold->GoTo(x,y);
 		}
 		
@@ -54,7 +59,7 @@ void OndaEixo::InsereEixo(int x, int y, int qtdIni, int nFlag){
 
 
 // Rotina de envio de onda de soldados do Eixo
-void OndaEixo::Verifica(char onda, char* dest,  CampoJogo meuCampo){
+void OndaEixo::Verifica(char onda, char* meuDest,  CampoJogo meuCampo){
 	
 	int soldX,  soldY, qtdIni, nFlag;
 	Soldado *soldado0;
@@ -63,14 +68,16 @@ void OndaEixo::Verifica(char onda, char* dest,  CampoJogo meuCampo){
 
 	if(onda != SEM_ONDA){
 		
-		if(dest == LADO2){
+		if(meuDest == LADO2){
 			soldX = ENTRADAURSSX;
 			soldY = ENTRADAURSSY;
 		} 
-		else if(dest == LADO1){
+		else if(meuDest == LADO1){
 			soldX = ENTRADAEUAX;
 			soldY = ENTRADAEUAY;
 		}
+		
+		dest = meuDest;
 		
 		switch(onda){
 	

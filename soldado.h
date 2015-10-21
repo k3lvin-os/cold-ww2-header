@@ -42,7 +42,8 @@ struct Soldado{
 					//movimentação baseada na função MovUntil
 	int untilPos[2]; // Armazena um destino para o soldado
 	bool posCego; // Indica se soldado passou pelo ponto cego
-	bool dest; // Indica se o soldado chegou ao destino
+	char *dest;
+	bool chegou; // Indica se o soldado chegou ao destino
 	bool visivel; // Indica se o soldado chegou ao ponto visivel
 	bool liberado; // Indica se o soldado foi liberado da fila de inimigos
  	Soldado *prox;	// Próxima célula da lista encadeada
@@ -66,6 +67,7 @@ struct Soldado{
 	/*Funções relativas a lista encadeada empregada no tipo Soldado*/
 	void Morre(Soldado *anterior);
 	Soldado* Insere(Soldado *soldado0, char* tipo);
+	Soldado* Insere(Soldado *soldado0, char* tipo, char *dest);
 	void Remove(Soldado *anterior);
 	void LimpaNo(Soldado *soldado0);
 	void Chegou(Soldado *anterior);
@@ -78,7 +80,16 @@ struct Soldado{
 	// "Construtores"
 	void Init(char* tipo);
 	void Init();
+	void Init(char* tipo, char *meuDest);
 };
+
+
+//==================================================================
+// "Construtor" utilizado para soldados do Eixo
+void Soldado::Init(char* tipo, char *meuDest){
+	Init(tipo);
+	dest = meuDest;
+}
 
 //==================================================================
 
@@ -165,8 +176,22 @@ void Soldado::LimpaNo(Soldado *soldado0){
 	soldado0 = NULL;	
 }
 
+// Insere um novo soldado (essa versão utiliza um construtor ESSENCIAL
+// na inserção de soldados nazistas)
+Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, char *dest){
+	Soldado *novo;
+	novo = (Soldado *) malloc(sizeof(Soldado));
+	novo->Init(tipo,dest); // Inicializa o soldado
+	novo->prox = soldado0->prox;
+	soldado0->prox = novo;
+	
+	// Retorna a nova tropa
+	return novo;
+}
+
+
 // Insere um novo soldado na lista encadeada
-Soldado* Soldado::Insere(Soldado *soldado0, char * tipo){
+Soldado* Soldado::Insere(Soldado *soldado0, char *tipo){
 	Soldado *novo;
 	novo = (Soldado *) malloc(sizeof(Soldado));
 	novo->Init(tipo); // Inicializa o soldado
@@ -221,7 +246,7 @@ void Soldado::Init(){
 	untilPos[0] = UNDEFINE;
 	untilPos[1] = UNDEFINE;
 	posCego = false;
-	dest = false;
+	chegou = false;
 	liberado = false;
 	visivel = false;
 	movNUntil = false;
@@ -242,8 +267,7 @@ void Soldado::Init(char* tipoSold ){
 	tipo = tipoSold;
 	if(tipoSold == "Nazi"){
 		
-		Carrega(NAZI);
-						
+		Carrega(NAZI);			
 		preco = 0;
 		posCego = true; 		
 	}
@@ -253,12 +277,14 @@ void Soldado::Init(char* tipoSold ){
 		x = TILE_W * 2;
 		y = TILE_H * 1;
 		Carrega(URSS);
+		dest = LADO1;
 	}
 	
 	else if(tipoSold == "Eua"){
 		x = TILE_W * 37;
 		y = TILE_H * 1;
 		Carrega(EUA);
+		dest = LADO2;
 	}
 	
 
@@ -634,13 +660,13 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 	
 	int pCegoX, pCegoY, destTX, destTY;
 	
-	if(tipo == "Eua"){
+	if(dest == LADO2){
 		pCegoX = ENTRADAURSSX;
 		pCegoY = ENTRADAURSSY;
 		destTX = DEST_EUA_TX;
 		destTY = DEST_EUA_TY;
 	} 
-	else if (tipo == "Urss"){
+	else if (dest == LADO1){
 		pCegoX = ENTRADAEUAX;
 		pCegoY = ENTRADAEUAY;
 		destTX = DEST_URSS_TX;
@@ -683,11 +709,11 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 	} 
 		
 	// Uso da pathfind	
-	if(visivel == true && dest == false){
+	if(visivel == true && chegou == false){
 			
 				
 		if(movNUntil == false){	
-			dest = Pathfind(meuCampo,destTX,destTY);
+			chegou = Pathfind(meuCampo,destTX,destTY);
 		} 		
 		MovUntil();
 	}

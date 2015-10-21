@@ -143,8 +143,8 @@
 
 
 // Opções para lado do jogador
-#define LADO1 "Aliados Capitalistas"
-#define LADO2 "Aliados Comunistas"
+#define LADO1 "Eua"
+#define LADO2 "Urss"
 #define LADO3 "Eixo"
 
 // Tamanho das imagens dos lideres
