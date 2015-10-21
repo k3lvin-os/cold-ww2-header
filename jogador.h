@@ -54,6 +54,9 @@ struct Jogador{
 //==================================================================
 // Mostra a interface com o usuário do jogador
 void Jogador::MostraGUI(){
+	
+	
+	settextjustify(LEFT_TEXT,TOP_TEXT);
 		
 	Soldado GUISold;
 	
@@ -61,18 +64,40 @@ void Jogador::MostraGUI(){
 	char buffer[8];
 	itoa(dinheiro,buffer,10);
 	strcat(textDin,buffer);
+		
 	
+
+	
+
+	
+	// GUI da URSS
 	if(lado == LADO2){
 		
-		// Soldado dos EUA
 		GUISold.Init("Urss");
-		GUISold.GoTo(GUIEuaX,GUIEuaY);
+		GUISold.GoTo(GUI_URSS_X,GUI_URSS_Y);
+		GUISold.TrocaDir(CIMA);
 		GUISold.Show();
 		
-		// GUI do Dinheiro
+		setcolor(WHITE);
+		settextstyle(SANS_SERIF_FONT,HORIZ_DIR,1);
+		outtextxy(URSS_TEXT_X,URSS_TEXT_Y,"URSS");
+		
+		setcolor(BLACK);	
+		circle(GUI_URSS_X + 16,GUI_URSS_Y + 16,16);	
+			
+		setcolor(RED);
+		settextstyle(BOLD_FONT,HORIZ_DIR,2);
+		outtextxy(TILE_W * 4,TILE_H * 19,"Soldado");
+
+		
 		setcolor(GREEN);
 		settextstyle(BOLD_FONT, HORIZ_DIR, 1);
-		outtextxy(MONEY_X,MONEY_Y,textDin );
+		outtextxy(MONEY_URSS_X,MONEY_URSS_Y,textDin );
+		
+		setcolor(LIGHTBLUE);
+		settextstyle(BOLD_FONT,HORIZ_DIR,2);
+		outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,"Torre");
+		
 	}
 	
 }
@@ -87,8 +112,8 @@ void Jogador::InputGUI(){
 		mouseX = mousex();
 		mouseY = mousey();
 		
-		if(mouseX >= GUIEuaX && mouseX <= GUIEuaX + TILE_W &&
-		mouseY >= GUIEuaY && mouseY <= GUIEuaY + TILE_H) {
+		if(mouseX >= GUI_URSS_X && mouseX <= GUI_URSS_X + TILE_W &&
+		mouseY >= GUI_URSS_Y && mouseY <= GUI_URSS_Y + TILE_H) {
 			
 			if(envioSold.PassouDelay(ESPERA_DELAY) == true){
 				

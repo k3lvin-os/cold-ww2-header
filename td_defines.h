@@ -98,16 +98,30 @@
 #define END 270 // 5 m 30 s 
 
 // Tempo de fúria dos lideres
-#define TEMPOFURIA 2000 // 3 s
+#define TEMPOFURIA 2000 // 2 s
 
 
-// Posição do soldado dos EUA
-#define GUIEuaX  1000
-#define GUIEuaY  TELA_H - (TILE_H * 3)
+// Posição da GUI do soldado EUA
+#define GUI_EUA_X  1000
+#define GUI_EUA_Y  TELA_H - (TILE_H * 3)
+
+// Posição da GUI do soldado URSS
+#define GUI_URSS_X TILE_W * 6 
+#define GUI_URSS_Y TILE_H * 20
+
+// Posição do texto do soldado da URSS
+#define URSS_TEXT_X TILE_W * 6
+#define URSS_TEXT_Y TILE_H * 21
+
+// Posição do texto da torre
+#define TORRE_TEXT_X TILE_W * 19
+#define TORRE_TEXT_Y TILE_H * 18
 
 // Posição do dinheiro do jogador
-#define MONEY_X 1050
-#define MONEY_Y 685
+#define MONEY_USA_X 1050 
+#define MONEY_USA_Y 685 
+#define MONEY_URSS_X 14 * TILE_W - 10
+#define MONEY_URSS_Y 21 * TILE_H 	
 
 
 // Opções para lado do jogador
