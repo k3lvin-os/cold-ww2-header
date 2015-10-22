@@ -14,8 +14,8 @@ void BarraVida::Simples(int x, int y){
 	
 	setcolor(WHITE);
 	setfillstyle(1,RED);
-	bar3d(TILE_W * 19 + 16 , TILE_H * 10 + 16 , (TILE_W * 18) + 116, (TILE_H * 10) + 26,5,1 );
-	meuSold.GoTo(TILE_W * 20, TILE_H * 11);
+	bar3d(x - 16  , y - 16 , x + 52, y - 6,1,1 );
+	meuSold.GoTo(x, y);
 	meuSold.TrocaDir(CIMA);
 	meuSold.Show();
 }
