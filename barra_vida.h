@@ -4,13 +4,13 @@ struct BarraVida{
 	
 	static const int MAX_VIDA = 50;
 	// Prototipo de barra de vida
-	void Simples(int x, int y, unsigned int vida);
+	void Show(int x, int y, unsigned int vida);
 	int CalcDano(unsigned int vida);
 	
 };
 
-// Prototipo de barra de vida
-void BarraVida::Simples(int x, int y, unsigned int vida){
+// Mostra barra de vida
+void BarraVida::Show(int x, int y, unsigned int vida){
 	int left,top, right, bottom, dano;
 	
 	left = x - 10;
@@ -39,6 +39,7 @@ void BarraVida::Simples(int x, int y, unsigned int vida){
 }
 
 
+// Calcula o dano com base na qtd. de vida
 int BarraVida::CalcDano(unsigned int vida){
 	int porCent, porCentDano, dano;
 	
