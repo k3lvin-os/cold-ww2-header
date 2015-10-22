@@ -21,7 +21,6 @@ struct Soldado{
 	//==========================================================================
 		
 	// Constantes do "construtor" geral do soldado
-	static const int VIDA = 100;
 	static const int SPEED = 8;
 	static const int IMGATUAL = 4; // corresponde ao "BAIXO2"
 	static const NomeSprit QTD_IMG = numSprit;

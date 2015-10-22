@@ -7,7 +7,6 @@ struct Jogador{
 			Constantes
 	===========================*/
 	static const int DINHEIRO = 100;
-	static const int VIDA = 100;
 
 	
 	/*=========================

@@ -4,6 +4,7 @@
 #define TELA_W 1280
 #define TELA_H 704
 
+
 /*Caminho para as imagens dos soldados*/
 #define CHARA "/Soldado/Chara/Chara"
 #define EUA  "/Soldado/Eua/Eua"
@@ -13,6 +14,9 @@
 #define PATH_HITLER "/Lider/Hitler/Hitler"
 #define PATH_ROOSEVELT "/Lider/Roosevelt/Roosevelt"
 #define PATH_STALLIN "/Lider/Stalin/Stalin"
+
+/*Vida dos soldados e dos generais*/
+#define VIDA 100
 
 /*Ponto cego dos EUA 
 (local onde as tropas da URSS não podem ser visualizadas)*/
