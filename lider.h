@@ -64,15 +64,15 @@ void Lider::Init(char *nomeLider){
 	nome = nomeLider;
 		
 	if(nome == "Roosevelt"){
-		x = TILE_W * 38;
-		y = TILE_H * 19;
+		x = ROOSEVELT_X;
+		y = ROOSEVELT_Y;
 		Carrega(PATH_ROOSEVELT);	
 	}
 	
 	else if(nome == "Stalin"){
-		x = 0;
-		y = TILE_H * 19;
-		Carrega(PATH_STALLIN);
+		x = STALIN_X;
+		y = STALIN_Y;
+		Carrega(PATH_STALIN);
 	}
 	
 	else{

@@ -4,6 +4,13 @@
 #define TELA_W 1280
 #define TELA_H 704
 
+/*Posição do Roosevelt*/
+#define ROOSEVELT_X TILE_W * 38
+#define ROOSEVELT_Y TILE_H * 19
+
+#define STALIN_X 0
+#define STALIN_Y TILE_H * 19
+
 
 /*Caminho para as imagens dos soldados*/
 #define CHARA "/Soldado/Chara/Chara"
@@ -13,7 +20,7 @@
 
 #define PATH_HITLER "/Lider/Hitler/Hitler"
 #define PATH_ROOSEVELT "/Lider/Roosevelt/Roosevelt"
-#define PATH_STALLIN "/Lider/Stalin/Stalin"
+#define PATH_STALIN "/Lider/Stalin/Stalin"
 
 /*Vida dos soldados e dos generais*/
 #define VIDA 100
