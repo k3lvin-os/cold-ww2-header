@@ -16,6 +16,9 @@ struct Jogador{
 	// Cabeça da lista encadeada de soldados do jogador
 	Soldado *soldado0;
 	
+	// Caebça da lista encadeada de torres do jogador
+	Torre *torre0;
+	
 	// Vida do jogador
 	int vida;
 	
@@ -33,6 +36,9 @@ struct Jogador{
 	
 	// Avatar do jogador (Roosevalt, Stallin ou Hitler)
 	Lider meuLider;	
+	
+	// Flag para indicar que ele está colocando uma torre
+	bool flagTorre;
 	
 	/*===========================
 				Funções
@@ -58,6 +64,7 @@ void Jogador::MostraGUI(){
 	settextjustify(LEFT_TEXT,TOP_TEXT);
 		
 	Soldado GUISold;
+	Torre GUITorre;
 	
 	char textDin[19] = "Dinheiro: ";
 	char buffer[8];
@@ -73,6 +80,13 @@ void Jogador::MostraGUI(){
 		GUISold.GoTo(GUI_EUA_X,GUI_EUA_Y);
 		GUISold.TrocaDir(CIMA);
 		GUISold.Show();
+		
+		
+		GUITorre.Init("Eua");
+		GUITorre.x = TORRE1_X;
+		GUITorre.y = TORRE1_Y;
+		GUITorre.MostraTorre();
+		
 		
 		setcolor(RED);
 		settextstyle(BOLD_FONT,HORIZ_DIR,2);
@@ -136,8 +150,6 @@ void Jogador::InputGUI(){
 		mouseX = mousex();
 		mouseY = mousey();
 		
-		
-		
 		if(lado == LADO1){
 			guiSoldX = GUI_EUA_X ;
 			guiSoldY = GUI_EUA_Y ;
@@ -161,7 +173,17 @@ void Jogador::InputGUI(){
  					soldado0->Insere(soldado0,sold);				
 			}
 		}
+		
+		// Verifica input de colocação de torre
+		if(mouseX >= TORRE1_X && mouseX <= TORRE1_X + TORRE_W &&
+		mouseY >= TORRE1_Y && mouseY <= TORRE1_Y + TORRE_H){
+			flagTorre = true;
+		}
+		
+		
+			
 	}
+	
 }
 
 //===============================================================
@@ -169,12 +191,13 @@ void Jogador::InputGUI(){
 void Jogador::Init(){
 	
 	soldado0 = (Soldado *) malloc(sizeof(Soldado));
-	soldado0->prox = NULL;
+	torre0 = (Torre *) malloc(sizeof(Torre));
 	dinheiro = DINHEIRO;
 	envioSold.Atualiza();
 	esperaIni.Atualiza();
 	vida = VIDA;
 	lado = NULL;
+	flagTorre = false;
 }
 
 //=================================================================

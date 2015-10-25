@@ -18,6 +18,14 @@
 #define URSS  "/Soldado/Urss/Urss"
 #define NAZI "/Soldado/Nazi/Nazi"
 
+/*Caminho para as imagens das torres e dos canhões delas*/
+#define TORRE_EUA "/Torre/Eua/Eua"
+#define CANHAO_EUA "/Torre/Eua/EuaTiro"
+#define TORRE_URSS "Torre/Urss/Urss"
+#define CANHAO_URSS "/Torre/Eua/UrssTiro"
+
+
+/*Caminho para as imagens dos líderes*/
 #define PATH_HITLER "/Lider/Hitler/Hitler"
 #define PATH_ROOSEVELT "/Lider/Roosevelt/Roosevelt"
 #define PATH_STALIN "/Lider/Stalin/Stalin"
@@ -146,6 +154,10 @@
 #define TORRE_TEXT_X TILE_W * 19
 #define TORRE_TEXT_Y TILE_H * 18
 
+// Posição da torre acima do texto de torre
+#define TORRE1_X TILE_W * 19 + 16
+#define TORRE1_Y TILE_H * 15
+
 // Posição do dinheiro do jogador
 #define MONEY_EUA_X 22 * TILE_W 
 #define MONEY_EUA_Y 21 * TILE_H 
@@ -158,9 +170,13 @@
 #define LADO2 "Urss"
 #define LADO3 "Eixo"
 
-// Tamanho das imagens dos lideres
+// Dimensões das imagens dos lideres
 #define LIDER_TILEW 64
 #define LIDER_TILEH 96
+
+// Dimensões das imagens das torres
+#define TORRE_W 32
+#define TORRE_H 64
 
 
 

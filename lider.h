@@ -92,7 +92,6 @@ void Lider::Carrega(char *rPath){
 	
 	int size;	
 	int i, indiceH;	
-	Sprite imgHandl; 
 	char pathImg[60]; 	
 	char temp[3]; 
 				

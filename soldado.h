@@ -180,7 +180,7 @@ void Soldado::LimpaNo(Soldado *soldado0){
 Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, char *dest){
 	Soldado *novo;
 	novo = (Soldado *) malloc(sizeof(Soldado));
-	novo->Init(tipo,dest); // Inicializa o soldado
+	novo->Init(tipo,dest); 
 	novo->prox = soldado0->prox;
 	soldado0->prox = novo;
 	
@@ -259,10 +259,7 @@ void Soldado::Init(char* tipoSold ){
 	
 
 	
-	// Faz alterações gerais
 	Init();
-	
-	// Faz alterações específicas
 	tipo = tipoSold;
 	if(tipoSold == "Nazi"){
 		
