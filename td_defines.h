@@ -21,8 +21,8 @@
 /*Caminho para as imagens das torres e dos canhões delas*/
 #define TORRE_EUA "/Torre/Eua/Eua"
 #define CANHAO_EUA "/Torre/Eua/EuaTiro"
-#define TORRE_URSS "Torre/Urss/Urss"
-#define CANHAO_URSS "/Torre/Eua/UrssTiro"
+#define TORRE_URSS "/Torre/Urss/Urss"
+#define CANHAO_URSS "/Torre/Urss/UrssTiro"
 
 
 /*Caminho para as imagens dos líderes*/
@@ -151,7 +151,7 @@
 
 
 // Posição do texto da torre
-#define TORRE_TEXT_X TILE_W * 19
+#define TORRE_TEXT_X TILE_W * 19 - 8
 #define TORRE_TEXT_Y TILE_H * 18
 
 // Posição da torre acima do texto de torre

@@ -22,6 +22,8 @@ struct CampoJogo{
 	bool Caminho(int tileX, int tileY);
 	void LimpaD();
 	void LimpaMem();
+	bool CheckPosTorre(int tileX,int tileY, char *lado);
+
 
 	//"Construtores" 
 	void Init();
@@ -336,6 +338,48 @@ bool CampoJogo::PosExist(int tileX, int tileY){
 	 return existe; 
 }	
 	
+/*Retorna se o tile da torre é valido ou não*/
+bool CampoJogo::CheckPosTorre(int tileX, int tileY, char *lado){
+	
+	bool validPos = false;
+	int nTileCima, nTileBaixo;
+	int tileCampo, inicioTCerca,fimTCerca,inicioTRota,fimTRota;
+	
+	nTileCima = posTile[tileX][tileY];
+	nTileBaixo = posTile[tileX][tileY - 1];
+	
+
+	
+	if(lado == "Eua"){
+		tileCampo = 5;
+		inicioTCerca = 12;
+		fimTCerca = 14;
+		inicioTRota = 18;
+		fimTRota = 23;		
+		
+	} else if(lado == "Urss"){
+		tileCampo = 6;
+		inicioTCerca = 15;
+		fimTCerca = 17;
+		inicioTRota = 24;
+		fimTRota = 29;		
+	}
+		
+			
+	if( (nTileCima == tileCampo) ||
+	 (nTileCima >= inicioTCerca && nTileCima <= fimTCerca)||
+	 (nTileCima >= inicioTRota && nTileCima <= fimTRota)){
+		
+		if( (nTileBaixo == tileCampo) ||
+		 (nTileBaixo >= inicioTCerca && nTileBaixo <= fimTCerca)||
+	 	(nTileBaixo >= inicioTRota && nTileBaixo <= fimTRota))		
+		 	validPos = true;
+	
+	}	
+	
+	return validPos;
+}
+
 
 
 		

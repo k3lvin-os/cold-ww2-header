@@ -6,7 +6,7 @@ struct Jogador{
 	/*=========================
 			Constantes
 	===========================*/
-	static const int DINHEIRO = 100;
+	static const int DINHEIRO = 70;
 
 	
 	/*=========================
@@ -40,6 +40,17 @@ struct Jogador{
 	// Flag para indicar que ele está colocando uma torre
 	bool flagTorre;
 	
+	// Torre temporária do jogador (GUI)
+	Torre torreGUI;
+	
+	// Soldado temporário do jogador (GUI)
+	Soldado soldGUI;
+	
+	// Coordenadas para GUI
+	int guiSoldX, guiSoldY, guiDinX, guiDinY,
+	guiNameSoldX,guiNameSoldY,guiSoldTextX,guiSoldTextY,
+	guiCircleX,guiCircleY;
+	
 	/*===========================
 				Funções
 	==============================*/
@@ -48,7 +59,9 @@ struct Jogador{
 	void InputGUI();
 	void NovoIni();
 	void EnviaIni();
-	
+	void ArrastaTorre(CampoJogo meuCampo);
+	void ColocaTorre(int meuX, int meuY);
+
 		
 	// "Construtores"
 	void Init();
@@ -59,83 +72,55 @@ struct Jogador{
 //==================================================================
 // Mostra a interface com o usuário do jogador
 void Jogador::MostraGUI(){
-	
-	
-	settextjustify(LEFT_TEXT,TOP_TEXT);
 		
 	Soldado GUISold;
 	Torre GUITorre;
-	
 	char textDin[19] = "Dinheiro: ";
 	char buffer[8];
+	
+	settextjustify(LEFT_TEXT,TOP_TEXT);
+
+	// Dinheiro
 	itoa(dinheiro,buffer,10);
 	strcat(textDin,buffer);
-	
-			
-	
-	// GUI do EUA
-	if(lado == LADO1){
-		
-		GUISold.Init("Eua");
-		GUISold.GoTo(GUI_EUA_X,GUI_EUA_Y);
-		GUISold.TrocaDir(CIMA);
-		GUISold.Show();
-		
-		
-		GUITorre.Init("Eua");
-		GUITorre.x = TORRE1_X;
-		GUITorre.y = TORRE1_Y;
-		GUITorre.MostraTorre();
-		
-		
-		setcolor(RED);
-		settextstyle(BOLD_FONT,HORIZ_DIR,2);
-		outtextxy(SOLD_EUA_X,SOLD_EUA_Y,"Soldado");
-		
-		setcolor(WHITE);
-		settextstyle(SANS_SERIF_FONT,HORIZ_DIR,1);
-		outtextxy(EUA_TEXT_X,EUA_TEXT_Y,"EUA");
-		
-		setcolor(BLACK);	
-		circle(GUI_EUA_X + 16,GUI_EUA_Y + 16,16);	
-				
-		setcolor(GREEN);
-		settextstyle(BOLD_FONT, HORIZ_DIR, 1);
-		outtextxy(MONEY_EUA_X,MONEY_EUA_Y,textDin);
-		
-		setcolor(LIGHTBLUE);
-		settextstyle(BOLD_FONT,HORIZ_DIR,2);
-		outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,"Torre");
-	}
-	
-	// GUI da URSS
-	else if(lado == LADO2){
-		
-		GUISold.Init("Urss");
-		GUISold.GoTo(GUI_URSS_X,GUI_URSS_Y);
-		GUISold.TrocaDir(CIMA);
-		GUISold.Show();
-		
-		setcolor(WHITE);
-		settextstyle(SANS_SERIF_FONT,HORIZ_DIR,1);
-		outtextxy(URSS_TEXT_X,URSS_TEXT_Y,"URSS");
-		
-		setcolor(BLACK);	
-		circle(GUI_URSS_X + 16,GUI_URSS_Y + 16,16);	
-			
-		setcolor(RED);
-		settextstyle(BOLD_FONT,HORIZ_DIR,2);
-		outtextxy(SOLD_URSS_X,SOLD_URSS_Y,"Soldado");
+	setcolor(GREEN);
+	settextstyle(BOLD_FONT, HORIZ_DIR, 1);
+	outtextxy(guiDinX,guiDinY,textDin );
 
-		setcolor(GREEN);
-		settextstyle(BOLD_FONT, HORIZ_DIR, 1);
-		outtextxy(MONEY_URSS_X,MONEY_URSS_Y,textDin );
-		
-		setcolor(LIGHTBLUE);
-		settextstyle(BOLD_FONT,HORIZ_DIR,2);
-		outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,"Torre");
-		
-	}
+	// GUI da Torre
+	GUITorre.Init(lado);
+	GUITorre.x = TORRE1_X;
+	GUITorre.y = TORRE1_Y;
+	GUITorre.MostraTorre();
+	
+	// GUI do Soldado
+	GUISold.Init(lado);
+	GUISold.GoTo(guiSoldX,guiSoldY);
+	GUISold.TrocaDir(CIMA);
+	GUISold.Show();	
+	
+	// "Colocar Torre" (GUI)
+	setcolor(LIGHTBLUE);
+	settextstyle(BOLD_FONT,HORIZ_DIR,2);
+	outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,"Colocar");
+	outtextxy(TORRE_TEXT_X + 12,TORRE_TEXT_Y + 32,"Torre");
+
+	
+	// "Enviar Soldado" (GUI)
+	setcolor(WHITE);
+	settextstyle(SANS_SERIF_FONT,HORIZ_DIR,1);
+	outtextxy(guiNameSoldX,guiNameSoldY,lado);
+	
+	// Texto do Soldado
+	setcolor(LIGHTRED);
+	settextstyle(BOLD_FONT,HORIZ_DIR,2);
+	outtextxy(guiSoldTextX,guiSoldTextY,"Enviar Soldado");
+	
+	// Círculo em volta do soldado
+	setcolor(BLACK);	
+	circle(guiCircleX ,guiCircleY,16);	
+	
+
 	
 }
 
@@ -143,24 +128,12 @@ void Jogador::MostraGUI(){
 // Trabalha com a interação com a GUI
 void Jogador::InputGUI(){
 	
-	int mouseX, mouseY, guiSoldX,guiSoldY;
-	char* sold;
+	int mouseX, mouseY;
 	
 	if(GetKeyState(VK_LBUTTON) & 0x80){
+					
 		mouseX = mousex();
 		mouseY = mousey();
-		
-		if(lado == LADO1){
-			guiSoldX = GUI_EUA_X ;
-			guiSoldY = GUI_EUA_Y ;
-			sold = "Eua";
-		}
-		else if(lado == LADO2){
-			guiSoldX = GUI_URSS_X ;
-			guiSoldY = GUI_URSS_Y;
-			sold = "Urss";		
-		}
-		
 		
 		if(mouseX >= guiSoldX && mouseX <= guiSoldX + TILE_W &&
 		mouseY >= guiSoldY && mouseY <= guiSoldY + TILE_H) {
@@ -170,7 +143,7 @@ void Jogador::InputGUI(){
 				envioSold.Atualiza();	
 			
 				if (soldado0->Compra(&dinheiro) == true)				
- 					soldado0->Insere(soldado0,sold);				
+ 					soldado0->Insere(soldado0,lado);				
 			}
 		}
 		
@@ -178,10 +151,7 @@ void Jogador::InputGUI(){
 		if(mouseX >= TORRE1_X && mouseX <= TORRE1_X + TORRE_W &&
 		mouseY >= TORRE1_Y && mouseY <= TORRE1_Y + TORRE_H){
 			flagTorre = true;
-		}
-		
-		
-			
+		}	
 	}
 	
 }
@@ -192,6 +162,8 @@ void Jogador::Init(){
 	
 	soldado0 = (Soldado *) malloc(sizeof(Soldado));
 	torre0 = (Torre *) malloc(sizeof(Torre));
+	soldado0->prox = NULL;
+	torre0->prox = NULL;
 	dinheiro = DINHEIRO;
 	envioSold.Atualiza();
 	esperaIni.Atualiza();
@@ -206,13 +178,89 @@ void Jogador::Init(char *meuLado){
 	
 	Init();
 	lado = meuLado;	
-	if(meuLado == LADO1)
+	
+	if(meuLado == LADO1 || meuLado == LADO2){
+		soldGUI.Init(meuLado);
+		torreGUI.Init(meuLado);
+	}
+	
+	if(meuLado == LADO1){
+
+		guiNameSoldX = EUA_TEXT_X;
+		guiNameSoldY = EUA_TEXT_Y;
+		guiSoldTextX = SOLD_EUA_X;
+		guiSoldTextY = SOLD_EUA_Y;
+		guiDinX = MONEY_EUA_X;
+		guiDinY = MONEY_EUA_Y;
+		guiSoldX = GUI_EUA_X ;
+		guiSoldY = GUI_EUA_Y ;
+		guiCircleX = guiSoldX + 16;
+		guiCircleY = guiSoldY + 16;
 		meuLider.Init("Roosevelt");
+	}
 		
-	else if(meuLado == LADO2)
+	else if(meuLado == LADO2){
+		guiCircleX =
+		guiCircleY =
+		guiNameSoldX = URSS_TEXT_X;
+		guiNameSoldY = URSS_TEXT_Y;
+		guiSoldTextX = SOLD_URSS_X;
+		guiSoldTextY = SOLD_URSS_Y;
+		guiDinX = MONEY_URSS_X;
+		guiDinY = MONEY_URSS_Y;
 		meuLider.Init("Stalin");
+		guiSoldX = GUI_URSS_X ;
+		guiSoldY = GUI_URSS_Y;
+		guiCircleX = guiSoldX + 16;
+		guiCircleY = guiSoldY + 16;	
+	}
 
 	else
 		meuLider.Init("Hitler");
+	
+}
+
+//======================================================================
+// Procedimento de arrastar a torre após o click
+void Jogador::ArrastaTorre(CampoJogo meuCampo){
+	
+	int tMouseX,tMouseY, meuX, meuY;
+	Torre tempTorre;
+	tempTorre.Init(lado);
+	
+	if(flagTorre == true){
+		tMouseX = mousex() / TILE_W;
+		tMouseY = mousey() / TILE_H;
+		
+		meuX = tMouseX * TILE_W; 
+		meuY = tMouseY * TILE_H;
+	
+		tempTorre.x = meuX;
+		tempTorre.y = meuY;
+		
+		tempTorre.MostraTorre();
+		
+		if(ismouseclick(WM_LBUTTONUP )){
+			
+			clearmouseclick(WM_LBUTTONUP);
+			
+			if(meuCampo.PosExist(tMouseX,tMouseY) == true && 
+			meuCampo.PosExist(tMouseX,tMouseY - 1) == true){
+			
+				if(meuCampo.CheckPosTorre(tMouseX,tMouseY,lado) == true)	{
+					ColocaTorre(meuX,meuY);
+					std::cout << "validPos = true\n";
+				}
+			}
+			
+			flagTorre = false;		
+		}
+	}
+	
+}
+
+/*Cria uma nova torre para o jogador e coloca na posição
+ determinada*/
+void Jogador::ColocaTorre(int meuX, int meuY){
 	
 }
