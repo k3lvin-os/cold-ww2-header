@@ -47,16 +47,20 @@ struct Torre{
 	// Funções
 	void ImagensCanhao(char *rPath); // Equivalem ao "Carregar"
 	void ImagensTorre(char *rPath);  // de outras structs
-
 	void BuscaAlvo();
 	void Atira();
 	void MostraTorre();
 	void MostraCanhao(Direcao direcao);
 	
+	/*Funções relativas a lista encadeada empregada no tipo Torre*/
+	Torre* Insere(Torre *torre0, char* tipo, int meuX, int meuY);
+	void Remove(Torre *anterior);
+	void LimpaNo(Torre *torre0);
+	Torre* Anterior(Soldado *soldado0);	
 	
 	// "Construtores"
 	void Init();
-	void Init(char *tipoTorre);
+	void Init(char *tipoTorre, int meuX, int meuY);
 	
 		
 };
@@ -138,11 +142,12 @@ void Torre::Init(){
 
 
 // "Construtor" que recebe e constroi um tipo de torre em específico
-void Torre::Init(char *tipoTorre){
+void Torre::Init(char *tipoTorre, int meuX, int meuY){
 	
 	Init();
+	x = meuX;
+	y = meuY;
 	tipo = tipoTorre;
-	
 	if(tipo == "Eua" ){
 		ImagensTorre(TORRE_EUA);	
 		ImagensCanhao(CANHAO_EUA);
@@ -189,3 +194,17 @@ void Torre::MostraCanhao(Direcao direcao){
 		putimage(x + TILE_W,y,imagensCanhao[animAtual],OR_PUT);	
 	}
 }
+
+
+// Insere uma torre na lista encadeada
+Torre* Torre::Insere(Torre *torre0, char* tipo, int meuX, int meuY){
+	Torre *novo;
+	novo = (Torre *) malloc(sizeof(Torre));
+	novo->Init(tipo, meuX, meuY); // Inicializa o soldado
+	novo->prox = torre0->prox;
+	torre0->prox = novo;
+	
+	// Retorna a nova tropa
+	return novo;
+}
+
