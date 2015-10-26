@@ -46,7 +46,7 @@ void CampoJogo::LimpaMem(){
 // Limpa a zona de carregamento de imagens
 void CampoJogo::LimpaD(){
 
-	Mostrar(0,0,4,4); // Intervalo de tiles de desenho
+	Mostrar(0,0,1,2); // Intervalo de tiles de desenho
 }
 //=========================================================================
 
@@ -346,7 +346,7 @@ bool CampoJogo::CheckPosTorre(int tileX, int tileY, char *lado){
 	int tileCampo, inicioTCerca,fimTCerca,inicioTRota,fimTRota;
 	
 	nTileCima = posTile[tileX][tileY];
-	nTileBaixo = posTile[tileX][tileY - 1];
+	nTileBaixo = posTile[tileX][tileY + 1];
 	
 
 	
@@ -354,25 +354,19 @@ bool CampoJogo::CheckPosTorre(int tileX, int tileY, char *lado){
 		tileCampo = 5;
 		inicioTCerca = 12;
 		fimTCerca = 14;
-		inicioTRota = 18;
-		fimTRota = 23;		
 		
 	} else if(lado == "Urss"){
 		tileCampo = 6;
 		inicioTCerca = 15;
 		fimTCerca = 17;
-		inicioTRota = 24;
-		fimTRota = 29;		
 	}
 		
 			
 	if( (nTileCima == tileCampo) ||
-	 (nTileCima >= inicioTCerca && nTileCima <= fimTCerca)||
-	 (nTileCima >= inicioTRota && nTileCima <= fimTRota)){
+	 (nTileCima >= inicioTCerca && nTileCima <= fimTCerca)){
 		
 		if( (nTileBaixo == tileCampo) ||
-		 (nTileBaixo >= inicioTCerca && nTileBaixo <= fimTCerca)||
-	 	(nTileBaixo >= inicioTRota && nTileBaixo <= fimTRota))		
+		 (nTileBaixo >= inicioTCerca && nTileBaixo <= fimTCerca))		
 		 	validPos = true;
 	
 	}	

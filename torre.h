@@ -208,3 +208,18 @@ Torre* Torre::Insere(Torre *torre0, char* tipo, int meuX, int meuY){
 	return novo;
 }
 
+// Limpa a memória alocada dinamicamente
+void Torre::LimpaNo(Torre *torre0){
+	Torre *p, *aux;
+	p = torre0;
+	while(p != NULL){
+		aux = p;
+		p = p->prox;
+		free(aux->mascarasCanhao); 
+		free(aux->mascarasTorre);
+		free(aux->imagensTorre);
+		free(aux->imagensCanhao);
+		free(aux);
+	}
+	torre0 = NULL;	
+}

@@ -219,11 +219,23 @@ void Jogador::ArrastaTorre(CampoJogo meuCampo){
 	
 	int tMouseX,tMouseY, meuX, meuY;
 	Torre tempTorre;
-	tempTorre.Init(lado,0,0);
 	
 	if(flagTorre == true){
+		
+		tempTorre.Init(lado,0,0);
+		
 		tMouseX = mousex() / TILE_W;
 		tMouseY = mousey() / TILE_H;
+		
+		if(tMouseX < 1 )
+			tMouseX = 1;
+		else if(tMouseX > 38)
+			tMouseX = 38;
+		
+		if(tMouseY < 1)
+			tMouseY = 1;
+		else if(tMouseY > 17)
+			tMouseY = 17;
 		
 		meuX = tMouseX * TILE_W; 
 		meuY = tMouseY * TILE_H;
