@@ -40,6 +40,7 @@ struct Torre{
 	Torre *prox; // Próxima posição na lista encadeada	
 	int preco;	// Preço da torre
 	char *tipo;
+	TDelay tempoTrocaPos;
 	
 	// Soldado(s) que a torre não vai atacar
 	char *aliados[QTD_ALIADOS];
@@ -51,6 +52,7 @@ struct Torre{
 	void Atira();
 	void MostraTorre();
 	void MostraCanhao(Direcao direcao);
+	void SemAlvo();
 	
 	/*Funções relativas a lista encadeada empregada no tipo Torre*/
 	Torre* Insere(Torre *torre0, char* tipo, int meuX, int meuY);
@@ -138,6 +140,8 @@ void Torre::Init(){
 	seqAnim = DO1ATE3;
 	tipoAnimCanhao = 0;
 	preco = PRECO;
+	alvo = NULL;
+	tempoTrocaPos.Atualiza();
 }
 
 
@@ -222,4 +226,25 @@ void Torre::LimpaNo(Torre *torre0){
 		free(aux);
 	}
 	torre0 = NULL;	
+}
+
+
+// Comporatamento da Torre quando ela está sem alvo
+void Torre::SemAlvo(){
+	if(tempoTrocaPos.PassouDelay(TEMPO_TROCAPOS) == true){
+		tempoTrocaPos.Atualiza();
+		
+		if(posicao == TORRE_ESQ || posicao == TORRE_DIR)
+			posicao = TORRE_MEIO;
+			
+		else{
+			if(seqAnim == DO1ATE3){
+				posicao = TORRE_DIR;
+				seqAnim = DO3ATE1; 	
+			} else{
+				posicao = TORRE_ESQ;
+				seqAnim = DO1ATE3;
+			}
+		}	
+	}
 }

@@ -31,9 +31,10 @@ void TDelay::Atualiza(){
 bool TDelay::PassouDelay(int delay){
 	
 	bool passou;
+	int diferenca;
 	time_t agora;
 	time(&agora);
-	int diferenca = (int ) difftime(agora,marcador);
+	diferenca = (int ) difftime(agora,marcador);
 	
 	if(diferenca >= delay)	
 		return true; 

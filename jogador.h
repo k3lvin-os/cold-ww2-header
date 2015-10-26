@@ -252,9 +252,10 @@ void Jogador::ArrastaTorre(CampoJogo meuCampo){
 			if(meuCampo.PosExist(tMouseX,tMouseY) == true && 
 			meuCampo.PosExist(tMouseX,tMouseY - 1) == true){
 			
-				if(meuCampo.CheckPosTorre(tMouseX,tMouseY,lado) == true)	{
-					ColocaTorre(meuX,meuY);
-					//std::cout << "validPos = true\n";
+				if(meuCampo.CheckPosTorre(tMouseX,tMouseY,lado) == true){
+					
+				//	if(SemTorrePerto(torre0,tempTorre.x,tempTorre.y) == true)
+						ColocaTorre(meuX,meuY);
 				}
 			}
 			

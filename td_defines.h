@@ -149,6 +149,10 @@
 #define SOLD_EUA_X TILE_W * 32
 #define SOLD_EUA_Y TILE_H * 19
 
+// Delay para torre trocar a posição quando 
+//no modo Sem Alvo
+#define TEMPO_TROCAPOS 1
+
 
 // Posição do texto da torre
 #define TORRE_TEXT_X TILE_W * 19 - 8
