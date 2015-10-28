@@ -48,11 +48,12 @@ struct Torre{
 	// Funções
 	void ImagensCanhao(char *rPath); // Equivalem ao "Carregar"
 	void ImagensTorre(char *rPath);  // de outras structs
-	void BuscaAlvo();
+	void BuscaAlvo(Soldado *inimigo0);
 	void Atira();
 	void MostraTorre();
 	void MostraCanhao(Direcao direcao);
-	void SemAlvo();
+	bool CampoVisao(Soldado inimigo);
+	void AnimacaoPatrulha();
 	bool SemTorrePerto(Torre *torre0,int x,int y);
 	
 	
@@ -253,7 +254,7 @@ void Torre::LimpaNo(Torre *torre0){
 
 
 // Comporatamento da Torre quando ela está sem alvo
-void Torre::SemAlvo(){
+void Torre::AnimacaoPatrulha(){
 	if(tempoTrocaPos.PassouDelay(TEMPO_TROCAPOS) == true){
 		tempoTrocaPos.Atualiza();
 		
@@ -274,7 +275,7 @@ void Torre::SemAlvo(){
 
 
 //==================================================
-// Verifica se não há torres do jogador no tile de cima ou no tile de baixo
+// Verifica se não há torres do jogador nos tiles de cima e de baixo
 bool Torre::SemTorrePerto(Torre *torre0, int x,int y){
 	
 	bool semTorrePerto;
@@ -292,4 +293,40 @@ bool Torre::SemTorrePerto(Torre *torre0, int x,int y){
 	
 	return semTorrePerto;
 }
+
+
+//===============================================================
+// Procura um alvo para torre atirar
+void Torre::BuscaAlvo(Soldado *inimigo0){
+	
+	Soldado *pSold;
+		
+	pSold = inimigo0->prox;
+	for(;pSold != NULL && alvo == NULL;pSold = pSold->prox){
+		
+		if(CampoVisao(*pSold) == true){
+			alvo = pSold;
+			std::cout << "Encontrei um alvo!!\n"; // Teste
+		}
+	}
+}
+
+// Verifica se o soldado está no campo de visão da torre
+bool Torre::CampoVisao(Soldado inimigo){
+	
+	bool campoVisao;
+	double tempX, tempY, distRaio;
+	
+	tempX = pow( (inimigo.x - x),2.0);
+	tempY = pow( (inimigo.y - y),2.0);
+	distRaio = sqrt( tempX + tempY);
+	
+	if(distRaio < TORRE_RAIO)
+		campoVisao = true;
+	else
+		campoVisao = false;
+	
+	return campoVisao;
+}
+
 

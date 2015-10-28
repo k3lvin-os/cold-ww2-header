@@ -44,7 +44,7 @@ struct Soldado{
 	char *dest;
 	bool chegou; // Indica se o soldado chegou ao destino
 	bool visivel; // Indica se o soldado chegou ao ponto visivel
-	bool liberado; // Indica se o soldado foi liberado da fila de inimigos
+	bool liberado; // Indica se o soldado foi liberado da fila de inimigomigos
  	Soldado *prox;	// Próxima célula da lista encadeada
 	int preco;
 
@@ -138,7 +138,7 @@ void Soldado::Morre(Soldado *anterior){
 
 //===========================================================================
 
-// Comportamento do soldado ao chegar na base inimiga
+// Comportamento do soldado ao chegar na base inimigomiga
 void Soldado::Chegou(Soldado *anterior){
 	
 	// Insira o comportamento de infrigir dano aqui
@@ -232,7 +232,7 @@ void Soldado::Move(){
 // "Construtor" sem parâmetros
 void Soldado::Init(){
 	
-	// qtd. de vida inicial
+	// qtd. de vida inimigocial
 	vida = VIDA;
 	preco = PRECO;
 	speed = SPEED;
@@ -675,7 +675,7 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 	// Ponto cego da tela
 	if(posCego == false){
 		
-		if(movNUntil == false){		 // destino foi definido?
+		if(movNUntil == false){		 // destino foi definimigodo?
 		
 			Until(pCegoX,pCegoY);  // define destino
 		}

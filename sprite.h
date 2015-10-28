@@ -25,7 +25,7 @@
 		
 		int size;
 		
-		// Vá para uma posição padrão de inicio
+		// Vá para uma posição padrão de inimigocio
 		GoTo(0,0);
 		
 		// Configura a cor e pinta o tile

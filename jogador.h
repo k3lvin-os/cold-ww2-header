@@ -28,7 +28,7 @@ struct Jogador{
 	// Marcador de tempo de envio de soldados
 	TDelay envioSold;
 	
-	// Marcador de tempo para espera de inimigos
+	// Marcador de tempo para espera de inimigo
 	TDelay esperaIni;
 	
 	// Dinheiro do jogador
@@ -244,6 +244,9 @@ void Jogador::ArrastaTorre(CampoJogo meuCampo){
 		tempTorre.y = meuY;
 		
 		tempTorre.MostraTorre();
+		
+		setcolor(BLUE);
+		circle(meuX + 16,meuY + 16,TORRE_RAIO);
 		
 		if(ismouseclick(WM_LBUTTONUP )){
 			

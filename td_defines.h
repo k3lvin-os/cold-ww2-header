@@ -117,7 +117,7 @@
 // Representa que não há onda há serem enviadas
 #define SEM_ONDA '?'
 
-// Define o inicio e o fim do jogo
+// Define o inimigocio e o fim do jogo
 #define BEGIN 0 // 0 s 
 #define END 270 // 5 m 30 s 
 
@@ -167,6 +167,9 @@
 #define MONEY_EUA_Y 21 * TILE_H 
 #define MONEY_URSS_X 14 * TILE_W - 10
 #define MONEY_URSS_Y 21 * TILE_H 	
+
+// Raio de alacance padrão para as torres
+#define TORRE_RAIO 100
 
 
 // Opções para lado do jogador
