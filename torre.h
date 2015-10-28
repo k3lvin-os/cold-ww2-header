@@ -53,6 +53,8 @@ struct Torre{
 	void MostraTorre();
 	void MostraCanhao(Direcao direcao);
 	void SemAlvo();
+	bool SemTorrePerto(Torre *torre0,int x,int y);
+	
 	
 	/*Funções relativas a lista encadeada empregada no tipo Torre*/
 	Torre* Insere(Torre *torre0, char* tipo, int meuX, int meuY);
@@ -248,3 +250,25 @@ void Torre::SemAlvo(){
 		}	
 	}
 }
+
+
+//==================================================
+// Verifica se não há torres do jogador no tile de cima ou no tile de baixo
+bool Torre::SemTorrePerto(Torre *torre0, int x,int y){
+	
+	bool semTorrePerto;
+	Torre *pTorre;
+	
+	semTorrePerto = true;
+	
+	pTorre = torre0->prox;
+	for(; pTorre != NULL && semTorrePerto == true; pTorre = pTorre->prox){
+		
+		if( (x == pTorre->x && y == pTorre->y) || 
+		(x == pTorre->x && y == pTorre->y + TILE_H) )
+			 semTorrePerto = false;
+	}
+	
+	return semTorrePerto;
+}
+

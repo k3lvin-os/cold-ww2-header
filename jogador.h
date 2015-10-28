@@ -254,7 +254,7 @@ void Jogador::ArrastaTorre(CampoJogo meuCampo){
 			
 				if(meuCampo.CheckPosTorre(tMouseX,tMouseY,lado) == true){
 					
-				//	if(SemTorrePerto(torre0,tempTorre.x,tempTorre.y) == true)
+					if(torre0->SemTorrePerto(torre0,meuX,meuY) == true)
 						ColocaTorre(meuX,meuY);
 				}
 			}
