@@ -351,7 +351,7 @@ bool CampoJogo::CheckPosTorre(int tileX, int tileY, char *lado){
 
 	
 	if(lado == "Eua"){
-		tileCampo = 5;
+		tileCampo = 6; // Alteração a fim de testes
 		inicioTCerca = 12;
 		fimTCerca = 14;
 		

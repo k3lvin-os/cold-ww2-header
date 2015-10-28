@@ -1,6 +1,6 @@
 // Relação entre sprites da torre e dos indices do array
 enum PosicaoTorre{
-	TORRE_ESQ = 0,TORRE_MEIO,TORRE_DIR, QTD_TORRE_POS
+	TORRE_ESQ = 0,TORRE_MEIO,TORRE_DIR, TORRE_GUI, QTD_IMG_TORRE
 };
 
 // Relação entre os sprites do canhão da torre e dos indices do array
@@ -28,8 +28,8 @@ struct Torre{
 	
 	
 	// Imagens das posições da torre
-	void *imagensTorre[QTD_TORRE_POS];
-	void *mascarasTorre[QTD_TORRE_POS];
+	void *imagensTorre[QTD_IMG_TORRE];
+	void *mascaraGUI;
 	
 	// Imagens dos canhões da torre
 	void *imagensCanhao[QTD_IMG_CANHAO];
@@ -65,6 +65,8 @@ struct Torre{
 	// "Construtores"
 	void Init();
 	void Init(char *tipoTorre, int meuX, int meuY);
+	void Init(char *tipoTorre, int meuX, int meuY, bool isGUI);
+	
 	
 		
 };
@@ -75,10 +77,11 @@ void Torre::ImagensTorre(char *rPath){
 	
 	int size, inicio, fim;	
 	int i, indiceH;	
-	char pathImg[60]; 	
+	char pathImg[60];
+	char pathMask[60]; 	
 	char temp[3]; 
 
-	for(i = 0; i < QTD_IMG_CANHAO; i++){
+	for(i = 0; i < QTD_IMG_TORRE; i++){
 		
 		strcpy(pathImg,ASSETS);
 		strcat(pathImg,rPath);
@@ -93,7 +96,12 @@ void Torre::ImagensTorre(char *rPath){
 		strcat(pathImg,BITMAP);
 		
 		imagensTorre[i] = GetImage(pathImg,TORRE_W,TORRE_H);
-	}		
+	}
+	strcpy(pathMask,ASSETS);
+	strcat(pathMask,rPath);
+	strcat(pathMask,"04M");
+	strcat(pathMask,BITMAP);
+	mascaraGUI = GetImage(pathMask,TORRE_W,TORRE_H);
 }
 
 //================================================================
@@ -167,9 +175,17 @@ void Torre::Init(char *tipoTorre, int meuX, int meuY){
 	}
 }
 
+// Construtor que verifica se a torre é uma GUI ou não
+void Torre::Init(char *tipoTorre, int meuX, int meuY, bool isGUI){
+	Init(tipoTorre,meuX,meuY);
+	
+	if(isGUI == true)
+		posicao = TORRE_GUI;
+}
+
+
 // Mostra a torre
 void Torre::MostraTorre(){
-	putimage(x,y,imagensTorre[posicao],0);
 	
 	if(posicao == TORRE_ESQ){
 		MostraCanhao(ESQUERDA);
@@ -179,8 +195,13 @@ void Torre::MostraTorre(){
 		MostraCanhao(ESQUERDA);
 		MostraCanhao(DIREITA);
 	}
-
 	
+	if(posicao == TORRE_GUI){
+		putimage(x,y,mascaraGUI,AND_PUT);
+		putimage(x,y,imagensTorre[posicao],OR_PUT);
+	} else
+		putimage(x,y,imagensTorre[posicao],0);
+		
 
 }
 
@@ -222,7 +243,7 @@ void Torre::LimpaNo(Torre *torre0){
 		aux = p;
 		p = p->prox;
 		free(aux->mascarasCanhao); 
-		free(aux->mascarasTorre);
+		free(aux->mascaraGUI);
 		free(aux->imagensTorre);
 		free(aux->imagensCanhao);
 		free(aux);

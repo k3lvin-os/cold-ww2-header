@@ -206,7 +206,7 @@ void Jogador::Init(char *meuLado){
 		soldGUI.Init(meuLado);
 		soldGUI.GoTo(guiSoldX,guiSoldY);
 		soldGUI.TrocaDir(CIMA);
-		torreGUI.Init(meuLado,TORRE1_X,TORRE1_Y);		
+		torreGUI.Init(meuLado,TORRE1_X,TORRE1_Y,true);		
 	}
 	else
 		meuLider.Init("Hitler");
@@ -222,7 +222,7 @@ void Jogador::ArrastaTorre(CampoJogo meuCampo){
 	
 	if(flagTorre == true){
 		
-		tempTorre.Init(lado,0,0);
+		tempTorre.Init(lado,0,0,true);
 		
 		tMouseX = mousex() / TILE_W;
 		tMouseY = mousey() / TILE_H;
