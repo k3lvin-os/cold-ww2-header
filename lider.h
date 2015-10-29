@@ -13,7 +13,8 @@ struct Lider{
 	int imgAtual;			// Imagem atual do lider
 	TDelay delayImg;		// Delay do lider ao tomar dano
 	void *imagens[QTD_IMG];	// Imagens/ Sprites do soldado
-	bool furia;
+	bool furia;				// Indica se está com sprite de fúria
+	unsigned int *vida;				// Vida do jogador que controla o lider
 	TDelay tempoFuria;      // Tempo que o líder fica em estado de fúria
 	
 	
@@ -22,9 +23,9 @@ struct Lider{
 	void TrocaImg(ImgLider minhaImg);
 	void Carrega(char *rPath);
 	void Init();
-	void Init(char *nomeLider);
+	void Init(char *nomeLider, unsigned int *vidaJogador);
 	void Furia();
-	void VerificaImg(int vidaJogador);
+	void VerificaImg();
 	void VerificaFuria();
 
 	
@@ -42,8 +43,8 @@ void Lider::Init(){
 }
 
 // Verifica qual imagem do lider deve ser mostrada
-void Lider::VerificaImg(int vidaJogador){
-	if(vidaJogador <= 0)
+void Lider::VerificaImg(){
+	if(*vida <= 0)
 		imgAtual = MORTO; 	
 	else if(furia == true)
 		imgAtual = BRAVO;
@@ -58,10 +59,11 @@ void Lider::VerificaImg(int vidaJogador){
 
 //==========================================================================
 // "Construtor" específico do líder
-void Lider::Init(char *nomeLider){
+void Lider::Init(char *nomeLider, unsigned *vidaJogador){
 	
 	Init();
 	nome = nomeLider;
+	vida = vidaJogador;
 		
 	if(nome == "Roosevelt"){
 		x = ROOSEVELT_X;

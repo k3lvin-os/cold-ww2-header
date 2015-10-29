@@ -124,6 +124,9 @@
 // Tempo de fúria dos lideres
 #define TEMPOFURIA 2000 // 2 s
 
+// Tempo de reload da torre
+#define TORRE_RELOAD 1
+
 
 // Posição da GUI do soldado EUA
 #define GUI_EUA_X  TILE_W * 33
@@ -169,7 +172,7 @@
 #define MONEY_URSS_Y 21 * TILE_H 	
 
 // Raio de alacance padrão para as torres
-#define TORRE_RAIO 100
+#define TORRE_RAIO 75
 
 
 // Opções para lado do jogador

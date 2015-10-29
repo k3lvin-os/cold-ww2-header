@@ -20,7 +20,7 @@ struct Jogador{
 	Torre *torre0;
 	
 	// Vida do jogador
-	int vida;
+	unsigned int vida;
 	
 	// Lado do jogador
 	char* lado;
@@ -35,7 +35,7 @@ struct Jogador{
 	int dinheiro;
 	
 	// Avatar do jogador (Roosevalt, Stallin ou Hitler)
-	Lider meuLider;	
+	Lider lider;	
 	
 	// Flag para indicar que ele está colocando uma torre
 	bool flagTorre;
@@ -186,7 +186,7 @@ void Jogador::Init(char *meuLado){
 			guiSoldY = GUI_EUA_Y ;
 			guiCircleX = guiSoldX + 16;
 			guiCircleY = guiSoldY + 16;
-			meuLider.Init("Roosevelt");
+			lider.Init("Roosevelt",&vida);
 		}
 			
 		else if(meuLado == LADO2){
@@ -196,7 +196,7 @@ void Jogador::Init(char *meuLado){
 			guiSoldTextY = SOLD_URSS_Y;
 			guiDinX = MONEY_URSS_X;
 			guiDinY = MONEY_URSS_Y;
-			meuLider.Init("Stalin");
+			lider.Init("Stalin",&vida);
 			guiSoldX = GUI_URSS_X ;
 			guiSoldY = GUI_URSS_Y;
 			guiCircleX = guiSoldX + 16;
@@ -209,7 +209,7 @@ void Jogador::Init(char *meuLado){
 		torreGUI.Init(meuLado,TORRE1_X,TORRE1_Y,true);		
 	}
 	else
-		meuLider.Init("Hitler");
+		lider.Init("Hitler",&vida);
 	
 }
 
@@ -246,7 +246,7 @@ void Jogador::ArrastaTorre(CampoJogo meuCampo){
 		tempTorre.MostraTorre();
 		
 		setcolor(BLUE);
-		circle(meuX + 16,meuY + 16,TORRE_RAIO);
+		circle(meuX + 16,meuY + 32,TORRE_RAIO);
 		
 		if(ismouseclick(WM_LBUTTONUP )){
 			

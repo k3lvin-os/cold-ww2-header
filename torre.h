@@ -54,6 +54,7 @@ struct Torre{
 	void MostraCanhao(Direcao direcao);
 	bool CampoVisao(Soldado inimigo);
 	void AnimacaoPatrulha();
+	void AnimacaoMira();
 	bool SemTorrePerto(Torre *torre0,int x,int y);
 	
 	
@@ -314,11 +315,15 @@ void Torre::BuscaAlvo(Soldado *inimigo0){
 // Verifica se o soldado está no campo de visão da torre
 bool Torre::CampoVisao(Soldado inimigo){
 	
+	int torreX, torreY;
 	bool campoVisao;
 	double tempX, tempY, distRaio;
 	
-	tempX = pow( (inimigo.x - x),2.0);
-	tempY = pow( (inimigo.y - y),2.0);
+	torreX = x + TORRE_W / 2;
+	torreY = y + TORRE_H / 2;
+	
+	tempX = pow( (inimigo.x - torreX),2.0);
+	tempY = pow( (inimigo.y - torreY),2.0);
 	distRaio = sqrt( tempX + tempY);
 	
 	if(distRaio < TORRE_RAIO)
@@ -329,4 +334,22 @@ bool Torre::CampoVisao(Soldado inimigo){
 	return campoVisao;
 }
 
+// Atira no alvo
+void Torre::Atira(){
+	int dano;
+	dano = 30 + rand() % 51;
+	alvo->vida -= dano;
+	
+	if(alvo->vida <= 0)
+		alvo = NULL;
+}
+
+// Troca de posição conforme a posição do alvo
+void Torre::AnimacaoMira(){
+
+	if(x >= alvo->x)
+		posicao = TORRE_ESQ;
+	else
+		posicao = TORRE_DIR;
+}
 
