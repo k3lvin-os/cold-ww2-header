@@ -5,13 +5,13 @@ struct BarraVida{
 	static const int MAX_SOLD_VIDA = 50;
 	static const int MAX_LIDER_VIDA = 64; 
 	// Prototipo de barra de vida
-	void Show(int x, int y, unsigned int vida, char *tipo);
-	int CalcDano(unsigned int vida, int maxVida);
+	void Show(int x, int y, int vida, char *tipo);
+	int CalcDano(int vida, int maxVida);
 	
 };
 
 // Mostra barra de vida do soldado
-void BarraVida::Show(int x, int y, unsigned int vida, char *tipo){
+void BarraVida::Show(int x, int y, int vida, char *tipo){
 	int left,top, right, bottom, dano, maxVida;
 	
 	if (tipo == "soldado"){
@@ -46,7 +46,7 @@ void BarraVida::Show(int x, int y, unsigned int vida, char *tipo){
 
 
 // Calcula o dano com base na qtd. de vida
-int BarraVida::CalcDano(unsigned int vida, int maxVida){
+int BarraVida::CalcDano(int vida, int maxVida){
 	int porCent, porCentDano, dano;
 	
 	porCent = (vida * 100.0) / VIDA;

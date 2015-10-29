@@ -125,7 +125,7 @@
 #define TEMPOFURIA 2000 // 2 s
 
 // Tempo de reload da torre
-#define TORRE_RELOAD 1
+#define TORRE_RELOAD 2
 
 
 // Posição da GUI do soldado EUA

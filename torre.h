@@ -48,7 +48,7 @@ struct Torre{
 	// Funções
 	void ImagensCanhao(char *rPath); // Equivalem ao "Carregar"
 	void ImagensTorre(char *rPath);  // de outras structs
-	void BuscaAlvo(Soldado *inimigo0);
+	bool BuscaAlvo(Soldado *inimigo0);
 	void Atira();
 	void MostraTorre();
 	void MostraCanhao(Direcao direcao);
@@ -298,7 +298,7 @@ bool Torre::SemTorrePerto(Torre *torre0, int x,int y){
 
 //===============================================================
 // Procura um alvo para torre atirar
-void Torre::BuscaAlvo(Soldado *inimigo0){
+bool Torre::BuscaAlvo(Soldado *inimigo0){
 	
 	Soldado *pSold;
 		
@@ -307,9 +307,13 @@ void Torre::BuscaAlvo(Soldado *inimigo0){
 		
 		if(CampoVisao(*pSold) == true){
 			alvo = pSold;
-			std::cout << "Encontrei um alvo!!\n"; // Teste
 		}
 	}
+	
+	if(alvo != NULL)
+		return true;
+	else
+		return false;
 }
 
 // Verifica se o soldado está no campo de visão da torre
@@ -337,8 +341,9 @@ bool Torre::CampoVisao(Soldado inimigo){
 // Atira no alvo
 void Torre::Atira(){
 	int dano;
-	dano = 30 + rand() % 51;
+	dano = 30 + rand() % 31;
 	alvo->vida -= dano;
+	std::cout << "Vida do soldado = " << alvo->vida << std::endl;
 	
 	if(alvo->vida <= 0)
 		alvo = NULL;

@@ -20,7 +20,7 @@ struct Jogador{
 	Torre *torre0;
 	
 	// Vida do jogador
-	unsigned int vida;
+	int vida;
 	
 	// Lado do jogador
 	char* lado;

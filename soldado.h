@@ -28,7 +28,7 @@ struct Soldado{
 	static const int PRECO = 10;
 	
 	// Variáveis	
-	unsigned int vida;	
+	int vida;	
 	int speed;	
 	int imgAtual;
 	int x, y;	
