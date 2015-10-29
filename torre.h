@@ -18,7 +18,6 @@ struct Torre{
 	
 	// Qtd. de posições do array de soldados aliados
 	static const int QTD_ALIADOS = 1;
-	static const int PRECO = 70;
 	
 	// Propriedades
 	int x, y;
@@ -151,7 +150,6 @@ void Torre::Init(){
 	reload.Atualiza();
 	seqAnim = DO1ATE3;
 	tipoAnimCanhao = 0;
-	preco = PRECO;
 	alvo = NULL;
 	tempoTrocaPos.Atualiza();
 }

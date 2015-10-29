@@ -60,7 +60,7 @@ struct Jogador{
 	void NovoIni();
 	void EnviaIni();
 	void ArrastaTorre(CampoJogo meuCampo);
-	void ColocaTorre(int meuX, int meuY);
+	bool Compra(int preco);
 
 		
 	// "Construtores"
@@ -134,7 +134,7 @@ void Jogador::InputGUI(){
 				
 				envioSold.Atualiza();	
 			
-				if (soldado0->Compra(&dinheiro) == true)				
+				if (Compra(PRECO_SOLDADO) == true)	// Corrigir Ordem			
  					soldado0->Insere(soldado0,lado);				
 			}
 		}
@@ -252,24 +252,33 @@ void Jogador::ArrastaTorre(CampoJogo meuCampo){
 			
 			clearmouseclick(WM_LBUTTONUP);
 			
-			if(meuCampo.PosExist(tMouseX,tMouseY) == true && 
-			meuCampo.PosExist(tMouseX,tMouseY - 1) == true){
-			
-				if(meuCampo.CheckPosTorre(tMouseX,tMouseY,lado) == true){
-					
-					if(torre0->SemTorrePerto(torre0,meuX,meuY) == true)
-						ColocaTorre(meuX,meuY);
+				if(meuCampo.PosExist(tMouseX,tMouseY) == true && 
+				meuCampo.PosExist(tMouseX,tMouseY - 1) == true){
+				
+					if(meuCampo.CheckPosTorre(tMouseX,tMouseY,lado) == true){
+						
+						if(torre0->SemTorrePerto(torre0,meuX,meuY) == true){
+							if(Compra(PRECO_TORRE) == true){
+								torre0->Insere(torre0,lado,meuX,meuY);
+							}
+
+						}
+					}
 				}
-			}
-			
 			flagTorre = false;		
 		}
 	}
-	
 }
 
-/*Cria uma nova torre para o jogador e coloca na posição
- determinada*/
-void Jogador::ColocaTorre(int meuX, int meuY){
-	torre0->Insere(torre0,lado,meuX,meuY);
+
+
+/*Compra e paga algum recurso. 
+Retorna true ou false dependendo do dinheiro para compra*/
+bool Jogador::Compra(int preco){
+
+	if(dinheiro >= preco){
+		dinheiro -= preco;
+		return true;
+	} else
+		return false;
 }

@@ -25,7 +25,6 @@ struct Soldado{
 	static const int IMGATUAL = 4; // corresponde ao "BAIXO2"
 	static const NomeSprit QTD_IMG = numSprit;
 	static const int UNDEFINE = -1;
-	static const int PRECO = 10;
 	
 	// Variáveis	
 	int vida;	
@@ -46,7 +45,6 @@ struct Soldado{
 	bool visivel; // Indica se o soldado chegou ao ponto visivel
 	bool liberado; // Indica se o soldado foi liberado da fila de inimigomigos
  	Soldado *prox;	// Próxima célula da lista encadeada
-	int preco;
 
 	//=============================================================================
 	
@@ -64,17 +62,11 @@ struct Soldado{
 	void UltTile(int *ultTile);
 	
 	/*Funções relativas a lista encadeada empregada no tipo Soldado*/
-	void Morre(Soldado *anterior);
 	Soldado* Insere(Soldado *soldado0, char* tipo);
 	Soldado* Insere(Soldado *soldado0, char* tipo, char *dest);
 	void Remove(Soldado *anterior);
 	void LimpaNo(Soldado *soldado0);
-	void Chegou(Soldado *anterior);
 	Soldado* Anterior(Soldado *soldado0);
-	
-	/*Funções que não estão na devida struct*/
-	bool Compra(int *dinheiro);
-
 
 	// "Construtores"
 	void Init(char* tipo);
@@ -90,27 +82,7 @@ void Soldado::Init(char* tipo, char *meuDest){
 	dest = meuDest;
 }
 
-//==================================================================
-
-// DelayEnvio a compra de um soldado
-bool Soldado::Compra(int *dinheiro){
-	
-	/*Se o dinheiro for suficiente*/
-	if(*dinheiro >= PRECO){
-		
-		// Paga o soldado e valida a compra
-		*dinheiro -= PRECO;
-		return true;
-	}else{
-		
-		// Não compra nada u.u
-		return false;
-	}	
-	
-}
-
-//====================================================================
-
+//=====================================================================
 // Calcula o soldado anterior a partir posição atual 
 Soldado* Soldado::Anterior(Soldado *soldado0){
 	Soldado *p;
@@ -124,31 +96,6 @@ Soldado* Soldado::Anterior(Soldado *soldado0){
 		
 	return p;
 }
-
-
-//===========================================================================
-// Comportamento encadeada pela morte do soldado
-void Soldado::Morre(Soldado *anterior){
-	// Insira o comportamento de morte aqui (algum som, troca de sprite,...)
-	//[...]
-	
-	// Reomove o soldado da lista encadeada
-	Remove(anterior);
-}
-
-//===========================================================================
-
-// Comportamento do soldado ao chegar na base inimigomiga
-void Soldado::Chegou(Soldado *anterior){
-	
-	// Insira o comportamento de infrigir dano aqui
-	//[...]
-	
-	// Remove o soldado da lista encadeada
-	Remove(anterior);
-}
-
-
 //===========================================================================
 // Remove o soldado da lista encadeada com base em seu antecessor
 void Soldado::Remove(Soldado *anterior){
@@ -234,7 +181,6 @@ void Soldado::Init(){
 	
 	// qtd. de vida inimigocial
 	vida = VIDA;
-	preco = PRECO;
 	speed = SPEED;
 	x = 0;
 	y = 0;
@@ -264,7 +210,6 @@ void Soldado::Init(char* tipoSold ){
 	if(tipoSold == "Nazi"){
 		
 		Carrega(NAZI);			
-		preco = 0;
 		posCego = true; 		
 	}
 	

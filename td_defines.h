@@ -117,6 +117,9 @@
 // Representa que não há onda há serem enviadas
 #define SEM_ONDA '?'
 
+// Dano que o soldado infrige quando chega na base inimiga
+#define DANO_CHEGOU 10
+
 // Define o inimigocio e o fim do jogo
 #define BEGIN 0 // 0 s 
 #define END 270 // 5 m 30 s 
@@ -125,7 +128,17 @@
 #define TEMPOFURIA 2000 // 2 s
 
 // Tempo de reload da torre
-#define TORRE_RELOAD 2
+#define TORRE_RELOAD 1
+
+// Preço de enviar um soldado
+#define PRECO_SOLDADO 10
+
+// Preço de colocar uma torre
+#define PRECO_TORRE 50
+
+// Bonus por matar soldado atacante
+#define BONUS_SOLD 10
+
 
 
 // Posição da GUI do soldado EUA
