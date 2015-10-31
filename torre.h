@@ -341,10 +341,9 @@ void Torre::Atira(){
 	int dano;
 	dano = 30 + rand() % 31;
 	alvo->vida -= dano;
-	std::cout << "Vida do soldado = " << alvo->vida << std::endl;
 	
-	if(alvo->vida <= 0)
-		alvo = NULL;
+	/*if(alvo->vida <= 0) Isso está sendo feito na função EnviaSold
+		alvo = NULL;*/
 }
 
 // Troca de posição conforme a posição do alvo

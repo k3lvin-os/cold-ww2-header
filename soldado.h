@@ -103,6 +103,7 @@ void Soldado::Remove(Soldado *anterior){
 	remove = anterior->prox;
 	anterior->prox = remove->prox;
 	free(remove);
+	remove = NULL;
 }
 
 

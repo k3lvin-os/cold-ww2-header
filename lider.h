@@ -130,13 +130,11 @@ void Lider::Furia(){
 	tempoFuria.Atualiza();
 }
 
-
+// Verifica se o tempo de fúria (sprite de fúria) passou
 void Lider::VerificaFuria(){
 	
-	bool passou;
 	if(furia == true){
-		passou = tempoFuria.PassouDelay(TEMPOFURIA);
-		if(passou == true)
+		if (tempoFuria.PassouDelay(TEMPOFURIA) == true)
 			furia = false;
 	}
 }
