@@ -188,6 +188,14 @@
 #define TORRE_RAIO 75
 
 
+// Posição do logo de jogo
+#define LOGO_X TILE_W * 11
+#define LOGO_Y TILE_H * 5
+
+#define LOGO2_X TILE_W * 14
+#define LOGO2_Y TILE_H * 8 - 16 
+
+
 // Opções para lado do jogador
 #define LADO1 "Eua"
 #define LADO2 "Urss"
