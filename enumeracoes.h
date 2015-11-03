@@ -1,0 +1,9 @@
+enum EscolhaEmMenu{
+	SEM_ESCOLHA = 0, 
+	MENU,
+	UM_JOGADOR, 
+	DOIS_JOGADORES,
+	 CREDITOS, 
+	 MENU_UM_JOG,
+	  SAIR
+};
