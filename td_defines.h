@@ -196,6 +196,17 @@
 #define LOGO2_Y TILE_H * 8 - 16 
 
 
+// Posição dos botões de menu de jogo
+#define BOTAO1_X 9 * TILE_W
+#define BOTAO1_Y 13 * TILE_H
+
+#define BOTAO2_X 19 * TILE_W
+#define BOTAO2_Y 13 * TILE_H
+
+#define BOTAO3_X 29 * TILE_W
+#define BOTAO3_Y 13 * TILE_H
+
+
 // Opções para lado do jogador
 #define LADO1 "Eua"
 #define LADO2 "Urss"
