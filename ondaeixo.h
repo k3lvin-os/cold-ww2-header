@@ -6,12 +6,15 @@ struct OndaEixo{
 	// Manipula os dados da IA (Eixo)
 	Jogador *eixoIA;
 	
+	// Velocidade do jogo
+	int *gameSpeed;
+	
 	// Indica o destino dos soldados da IA
 	char *dest;
 	
 	//"Construtores"
 	void Init();
-	void Init(Jogador *oEixoIA);
+	void Init(Jogador *oEixoIA, int *velocidadeJogo);
 	
 	// Funções
 	void Verifica(char onda, char* chegou,CampoJogo meuCampo);
@@ -24,14 +27,16 @@ struct OndaEixo{
 void OndaEixo::Init(){
 	int i;
 	
+	gameSpeed = NULL;
 	dest = NULL;
 	for(i = 0; i < QTD_ONDA;i++)
 		onda[i] = false;
 }
 
 //  "Construtor" com parâmetros
-void OndaEixo::Init(Jogador *oEixoIA){
+void OndaEixo::Init(Jogador *oEixoIA, int *velocidadeJogo){
 	Init();
+	gameSpeed = velocidadeJogo;
 	eixoIA = oEixoIA;
 }
 
@@ -48,7 +53,7 @@ void OndaEixo::InsereEixo(int x, int y, int qtd, int nFlag){
 		
 		for(i = 0; i < qtd; i++){
 			
-			pSold = soldado0->Insere(soldado0,"Nazi",dest);
+			pSold = soldado0->Insere(soldado0,"Nazi",*gameSpeed,dest);
 			pSold->GoTo(x,y);
 		}
 		

@@ -22,6 +22,9 @@ struct Jogador{
 	// Vida do jogador
 	int vida;
 	
+	//  Velocidade do jogo
+	int *gameSpeed;
+	
 	// Lado do jogador
 	char* lado;
 	
@@ -65,7 +68,7 @@ struct Jogador{
 		
 	// "Construtores"
 	void Init();
-	void Init(char* meuLado);
+	void Init(char* meuLado, int *velocidadeJogo);
 	
 };
 
@@ -135,7 +138,7 @@ void Jogador::InputGUI(){
 				envioSold.Atualiza();	
 			
 				if (Compra(PRECO_SOLDADO) == true)	// Corrigir Ordem			
- 					soldado0->Insere(soldado0,lado);				
+ 					soldado0->Insere(soldado0,lado,*gameSpeed);				
 			}
 		}
 		
@@ -161,16 +164,17 @@ void Jogador::Init(){
 	esperaIni.Atualiza();
 	vida = VIDA;
 	lado = NULL;
+	gameSpeed = NULL;
 	flagTorre = false;
 }
 
 //=================================================================
 // Chama o construtor geral e também passa dados específicos
-void Jogador::Init(char *meuLado){
+void Jogador::Init(char *meuLado, int *velocidadeJogo){
 	
 	Init();
 	lado = meuLado;	
-	
+	gameSpeed = velocidadeJogo;
 		
 	if(meuLado == LADO1 || meuLado == LADO2){
 		
@@ -203,7 +207,7 @@ void Jogador::Init(char *meuLado){
 			guiCircleY = guiSoldY + 16;	
 		}		
 		
-		soldGUI.Init(meuLado);
+		soldGUI.Init(meuLado,0);
 		soldGUI.GoTo(guiSoldX,guiSoldY);
 		soldGUI.TrocaDir(CIMA);
 		torreGUI.Init(meuLado,TORRE1_X,TORRE1_Y,true);		

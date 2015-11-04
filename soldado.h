@@ -21,10 +21,10 @@ struct Soldado{
 	//==========================================================================
 		
 	// Constantes do "construtor" geral do soldado
-	static const int SPEED = 8;
 	static const int IMGATUAL = 4; // corresponde ao "BAIXO2"
 	static const NomeSprit QTD_IMG = numSprit;
 	static const int UNDEFINE = -1;
+
 	
 	// Variáveis	
 	int vida;	
@@ -62,23 +62,23 @@ struct Soldado{
 	void UltTile(int *ultTile);
 	
 	/*Funções relativas a lista encadeada empregada no tipo Soldado*/
-	Soldado* Insere(Soldado *soldado0, char* tipo);
-	Soldado* Insere(Soldado *soldado0, char* tipo, char *dest);
+	Soldado* Insere(Soldado *soldado0, char* tipo, int gameSpeed);
+	Soldado* Insere(Soldado *soldado0, char* tipo, int gameSpeed, char *dest);
 	void Remove(Soldado *anterior);
 	void LimpaNo(Soldado *soldado0);
 	Soldado* Anterior(Soldado *soldado0);
 
 	// "Construtores"
-	void Init(char* tipo);
+	void Init(char* tipo, int speed);
 	void Init();
-	void Init(char* tipo, char *meuDest);
+	void Init(char* tipo, int speed, char *meuDest);
 };
 
 
 //==================================================================
 // "Construtor" utilizado para soldados do Eixo
-void Soldado::Init(char* tipo, char *meuDest){
-	Init(tipo);
+void Soldado::Init(char* tipo,int speed, char *meuDest){
+	Init(tipo,speed);
 	dest = meuDest;
 }
 
@@ -125,10 +125,10 @@ void Soldado::LimpaNo(Soldado *soldado0){
 
 // Insere um novo soldado (essa versão utiliza um construtor ESSENCIAL
 // na inserção de soldados nazistas)
-Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, char *dest){
+Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, int speed, char *dest){
 	Soldado *novo;
 	novo = (Soldado *) malloc(sizeof(Soldado));
-	novo->Init(tipo,dest); 
+	novo->Init(tipo,speed,dest); 
 	novo->prox = soldado0->prox;
 	soldado0->prox = novo;
 	
@@ -138,10 +138,10 @@ Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, char *dest){
 
 
 // Insere um novo soldado na lista encadeada
-Soldado* Soldado::Insere(Soldado *soldado0, char *tipo){
+Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, int speed){
 	Soldado *novo;
 	novo = (Soldado *) malloc(sizeof(Soldado));
-	novo->Init(tipo); // Inicializa o soldado
+	novo->Init(tipo,speed); // Inicializa o soldado
 	novo->prox = soldado0->prox;
 	soldado0->prox = novo;
 	
@@ -182,7 +182,7 @@ void Soldado::Init(){
 	
 	// qtd. de vida inimigocial
 	vida = VIDA;
-	speed = SPEED;
+	speed = 0;
 	x = 0;
 	y = 0;
 	tipo = "default";
@@ -202,12 +202,13 @@ void Soldado::Init(){
 
 // "Construtor" que recebe o tipo de soldado 
 //e atribui valores baseado nisso
-void Soldado::Init(char* tipoSold ){
+void Soldado::Init(char* tipoSold, int gameSpeed ){
 	
 
 	
 	Init();
 	tipo = tipoSold;
+	speed = gameSpeed;
 	if(tipoSold == "Nazi"){
 		
 		Carrega(NAZI);			
