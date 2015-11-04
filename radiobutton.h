@@ -12,7 +12,7 @@ struct Radio{
 	Radio *Insere(Radio *radio0, char* label1, bool checked1, int meuX, int meuY);
 	void LimpaNo(Radio *radio0);
 	void CheckRadio(Radio *radio0);
-	void VerificaClick(Radio *radio0);
+	void VerificaClick(Radio *radio0, int mouseX,int mouseY);
 	void MostraLista(Radio *radio0);
 	Radio *RadioChecked(Radio *radio0);
 	
@@ -80,27 +80,19 @@ void Radio::MostraLista(Radio *radio0){
 
 
 // Verifica possíveis clicks em todo botões Radio
-void Radio::VerificaClick(Radio *radio0){
+void Radio::VerificaClick(Radio *radio0, int mouseX,int mouseY){
 	
 	Radio *pRadio;
-	int mouseX,mouseY;
 	double tempX, tempY, distRaio;
-	bool checkRadio = false;
 
-	if(GetKeyState(VK_LBUTTON) & 0x80){
+	for(pRadio = radio0->prox; pRadio != NULL; pRadio = pRadio->prox){
 		
-		mouseX = mousex();
-		mouseY = mousey();
-		for(pRadio = radio0->prox; pRadio != NULL; pRadio = pRadio->prox){
-			
-			tempX = pow(pRadio->x - mouseX,2.0);
-			tempY = pow(pRadio->y - mouseY,2.0);
-			distRaio = sqrt(tempX + tempY);
-			
-			if(distRaio <= RAIO){
-				pRadio->CheckRadio(radio0);		
-			}
-		}
+		tempX = pow(pRadio->x - mouseX,2.0);
+		tempY = pow(pRadio->y - mouseY,2.0);
+		distRaio = sqrt(tempX + tempY);
+		
+		if(distRaio <= RAIO)
+			pRadio->CheckRadio(radio0);		
 	}
 }
 

@@ -7,7 +7,7 @@ struct Botao{
 	int tileQtdX,tileQtdY; // Tamanho em tiles
 	
 	// Funções
-	bool CheckClick();
+	bool CheckClick(int mouseX, int mouseY);
 	void Show();
 	void Init(int meuX, int meuY, int tileQtdX1, int tileQtdY1);
 	
@@ -27,22 +27,15 @@ void Botao::Init(int meuX, int meuY, int tileQtdX1, int tileQtdY1){
 
 
 // Verifica por clicks na região do botão
-bool Botao::CheckClick(){
+bool Botao::CheckClick(int mouseX, int mouseY){
 	
-	int mouseX,mouseY;
-	
-	if(GetKeyState(VK_LBUTTON) & 0x80){
-		
-		mouseX = mousex();
-		mouseY = mousey();	
-		
-		if(mouseX > x && mouseX < x + tileQtdX * TILE_W &&
-		mouseY > y && mouseY < y + tileQtdY * TILE_H)
-			return true;
-		else
-			return false;
-	}
+	if(mouseX > x && mouseX < x + tileQtdX * TILE_W &&
+	mouseY > y && mouseY < y + tileQtdY * TILE_H)
+		return true;
+	else
+		return false;
 }
+
 
 
 // Mostra o botão
