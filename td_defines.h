@@ -192,6 +192,10 @@
 #define BOTAO_JOGAR_X TILE_W * 19
 #define BOTAO_JOGAR_Y TILE_H * 18
 
+// Posição do botão "voltar"
+#define BOTAO_VOLTAR_X TILE_W * 14
+#define BOTAO_VOLTAR_Y TILE_H * 18
+
 // Posição do logo de jogo
 #define LOGO_X TILE_W * 11
 #define LOGO_Y TILE_H * 5
