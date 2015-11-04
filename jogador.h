@@ -114,9 +114,6 @@ void Jogador::MostraGUI(){
 	// Círculo em volta do soldado
 	setcolor(BLACK);	
 	circle(guiCircleX ,guiCircleY,16);	
-	
-
-	
 }
 
 //=====================================================================

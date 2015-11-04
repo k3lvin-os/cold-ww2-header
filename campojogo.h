@@ -25,9 +25,8 @@ struct CampoJogo{
 	bool CheckPosTorre(int tileX,int tileY, char *lado);
 
 
-	//"Construtores" 
+	//"Construtor" 
 	void Init();
-	void Init(char nomeArq[8]);
 
 };
 //=========================================================================
@@ -89,7 +88,7 @@ void CampoJogo::Mostrar(){
 	
 		for(j = 0; j < TILE_QTDX; j++) { 
 			
-			meuTipo = posTile[j][i];
+			meuTipo = posTile[j][i]; // Debug encontrou um erro aqui
 	
 			x = j * TILE_W;
 			y = i * TILE_H;
@@ -171,19 +170,7 @@ void CampoJogo::Console(){
 }
 
 //=========================================================================
-
-
-//"Construtor" que recebe o nome do arquivo  
-void CampoJogo::Init(char nomeArq[8]){
-		
-		TileLoad();
-		PosLoad(nomeArq);
-}
-
-//=========================================================================
-
-
-// "Construtor" que apenas carrega os tiles
+// "Construtor" que apenas carrega as imagens dos tiles
 void CampoJogo::Init(){
 	
 	Zera(T_PRETO);
