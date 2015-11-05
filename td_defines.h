@@ -192,6 +192,14 @@
 #define BOTAO_JOGAR_X TILE_W * 19
 #define BOTAO_JOGAR_Y TILE_H * 18
 
+// Botão do cliente
+#define BOTAO_CLIENTE_X TILE_W * 13
+#define BOTAO_CLIENTE_Y TILE_H * 12
+
+// Botão do servidor
+#define BOTAO_SERV_X TILE_W * 24
+#define BOTAO_SERV_Y TILE_H * 12
+
 // Posição do botão "voltar"
 #define BOTAO_VOLTAR_X TILE_W * 14
 #define BOTAO_VOLTAR_Y TILE_H * 18

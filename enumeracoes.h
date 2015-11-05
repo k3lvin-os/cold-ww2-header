@@ -5,5 +5,8 @@ enum EscolhaEmMenu{
 	DOIS_JOGADORES,
 	 CREDITOS, 
 	 MENU_UM_JOG,
+	 MENU_DOIS_JOG,
+	 MENU_CLIENTE,
+	 MENU_SERVIDOR,
 	  SAIR
 };
