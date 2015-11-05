@@ -62,6 +62,9 @@
 #define TILE_QTDX 40
 #define TILE_QTDY 22
 
+/*Portão padrão de acesso ao servidor*/
+#define PORTA_PADRAO 20131
+
 /*FPS do jogo*/
 #define FPS 30
 
@@ -210,6 +213,10 @@
 
 #define LOGO2_X TILE_W * 14
 #define LOGO2_Y TILE_H * 8 - 16 
+
+// IP do localhost
+#define LOCALHOST "127.0.0.1"
+
 
 
 // Posição dos botões de menu de jogo

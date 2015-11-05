@@ -1,7 +1,6 @@
 
 #define PACKET_MAX_SIZE 1500
 #define TIMEOUT 5000
-#define LOCALHOST "127.0.0.1"
 
 
 // Estrutura com dados relativos a conexão
@@ -9,6 +8,8 @@ struct Rede{
 	
 	// Propriedades
 	char* clienteOuServidor; // Identifica tipo de elemento da rede
+	char* ipServer;
+	int portaServ;
 	WSADATA wsaData;		// Biblioteca para conexão em rede
     SOCKET ListenSocket; 	// Socket para o servidor
 	SOCKET ConnectSocket;  // Socket para o cliente
@@ -29,6 +30,7 @@ struct Rede{
 	bool servOk;
 
 	// Funções
+	bool WinSockInit();
 	void FlagsInit();
 	bool ServerInit();
 	bool ClientInit();
@@ -43,6 +45,19 @@ struct Rede{
 	void FechaSocketServer();
 
 };
+
+// Inicializa a biblioteca para conexão em rede
+bool Rede::WinSockInit(){
+    int iResult;
+    
+	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	
+    if (iResult != NO_ERROR) {
+        wprintf(L"WSAStartup failed with error: %ld\n", iResult);
+        return false;
+    }
+    return true;
+}
 
 // Inicializa as flags
 void Rede::FlagsInit(){
@@ -95,17 +110,6 @@ bool Rede::ConectaServer(){
 
 // Inicializa o cliente
 bool Rede::ClientInit(){
-	//----------------------
-    // Inicializa Winsock.
-    int iResult;
-    
-	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	
-    if (iResult != NO_ERROR) {
-        wprintf(L"WSAStartup failed with error: %ld\n", iResult);
-        return 1;
-    }
-    
     //----------------------
     // Cria um socket para conectar-se ao servidor
     ConnectSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -119,8 +123,8 @@ bool Rede::ClientInit(){
     // A estrutura sockaddr_in  especifica o endereço da familia,
     // o endereço IP, e a porta que o socket está se conectando
     addrServer.sin_family = AF_INET;
-    addrServer.sin_addr.s_addr = inet_addr( LOCALHOST );
-    addrServer.sin_port = htons(20131);   
+    addrServer.sin_addr.s_addr = inet_addr( ipServer );
+    addrServer.sin_port = htons(portaServ);   
 	
 	
 
@@ -145,7 +149,6 @@ bool Rede::AceitaConexaoClient(){
 //================================================
 //Fecha o socket para comunicacao com o client
 bool Rede::FechaConexaoClient(){
-
 	closesocket(AcceptSocket);
 }
 
@@ -153,16 +156,6 @@ bool Rede::FechaConexaoClient(){
 //========================================================
 // Configuração Inicial do Servidor
 bool Rede::ServerInit(){
-	//----------------------
-    // Inicializa Winsock.
-    int iResult;
-    
-	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	
-    if (iResult != NO_ERROR) {
-        wprintf(L"WSAStartup failed with error: %ld\n", iResult);
-        return 1;
-    }
     //----------------------
     // Cria um socket para ouvir
     // possíveis requisições de conexões
@@ -177,7 +170,7 @@ bool Rede::ServerInit(){
     // o endereço IP, e a porta aonde o socket está sendo utilizado
     addrServer.sin_family = AF_INET;
     addrServer.sin_addr.s_addr = htonl(INADDR_ANY); 
-    addrServer.sin_port = htons(20131);
+    addrServer.sin_port = htons(portaServ);
 
 
 	// Vincula o socket
@@ -225,12 +218,10 @@ bool Rede::RecebeDoClient(){
 // Fecha o socket do cliente
 void Rede::FechaSocketClient(){
 	closesocket(ConnectSocket);
-	WSACleanup();
 }
 
 //===================================================
 // Fecha o socket do server
 void Rede::FechaSocketServer(){
 	closesocket(ListenSocket);
-	WSACleanup();
 }
