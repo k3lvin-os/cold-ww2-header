@@ -61,7 +61,7 @@ struct Torre{
 	Torre* Insere(Torre *torre0, char* tipo, int meuX, int meuY);
 	void Remove(Torre *anterior);
 	void LimpaNo(Torre *torre0);
-	Torre* Anterior(Soldado *soldado0);	
+	void AnulaEsteAlvo(Torre *torre0, Soldado *esteAlvo);
 	
 	// "Construtores"
 	void Init();
@@ -71,6 +71,18 @@ struct Torre{
 	
 		
 };
+
+// Configura como NULL para todas torres que tiverem o alvo especificado
+void Torre::AnulaEsteAlvo(Torre *torre0, Soldado *esteAlvo){
+	Torre *pTorre;
+	for(pTorre = torre0->prox;pTorre != NULL; pTorre = pTorre->prox){
+		
+		if(pTorre->alvo == esteAlvo)
+			alvo = NULL;	
+	}
+}
+
+
 
 //==============================================================
 // Carrega as imagens da torre
@@ -341,9 +353,6 @@ void Torre::Atira(){
 	int dano;
 	dano = 30 + rand() % 31;
 	alvo->vida -= dano;
-	
-	/*if(alvo->vida <= 0) Isso está sendo feito na função EnviaSold
-		alvo = NULL;*/
 }
 
 // Troca de posição conforme a posição do alvo
