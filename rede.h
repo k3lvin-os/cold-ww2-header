@@ -24,7 +24,7 @@ struct Rede{
 	
 	
 	// Flags
-	bool servidorAberto;
+	bool servidorInit;
 	bool clienteConectado;
 	bool clienteOk;
 	bool servOk;
@@ -61,7 +61,7 @@ bool Rede::WinSockInit(){
 
 // Inicializa as flags
 void Rede::FlagsInit(){
-	servidorAberto = false;
+	servidorInit = false;
 	clienteConectado = false;
 	clienteOk = false;
 	servOk = false;
@@ -197,7 +197,7 @@ bool Rede::ServerInit(){
     }
 	
 	
-	servidorAberto = true;	
+	servidorInit = true;	
 }
 
 //===================================================
