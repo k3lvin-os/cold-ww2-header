@@ -95,7 +95,6 @@ void CampoJogo::Mostrar(){
 			
 			putimage(x,y,tipoTile[meuTipo].image,0);
 		}
-	
 	}
 }
 //=========================================================================

@@ -88,7 +88,7 @@ void OndaEixo::Verifica(char onda, char* meuDest,  CampoJogo meuCampo){
 	
 			case '1':
 				nFlag = 0;
-				qtdIni= 1;
+				qtdIni= 10;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;
 			case '2':

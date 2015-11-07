@@ -34,7 +34,6 @@ struct Torre{
 	void *imagensCanhao[QTD_IMG_CANHAO];
 	void *mascarasCanhao[QTD_IMG_CANHAO];
 	
-	Soldado *alvo;	// Alvo da torre
 	SeqAnim seqAnim;	// Define o tipo de sequência de sprites
 	Torre *prox; // Próxima posição na lista encadeada	
 	int preco;	// Preço da torre
@@ -47,13 +46,13 @@ struct Torre{
 	// Funções
 	void ImagensCanhao(char *rPath); // Equivalem ao "Carregar"
 	void ImagensTorre(char *rPath);  // de outras structs
-	bool BuscaAlvo(Soldado *inimigo0);
-	void Atira();
+	Soldado* BuscaAlvo(Soldado *inimigo0);
+	void Atira(Soldado *alvo);
 	void MostraTorre();
 	void MostraCanhao(Direcao direcao);
 	bool CampoVisao(Soldado inimigo);
 	void AnimacaoPatrulha();
-	void AnimacaoMira();
+	void AnimacaoMira(Soldado *alvo);
 	bool SemTorrePerto(Torre *torre0,int x,int y);
 	
 	
@@ -71,17 +70,6 @@ struct Torre{
 	
 		
 };
-
-// Configura como NULL para todas torres que tiverem o alvo especificado
-void Torre::AnulaEsteAlvo(Torre *torre0, Soldado *esteAlvo){
-	Torre *pTorre;
-	for(pTorre = torre0->prox;pTorre != NULL; pTorre = pTorre->prox){
-		
-		if(pTorre->alvo == esteAlvo)
-			alvo = NULL;	
-	}
-}
-
 
 
 //==============================================================
@@ -162,7 +150,6 @@ void Torre::Init(){
 	reload.Atualiza();
 	seqAnim = DO1ATE3;
 	tipoAnimCanhao = 0;
-	alvo = NULL;
 	tempoTrocaPos.Atualiza();
 }
 
@@ -308,22 +295,20 @@ bool Torre::SemTorrePerto(Torre *torre0, int x,int y){
 
 //===============================================================
 // Procura um alvo para torre atirar
-bool Torre::BuscaAlvo(Soldado *inimigo0){
+Soldado* Torre::BuscaAlvo(Soldado *inimigo0){
 	
-	Soldado *pSold;
-		
+	Soldado *pSold, *alvo;
+	
+	alvo = NULL;	
 	pSold = inimigo0->prox;
+	
 	for(;pSold != NULL && alvo == NULL;pSold = pSold->prox){
 		
-		if(CampoVisao(*pSold) == true){
+		if(CampoVisao(*pSold) == true)
 			alvo = pSold;
-		}
 	}
 	
-	if(alvo != NULL)
-		return true;
-	else
-		return false;
+	return alvo;
 }
 
 // Verifica se o soldado está no campo de visão da torre
@@ -349,14 +334,14 @@ bool Torre::CampoVisao(Soldado inimigo){
 }
 
 // Atira no alvo
-void Torre::Atira(){
+void Torre::Atira(Soldado *alvo){
 	int dano;
-	dano = 30 + rand() % 31;
+	dano = 25 + rand() % 26;
 	alvo->vida -= dano;
 }
 
 // Troca de posição conforme a posição do alvo
-void Torre::AnimacaoMira(){
+void Torre::AnimacaoMira(Soldado *alvo){
 
 	if(x >= alvo->x)
 		posicao = TORRE_ESQ;

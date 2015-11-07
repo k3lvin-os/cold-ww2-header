@@ -43,10 +43,14 @@ struct Jogador{
 	// Flag para indicar que ele está colocando uma torre
 	bool flagTorre;
 	
-	// Torre temporária do jogador (GUI)
+	// Torre que o jogador visualiza na GUI 
 	Torre torreGUI;
 	
-	// Soldado temporário do jogador (GUI)
+	// Torre que o jogador arrasta (GUI)
+	Torre tempTorre;
+
+	
+	// Soldado temporário do jogador (também faz parte da GUI)
 	Soldado soldGUI;
 	
 	// Coordenadas para GUI
@@ -188,6 +192,7 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 			guiCircleX = guiSoldX + 16;
 			guiCircleY = guiSoldY + 16;
 			lider.Init("Roosevelt",&vida);
+			tempTorre.Init(lado,0,0,true);
 		}
 			
 		else if(meuLado == LADO2){
@@ -207,7 +212,8 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 		soldGUI.Init(meuLado,0);
 		soldGUI.GoTo(guiSoldX,guiSoldY);
 		soldGUI.TrocaDir(CIMA);
-		torreGUI.Init(meuLado,TORRE1_X,TORRE1_Y,true);		
+		torreGUI.Init(meuLado,TORRE1_X,TORRE1_Y,true);
+		tempTorre.Init(lado,0,0,true);	
 	}
 	else
 		lider.Init("Hitler",&vida);
@@ -219,12 +225,9 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 void Jogador::ArrastaTorre(CampoJogo meuCampo){
 	
 	int tMouseX,tMouseY, meuX, meuY;
-	Torre tempTorre;
-	
+		
 	if(flagTorre == true){
-		
-		tempTorre.Init(lado,0,0,true);
-		
+
 		tMouseX = mousex() / TILE_W;
 		tMouseY = mousey() / TILE_H;
 		

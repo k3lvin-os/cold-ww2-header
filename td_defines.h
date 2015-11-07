@@ -131,7 +131,7 @@
 #define TEMPOFURIA 2000 // 2 s
 
 // Tempo de reload da torre
-#define TORRE_RELOAD 1
+#define TORRE_RELOAD 2
 
 // Preço de enviar um soldado
 #define PRECO_SOLDADO 10
@@ -188,7 +188,7 @@
 #define MONEY_URSS_Y 21 * TILE_H 	
 
 // Raio de alacance padrão para as torres
-#define TORRE_RAIO 75
+#define TORRE_RAIO 100
 
 
 // Posição do botão "jogar"
