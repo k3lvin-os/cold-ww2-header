@@ -199,6 +199,7 @@
 #define BOTAO_CLIENTE_X TILE_W * 13
 #define BOTAO_CLIENTE_Y TILE_H * 12
 
+
 // Botão do servidor
 #define BOTAO_SERV_X TILE_W * 24
 #define BOTAO_SERV_Y TILE_H * 12

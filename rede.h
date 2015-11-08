@@ -17,10 +17,10 @@ struct Rede{
 	SOCKET AcceptSocket;   // Socket para envio de mensagens 
 							//(servidor utiliza-o)
 							
-	SOCKADDR_IN addrClient;// Endereço do cliente
+	sockaddr_in addrClient;// Endereço do cliente
 	sockaddr_in addrServer;// Endereço do servidor
 	DWORD timeout;			// timeout
-	char recvBuf[PACKET_MAX_SIZE]; // Pacote
+	char pacote[PACKET_MAX_SIZE]; // Pacote
 	
 	
 	// Flags
@@ -37,7 +37,7 @@ struct Rede{
 	bool RecebeDoClient();
 	bool EnviaParaOClient(char pacote[PACKET_MAX_SIZE]);
 	bool EnviaParaOServer(char pacote[PACKET_MAX_SIZE]);
-	void RecebeDoServer();
+	bool RecebeDoServer();
 	bool AceitaConexaoClient();
 	bool ConectaServer();
 	bool FechaConexaoClient();
@@ -45,6 +45,9 @@ struct Rede{
 	void FechaSocketServer();
 
 };
+
+
+
 
 // Inicializa a biblioteca para conexão em rede
 bool Rede::WinSockInit(){
@@ -82,7 +85,8 @@ bool Rede::EnviaParaOServer(char pacote[PACKET_MAX_SIZE]){
 }
 
 
-// Envia um pacote para o client
+
+// Envia um pacote para o cliente
 bool Rede::EnviaParaOClient(char pacote[PACKET_MAX_SIZE]){
 	
 	int enviou;
@@ -98,13 +102,20 @@ bool Rede::EnviaParaOClient(char pacote[PACKET_MAX_SIZE]){
 
 // Conecta-se ao servidor
 bool Rede::ConectaServer(){
+
 	int iResult = connect( ConnectSocket, (SOCKADDR*) &addrServer, sizeof(addrServer) );
-    if ( iResult == SOCKET_ERROR) {
+    
+	if ( iResult == SOCKET_ERROR) {
         closesocket (ConnectSocket);
         printf("Não foi possível se conectar ao servidor. Erro: %ld\n", WSAGetLastError());
         WSACleanup();
-        return false;
+        clienteConectado = false;
     }
+	else
+		clienteConectado = true;
+		
+	return clienteConectado;
+	
 }
 
 
@@ -123,8 +134,8 @@ bool Rede::ClientInit(){
     // A estrutura sockaddr_in  especifica o endereço da familia,
     // o endereço IP, e a porta que o socket está se conectando
     addrServer.sin_family = AF_INET;
-    addrServer.sin_addr.s_addr = inet_addr( ipServer );
-    addrServer.sin_port = htons(portaServ);   
+    addrServer.sin_addr.s_addr = inet_addr( LOCALHOST );
+    addrServer.sin_port = htons(PORTA_PADRAO);   
 	
 	
 
@@ -140,9 +151,11 @@ bool Rede::AceitaConexaoClient(){
 	AcceptSocket=accept(ListenSocket,(SOCKADDR*)&addrClient,&len);
 	
 	if(AcceptSocket  == INVALID_SOCKET)
-		return false;
+		clienteConectado = false;
 	else
-		return true;
+		clienteConectado = true;
+	
+	return clienteConectado;
 }
 
 
@@ -204,15 +217,28 @@ bool Rede::ServerInit(){
 // Recebe dados do cliente
 bool Rede::RecebeDoClient(){
 
-	int bytesRecebi =recv(AcceptSocket ,recvBuf,PACKET_MAX_SIZE,0);
+	int bytesRecebi =recv(AcceptSocket ,pacote,PACKET_MAX_SIZE,0);
 	
-	recvBuf[bytesRecebi] = '\0';
+	pacote[bytesRecebi] = '\0';
 	
 	if(bytesRecebi != 0 && bytesRecebi != SOCKET_ERROR)
 		return true;
 	else
 		return false;
 }
+
+//===================================================
+// Recebe dados do servidor
+bool Rede::RecebeDoServer(){
+	
+	int bytesRecebi =recv(ConnectSocket ,pacote,PACKET_MAX_SIZE,0);
+	
+	pacote[bytesRecebi] = '\0';
+	
+	if(bytesRecebi != 0 && bytesRecebi != SOCKET_ERROR)
+		return true;
+	else
+		return false;}
 
 //====================================================
 // Fecha o socket do cliente
