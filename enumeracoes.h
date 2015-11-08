@@ -1,3 +1,13 @@
+
+// Indica o tipo de mensagem de dados
+enum TipoPacote{
+	SEM_TIPO = 0,
+	LIDER_SERV,
+	GAMESPEED,
+	
+};
+
+
 enum EscolhaEmMenu{
 	SEM_ESCOLHA = 0, 
 	MENU,

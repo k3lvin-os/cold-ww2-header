@@ -238,7 +238,8 @@ bool Rede::RecebeDoServer(){
 	if(bytesRecebi != 0 && bytesRecebi != SOCKET_ERROR)
 		return true;
 	else
-		return false;}
+		return false;
+	}
 
 //====================================================
 // Fecha o socket do cliente
