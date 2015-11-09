@@ -121,6 +121,9 @@ bool Rede::ConectaServer(){
 
 // Inicializa o cliente
 bool Rede::ClientInit(){
+	
+	strcpy(pacote,"");
+	
     //----------------------
     // Cria um socket para conectar-se ao servidor
     ConnectSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -169,6 +172,9 @@ bool Rede::FechaConexaoClient(){
 //========================================================
 // Configuração Inicial do Servidor
 bool Rede::ServerInit(){
+	
+	strcpy(pacote,"");
+	
     //----------------------
     // Cria um socket para ouvir
     // possíveis requisições de conexões
@@ -176,7 +182,7 @@ bool Rede::ServerInit(){
     if (ListenSocket == INVALID_SOCKET) {
         wprintf(L"socket failed with error: %ld\n", WSAGetLastError());
         WSACleanup();
-        return 1;
+        return false;
     }
     //----------------------
     // A estrutura sockaddr_in especifica a familía de endereços
@@ -191,13 +197,9 @@ bool Rede::ServerInit(){
         wprintf(L"bind failed with error: %ld\n", WSAGetLastError());
         closesocket(ListenSocket);
         WSACleanup();
-        return 1;
+        return false;
     }
-    
-	// Configura o timeout de envio de mensagens
-	timeout = TIMEOUT;
-    setsockopt(ListenSocket, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(timeout));
-  
+
 
 	//----------------------
     // Fica escutando possíveis requsições de conexão
@@ -206,7 +208,7 @@ bool Rede::ServerInit(){
         wprintf(L"listen failed with error: %ld\n", WSAGetLastError());
         closesocket(ListenSocket);
         WSACleanup();
-        return 1;
+        return false;
     }
 	
 	

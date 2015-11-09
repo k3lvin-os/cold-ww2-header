@@ -4,7 +4,8 @@ enum TipoPacote{
 	SEM_TIPO = 0,
 	LIDER_SERV,
 	GAMESPEED,
-	
+	CLIENT_OK,
+	SERVER_OK
 };
 
 
