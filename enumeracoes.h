@@ -1,4 +1,10 @@
 
+// Indica o gameplay
+enum TipoGameplay{
+	SINGLEPLAYER,MULTIPLAYER
+};
+
+
 // Indica o tipo de mensagem de dados
 enum TipoPacote{
 	SEM_TIPO = 0,
