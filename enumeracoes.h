@@ -11,7 +11,8 @@ enum TipoPacote{
 	LIDER_SERV,
 	GAMESPEED,
 	CLIENT_OK,
-	SERVER_OK
+	SERVER_OK,
+	NEW_SOLD
 };
 
 

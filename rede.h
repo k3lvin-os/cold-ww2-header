@@ -7,7 +7,7 @@
 struct Rede{
 	
 	// Propriedades
-	char* clienteOuServidor; // Identifica tipo de elemento da rede
+	char* clienteOuServidor; // IdentclienteOuServidorifica tipo de elemento da rede
 	char* ipServer;
 	int portaServ;
 	WSADATA wsaData;		// Biblioteca para conexão em rede
@@ -77,8 +77,9 @@ bool Rede::EnviaParaOServer(char pacote[PACKET_MAX_SIZE]){
 	
 	int enviei;
 	enviei = send(ConnectSocket ,pacote,strlen(pacote),0);
+	std::cout << "enivei" << enviei << std::endl;
 	
-	if(enviei != SOCKET_ERROR)
+	if(enviei != SOCKET_ERROR || enviei == 0)
 		return true;
 	else
 		return false;
@@ -92,7 +93,8 @@ bool Rede::EnviaParaOClient(char pacote[PACKET_MAX_SIZE]){
 	int enviou;
 	
 	enviou = send(AcceptSocket,pacote,strlen(pacote),0);
-	
+	std::cout << "enviei" << enviou << std::endl;
+
 	if(enviou != SOCKET_ERROR)
 		return true;
 	else
@@ -122,6 +124,7 @@ bool Rede::ConectaServer(){
 // Inicializa o cliente
 bool Rede::ClientInit(){
 	
+	clienteOuServidor = "cliente";
 	strcpy(pacote,"");
 	
     //----------------------
@@ -172,6 +175,9 @@ bool Rede::FechaConexaoClient(){
 //========================================================
 // Configuração Inicial do Servidor
 bool Rede::ServerInit(){
+	
+	clienteOuServidor = "servidor";
+
 	
 	strcpy(pacote,"");
 	
