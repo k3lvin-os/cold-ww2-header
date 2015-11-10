@@ -75,11 +75,13 @@ void Rede::FlagsInit(){
 // Envia um pacote para o server
 bool Rede::EnviaParaOServer(char pacote[PACKET_MAX_SIZE]){
 	
-	int enviei;
-	enviei = send(ConnectSocket ,pacote,strlen(pacote),0);
-	std::cout << "enivei" << enviei << std::endl;
+	int bytesEnviados;
 	
-	if(enviei != SOCKET_ERROR || enviei == 0)
+	bytesEnviados = send(ConnectSocket ,pacote,strlen(pacote),0);
+	
+	std::cout << "bytesEnviados" << bytesEnviados << std::endl; // teste
+	
+	if(bytesEnviados != SOCKET_ERROR && bytesEnviados != 0 )
 		return true;
 	else
 		return false;
@@ -90,12 +92,12 @@ bool Rede::EnviaParaOServer(char pacote[PACKET_MAX_SIZE]){
 // Envia um pacote para o cliente
 bool Rede::EnviaParaOClient(char pacote[PACKET_MAX_SIZE]){
 	
-	int enviou;
+	int bytesEnviados;
 	
-	enviou = send(AcceptSocket,pacote,strlen(pacote),0);
-	std::cout << "enviei" << enviou << std::endl;
+	bytesEnviados = send(AcceptSocket,pacote,strlen(pacote),0);
+	std::cout << "bytesEnviados" << bytesEnviados << std::endl;
 
-	if(enviou != SOCKET_ERROR)
+	if(bytesEnviados != SOCKET_ERROR && bytesEnviados != 0 )
 		return true;
 	else
 		return false;
