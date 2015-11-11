@@ -12,12 +12,15 @@ struct OndaEixo{
 	// Indica o destino dos soldados da IA
 	char *dest;
 	
+	// Com base no destino, define-se as coordenadas de inicio dos soldados
+	int soldX,  soldY;
+	
 	//"Construtores"
 	void Init();
-	void Init(Jogador *oEixoIA, int *velocidadeJogo);
+	void Init(Jogador *oEixoIA, int *velocidadeJogo,char *meuDest);
 	
 	// Funções
-	void Verifica(char onda, char* chegou,CampoJogo meuCampo);
+	void Verifica(char onda,CampoJogo meuCampo);
 	void InsereEixo(int x, int y, int qtd, int nFlag);
 
 
@@ -34,10 +37,21 @@ void OndaEixo::Init(){
 }
 
 //  "Construtor" com parâmetros
-void OndaEixo::Init(Jogador *oEixoIA, int *velocidadeJogo){
+void OndaEixo::Init(Jogador *oEixoIA, int *velocidadeJogo,char *meuDest){
+	
 	Init();
 	gameSpeed = velocidadeJogo;
 	eixoIA = oEixoIA;
+	dest = meuDest;
+	
+	if(dest == LADO2){
+		soldX = ENTRADAURSSX;
+		soldY = ENTRADAURSSY;
+	} 
+	else if(dest == LADO1){
+		soldX = ENTRADAEUAX;
+		soldY = ENTRADAEUAY;
+	}
 }
 
 
@@ -64,25 +78,14 @@ void OndaEixo::InsereEixo(int x, int y, int qtd, int nFlag){
 
 
 // Rotina de envio de onda de soldados do Eixo
-void OndaEixo::Verifica(char onda, char* meuDest,  CampoJogo meuCampo){
+void OndaEixo::Verifica(char onda,  CampoJogo meuCampo){
 	
-	int soldX,  soldY, qtdIni, nFlag;
+	int qtdIni, nFlag;
 	Soldado *soldado0;
 
 	soldado0 = eixoIA->soldado0;
-	dest = meuDest;
 
 	if(onda != SEM_ONDA){
-		
-		if(meuDest == LADO2){
-			soldX = ENTRADAURSSX;
-			soldY = ENTRADAURSSY;
-		} 
-		else if(meuDest == LADO1){
-			soldX = ENTRADAEUAX;
-			soldY = ENTRADAEUAY;
-		}
-		
 		
 		switch(onda){
 	
