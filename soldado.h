@@ -142,7 +142,7 @@ Soldado* Soldado::Insere(Soldado *soldado0,char* tipo,  int gameSpeed, char *des
 Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, int gameSpeed){
 	Soldado *novo;
 	novo = (Soldado *) malloc(sizeof(Soldado));
-	novo->Init(tipo,speed); // Inicializa o soldado
+	novo->Init(tipo,gameSpeed); // Inicializa o soldado
 	novo->prox = soldado0->prox;
 	soldado0->prox = novo;
 	
