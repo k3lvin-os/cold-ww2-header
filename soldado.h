@@ -43,7 +43,7 @@ struct Soldado{
 	char *dest;
 	bool chegou; // Indica se o soldado chegou ao destino
 	bool visivel; // Indica se o soldado chegou ao ponto visivel
-	bool liberado; // Indica se o soldado foi liberado da fila de inimigomigos
+	bool liberado; // Indica se o soldado foi liberado da fila de inimigos
  	Soldado *prox;	// Próxima célula da lista encadeada
 
 	//=============================================================================
@@ -72,6 +72,7 @@ struct Soldado{
 	void Init(char* tipo, int speed);
 	void Init();
 	void Init(char* tipo, int speed, char *meuDest);
+	
 };
 
 
@@ -123,12 +124,12 @@ void Soldado::LimpaNo(Soldado *soldado0){
 	soldado0 = NULL;	
 }
 
-// Insere um novo soldado (essa versão utiliza um construtor ESSENCIAL
-// na inserção de soldados nazistas)
-Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, int speed, char *dest){
+
+
+Soldado* Soldado::Insere(Soldado *soldado0,char* tipo,  int gameSpeed, char *dest){
 	Soldado *novo;
 	novo = (Soldado *) malloc(sizeof(Soldado));
-	novo->Init(tipo,speed,dest); 
+	novo->Init(tipo,gameSpeed,dest); 
 	novo->prox = soldado0->prox;
 	soldado0->prox = novo;
 	
@@ -138,7 +139,7 @@ Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, int speed, char *dest){
 
 
 // Insere um novo soldado na lista encadeada
-Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, int speed){
+Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, int gameSpeed){
 	Soldado *novo;
 	novo = (Soldado *) malloc(sizeof(Soldado));
 	novo->Init(tipo,speed); // Inicializa o soldado
@@ -636,14 +637,16 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 		
 		liberado = tempoEspera->PassouDelay(ESPERA_DELAY);
 		
-		if(liberado == true)
+		if(liberado == true){
 			tempoEspera->Atualiza();
+			std::cout << "LIBERADO\n";
+		}
 		
 	}
 	
 	// Região visivel
 	if(liberado == true && visivel == false){
-		
+
 		if(movNUntil == false){				
 			Until(x, 64);
 		} 	
@@ -660,7 +663,7 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 		} 		
 		MovUntil();
 	}
-	
+		
 
 			
 		

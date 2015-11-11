@@ -32,14 +32,22 @@ bool TDelay::PassouDelay(int delay){
 	
 	bool passou;
 	int diferenca;
+	//std::cout << "|tempoEspera =" << marcador << std::endl;
 	time_t agora;
 	time(&agora);
 	diferenca = difftime(agora,marcador);
+	/*std::cout << "Agora = " << agora << "\n";
+	std::cout << "Diferenca = " << diferenca << "\n";
+	*/
 	
-	if(diferenca >= delay)	
+	if(diferenca >= delay){
+		//std::cout << "TRUE\n";
 		return true; 
-	else
+	}	
+	else{
+		//std::cout << "FALSE\n";
 		return false; 
+	}
 }
 
 
