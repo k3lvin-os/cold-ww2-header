@@ -34,7 +34,7 @@ bool TDelay::PassouDelay(int delay){
 	int diferenca;
 	time_t agora;
 	time(&agora);
-	diferenca = (int ) difftime(agora,marcador);
+	diferenca = difftime(agora,marcador);
 	
 	if(diferenca >= delay)	
 		return true; 

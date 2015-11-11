@@ -31,6 +31,7 @@ struct Rede{
 
 	// Funções
 	bool WinSockInit();
+	void EncerraWinSock();
 	void FlagsInit();
 	bool ServerInit();
 	bool ClientInit();
@@ -60,6 +61,11 @@ bool Rede::WinSockInit(){
         return false;
     }
     return true;
+}
+
+// Encerra a utilização da biblioteca para conexão em rede
+void Rede::EncerraWinSock(){
+	WSACleanup();
 }
 
 // Inicializa as flags
@@ -231,6 +237,8 @@ bool Rede::RecebeDoClient(){
 	
 	pacote[bytesRecebi] = '\0';
 	
+	//std::cout <<"BytesRecebi =" << bytesRecebi;
+	
 	if(bytesRecebi != 0 && bytesRecebi != SOCKET_ERROR)
 		return true;
 	else
@@ -244,6 +252,9 @@ bool Rede::RecebeDoServer(){
 	int bytesRecebi =recv(ConnectSocket ,pacote,PACKET_MAX_SIZE,0);
 	
 	pacote[bytesRecebi] = '\0';
+	
+	//std::cout <<"BytesRecebi =" << bytesRecebi;
+
 	
 	if(bytesRecebi != 0 && bytesRecebi != SOCKET_ERROR)
 		return true;

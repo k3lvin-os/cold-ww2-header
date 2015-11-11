@@ -49,10 +49,9 @@ struct Jogador{
 	// Torre que o jogador arrasta (GUI)
 	Torre tempTorre;
 	
-	// Flag que indica que o jogador comprou um soldado
-	bool compreiSold;
+	// Indica a qutantidade de soldados que o jogador está em enviando
+	int qtdSoldEspera;
 
-	
 	// Soldado temporário do jogador (também faz parte da GUI)
 	Soldado soldGUI;
 	
@@ -143,7 +142,7 @@ void Jogador::InputGUI(){
 			
 				if (Compra(PRECO_SOLDADO) == true){
  					soldado0->Insere(soldado0,lado,*gameSpeed);	
-					compreiSold = true;			
+					qtdSoldEspera = 1;			
 				}	
 			}
 		}
@@ -171,7 +170,7 @@ void Jogador::Init(){
 	vida = VIDA;
 	lado = NULL;
 	gameSpeed = NULL;
-	compreiSold = false;
+	qtdSoldEspera = 0;
 	flagTorre = false;
 }
 

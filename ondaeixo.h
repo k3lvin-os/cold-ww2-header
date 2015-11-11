@@ -70,6 +70,7 @@ void OndaEixo::Verifica(char onda, char* meuDest,  CampoJogo meuCampo){
 	Soldado *soldado0;
 
 	soldado0 = eixoIA->soldado0;
+	dest = meuDest;
 
 	if(onda != SEM_ONDA){
 		
@@ -82,7 +83,6 @@ void OndaEixo::Verifica(char onda, char* meuDest,  CampoJogo meuCampo){
 			soldY = ENTRADAEUAY;
 		}
 		
-		dest = meuDest;
 		
 		switch(onda){
 	
