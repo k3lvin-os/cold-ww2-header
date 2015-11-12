@@ -44,6 +44,9 @@
 #define ENTRADAEUAY -64
 
 
+/*Simboliza algo que está para ser definido*/
+#define UNDEFINED -1
+
 /*Tile de caminho*/
 #define CAMINHO 8
 

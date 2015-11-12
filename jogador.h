@@ -51,6 +51,10 @@ struct Jogador{
 	
 	// Indica a qutantidade de soldados que o jogador está em enviando
 	int qtdSoldEspera;
+	
+	// Indica as coordendas da torre que o jogador comprou recentemente
+	int novaTorreXeY[2];
+	
 
 	// Soldado temporário do jogador (também faz parte da GUI)
 	Soldado soldGUI;
@@ -172,6 +176,8 @@ void Jogador::Init(){
 	gameSpeed = NULL;
 	qtdSoldEspera = 0;
 	flagTorre = false;
+	novaTorreXeY[0] = UNDEFINED;
+	novaTorreXeY[1] = UNDEFINED;
 }
 
 //=================================================================
@@ -269,6 +275,8 @@ void Jogador::ArrastaTorre(CampoJogo meuCampo){
 						if(torre0->SemTorrePerto(torre0,meuX,meuY) == true){
 							if(Compra(PRECO_TORRE) == true){
 								torre0->Insere(torre0,lado,meuX,meuY);
+								novaTorreXeY[0] = meuX;
+								novaTorreXeY[1] = meuY;
 							}
 
 						}

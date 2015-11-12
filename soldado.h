@@ -639,7 +639,6 @@ void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
 		
 		if(liberado == true){
 			tempoEspera->Atualiza();
-			std::cout << "LIBERADO\n";
 		}
 		
 	}
