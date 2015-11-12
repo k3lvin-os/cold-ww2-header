@@ -1,40 +1,60 @@
 
-#define PACKET_MAX_SIZE 1500
-#define TIMEOUT 5000
-
+#define PACKET_MAX_SIZE 1440
 
 // Estrutura com dados relativos a conexão
 struct Rede{
 	
-	// Propriedades
-	char* clienteOuServidor; // IdentclienteOuServidorifica tipo de elemento da rede
-	char* ipServer;
-	int portaServ;
-	WSADATA wsaData;		// Biblioteca para conexão em rede
-    SOCKET ListenSocket; 	// Socket para o servidor
-	SOCKET ConnectSocket;  // Socket para o cliente
+
+	// Variáveis
 	
-	SOCKET AcceptSocket;   // Socket para envio de mensagens 
-							//(servidor utiliza-o)
-							
-	sockaddr_in addrClient;// Endereço do cliente
-	sockaddr_in addrServer;// Endereço do servidor
-	DWORD timeout;			// timeout
-	char pacote[PACKET_MAX_SIZE]; // Pacote
+	// Identifca o tipo de elemento da rede
+	char* clienteOuServidor; 
+	
+	// Variáveis utilizada pela biblioteca WinSock
+	WSADATA wsaData;	
+	
+	// Socket para o servidor
+    SOCKET ListenSocket; 
+	
+	// Socket para o cliente	
+	SOCKET ConnectSocket;  
+	
+	// Socket para envio de mensagens 
+	//(servidor utiliza-o)
+	SOCKET AcceptSocket;   
+	
+	// Endereço do cliente						
+	sockaddr_in addrClient;
+	
+	// Endereço do servidor
+	sockaddr_in addrServer;
+	
+	// Variável que recebe dados enviados pela rede
+	char pacote[PACKET_MAX_SIZE]; 
+
 	
 	
 	// Flags
-	bool servidorInit;
-	bool clienteConectado;
-	bool clienteOk;
-	bool servOk;
+	bool servidorInit; 	// Indica se o servidor foi inicializado
+	
+	bool clienteConectado;// Indica se o cliente está 
+							//conectado ao servidor
+	
+	bool clienteInit;		// Indica se o cliente 
+							//foi inicializado
+	
+	bool clienteOk;			//Indica se o cliente está pronto
+							// para jogar
+		
+	bool servOk;			// Indica se o servidor está pronto
+							// para jogar
 
 	// Funções
 	bool WinSockInit();
 	void EncerraWinSock();
 	void FlagsInit();
-	bool ServerInit();
-	bool ClientInit();
+	bool ServerInit(int portaServidor);
+	bool ClientInit(char *ipServidor,int portaServidor);
 	bool RecebeDoClient();
 	bool EnviaParaOClient(char pacote[PACKET_MAX_SIZE]);
 	bool EnviaParaOServer(char pacote[PACKET_MAX_SIZE]);
@@ -44,12 +64,16 @@ struct Rede{
 	bool FechaConexaoClient();
 	void FechaSocketClient();
 	void FechaSocketServer();
-
+	
+	//================================================
+	/*DICA: segure CTRL e dê um click no nome da função
+	para ir, automaticamente, na declaração dela*/
+	//================================================
 };
 
 
 
-
+//=============================================================
 // Inicializa a biblioteca para conexão em rede
 bool Rede::WinSockInit(){
     int iResult;
@@ -63,14 +87,18 @@ bool Rede::WinSockInit(){
     return true;
 }
 
+
+//============================================================
 // Encerra a utilização da biblioteca para conexão em rede
 void Rede::EncerraWinSock(){
 	WSACleanup();
 }
 
+//==============================================================
 // Inicializa as flags
 void Rede::FlagsInit(){
 	servidorInit = false;
+	clienteInit = false;
 	clienteConectado = false;
 	clienteOk = false;
 	servOk = false;
@@ -85,7 +113,7 @@ bool Rede::EnviaParaOServer(char pacote[PACKET_MAX_SIZE]){
 	
 	bytesEnviados = send(ConnectSocket ,pacote,strlen(pacote),0);
 	
-	std::cout << "bytesEnviados" << bytesEnviados << std::endl; // teste
+	//std::cout << "bytesEnviados" << bytesEnviados << std::endl; // teste
 	
 	if(bytesEnviados != SOCKET_ERROR && bytesEnviados != 0 )
 		return true;
@@ -101,7 +129,9 @@ bool Rede::EnviaParaOClient(char pacote[PACKET_MAX_SIZE]){
 	int bytesEnviados;
 	
 	bytesEnviados = send(AcceptSocket,pacote,strlen(pacote),0);
-	std::cout << "bytesEnviados" << bytesEnviados << std::endl;
+
+
+//	std::cout << "bytesEnviados" << bytesEnviados << std::endl;
 
 	if(bytesEnviados != SOCKET_ERROR && bytesEnviados != 0 )
 		return true;
@@ -113,7 +143,9 @@ bool Rede::EnviaParaOClient(char pacote[PACKET_MAX_SIZE]){
 // Conecta-se ao servidor
 bool Rede::ConectaServer(){
 
-	int iResult = connect( ConnectSocket, (SOCKADDR*) &addrServer, sizeof(addrServer) );
+	int iResult;
+
+	iResult = connect( ConnectSocket, (SOCKADDR*) &addrServer, sizeof(addrServer) );
     
 	if ( iResult == SOCKET_ERROR) {
         closesocket (ConnectSocket);
@@ -130,9 +162,12 @@ bool Rede::ConectaServer(){
 
 
 // Inicializa o cliente
-bool Rede::ClientInit(){
+bool Rede::ClientInit(char *ipServidor,int portaServidor){
 	
+	// Indica que a struct está configurada no modo cliente
 	clienteOuServidor = "cliente";
+	
+	// Limpa o pacote
 	strcpy(pacote,"");
 	
     //----------------------
@@ -141,7 +176,8 @@ bool Rede::ClientInit(){
     if (ConnectSocket == INVALID_SOCKET) {
         wprintf(L"socket failed with error: %ld\n", WSAGetLastError());
         WSACleanup();
-        return 1;
+        clienteInit = false;
+        return false;
     }
     
     //----------------------
@@ -158,11 +194,16 @@ bool Rede::ClientInit(){
 
 //=========================================================
 // Aceite o pedido de conexão e retorna uma nova conexão de soquete
-// (tradução do japonês do Autor)
 bool Rede::AceitaConexaoClient(){
 	
-	int len= sizeof(SOCKADDR);
+	int len;
+	
+	// Calcula o tamanho da estrutura SOCKADDR
+	len= sizeof(SOCKADDR);
+	
+	// Aceita a conexão do cliente
 	AcceptSocket=accept(ListenSocket,(SOCKADDR*)&addrClient,&len);
+	
 	
 	if(AcceptSocket  == INVALID_SOCKET)
 		clienteConectado = false;
@@ -182,11 +223,12 @@ bool Rede::FechaConexaoClient(){
 
 //========================================================
 // Configuração Inicial do Servidor
-bool Rede::ServerInit(){
+bool Rede::ServerInit(int portaServidor){
 	
+	// Indica que a struct rede está sendo usada no modo servidor
 	clienteOuServidor = "servidor";
-
 	
+	// Limpa o pacote
 	strcpy(pacote,"");
 	
     //----------------------
@@ -196,6 +238,7 @@ bool Rede::ServerInit(){
     if (ListenSocket == INVALID_SOCKET) {
         wprintf(L"socket failed with error: %ld\n", WSAGetLastError());
         WSACleanup();
+        servidorInit = false;
         return false;
     }
     //----------------------
@@ -203,7 +246,7 @@ bool Rede::ServerInit(){
     // o endereço IP, e a porta aonde o socket está sendo utilizado
     addrServer.sin_family = AF_INET;
     addrServer.sin_addr.s_addr = htonl(INADDR_ANY); 
-    addrServer.sin_port = htons(portaServ);
+    addrServer.sin_port = htons(portaServidor);
 
 
 	// Vincula o socket
@@ -211,6 +254,7 @@ bool Rede::ServerInit(){
         wprintf(L"bind failed with error: %ld\n", WSAGetLastError());
         closesocket(ListenSocket);
         WSACleanup();
+        servidorInit = false;
         return false;
     }
 
@@ -222,19 +266,25 @@ bool Rede::ServerInit(){
         wprintf(L"listen failed with error: %ld\n", WSAGetLastError());
         closesocket(ListenSocket);
         WSACleanup();
+        servidorInit = false;
         return false;
     }
 	
-	
+	// Se chegou aqui, o servidor foi inicializado corretamente
 	servidorInit = true;	
+	return true;
 }
 
 //===================================================
 // Recebe dados do cliente
 bool Rede::RecebeDoClient(){
-
-	int bytesRecebi =recv(AcceptSocket ,pacote,PACKET_MAX_SIZE,0);
 	
+	int bytesRecebi;
+	
+	// Recebe e quantifica bytes recebidos
+	bytesRecebi =recv(AcceptSocket ,pacote,PACKET_MAX_SIZE,0);
+	
+	// Acresenta o caracter de "fim de string"
 	pacote[bytesRecebi] = '\0';
 	
 	//std::cout <<"BytesRecebi =" << bytesRecebi;
@@ -249,19 +299,21 @@ bool Rede::RecebeDoClient(){
 // Recebe dados do servidor
 bool Rede::RecebeDoServer(){
 	
-	int bytesRecebi =recv(ConnectSocket ,pacote,PACKET_MAX_SIZE,0);
+	int bytesRecebi;
 	
+	// Recebe e quantifica bytes recebidos
+	bytesRecebi =recv(ConnectSocket ,pacote,PACKET_MAX_SIZE,0);
+	
+	// Acresenta o caracter de "fim de string"
 	pacote[bytesRecebi] = '\0';
 	
 	//std::cout <<"BytesRecebi =" << bytesRecebi;
-
 	
 	if(bytesRecebi != 0 && bytesRecebi != SOCKET_ERROR)
 		return true;
 	else
 		return false;
-	}
-
+}
 //====================================================
 // Fecha o socket do cliente
 void Rede::FechaSocketClient(){
