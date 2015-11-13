@@ -47,7 +47,7 @@ struct Torre{
 	void ImagensCanhao(char *rPath); // Equivalem ao "Carregar"
 	void ImagensTorre(char *rPath);  // de outras structs
 	Soldado* BuscaAlvo(Soldado *inimigo0);
-	void Atira(Soldado *alvo);
+	int Atira(Soldado *alvo);
 	void MostraTorre();
 	void MostraCanhao(Direcao direcao);
 	bool CampoVisao(Soldado inimigo);
@@ -334,10 +334,12 @@ bool Torre::CampoVisao(Soldado inimigo){
 }
 
 // Atira no alvo
-void Torre::Atira(Soldado *alvo){
+int Torre::Atira(Soldado *alvo){
 	int dano;
 	dano = 25 + rand() % 26;
 	alvo->vida -= dano;
+	
+	return dano;
 }
 
 // Troca de posição conforme a posição do alvo

@@ -60,6 +60,7 @@ struct Soldado{
 	void TrocaDir(Direcao trocaDir);
 	void IA(CampoJogo meuCampo, TDelay *tempoEspera);
 	void UltTile(int *ultTile);
+	int GetId(Soldado *soldado0, Soldado *sold);
 	
 	/*Funções relativas a lista encadeada empregada no tipo Soldado*/
 	Soldado* Insere(Soldado *soldado0, char* tipo, int gameSpeed);
@@ -74,6 +75,33 @@ struct Soldado{
 	void Init(char* tipo, int speed, char *meuDest);
 	
 };
+
+
+//===================================================================
+// Retorna um ID único para um determinado
+// soldado, sendo que ele está numa lista encadeada
+int Soldado::GetId(Soldado *soldado0,Soldado *sold){
+	
+	int id = 0;
+	int i = 0;
+	Soldado *pSold;
+	
+	pSold = soldado0->prox;
+	
+	while(pSold != NULL && pSold != sold->prox){
+		
+		
+		if(pSold == sold)
+			id = i + 1;	
+			
+		pSold = pSold->prox;
+		i++;
+	}	
+	
+	
+	return id;
+	
+}
 
 
 //==================================================================

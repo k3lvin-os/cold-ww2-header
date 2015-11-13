@@ -13,7 +13,8 @@ enum TipoPacote{
 	CLIENT_OK,
 	SERVER_OK,
 	NEW_SOLD,
-	TORRE
+	TORRE,
+	DANO
 };
 
 

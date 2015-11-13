@@ -43,6 +43,10 @@
 #define ENTRADAEUAX 768
 #define ENTRADAEUAY -64
 
+// Indentifica o alvo na função DefesaTorre()
+#define EIXO_ID "E"
+#define OUTROJOG_ID "O"
+
 
 /*Simboliza algo que está para ser definido*/
 #define UNDEFINED -1
