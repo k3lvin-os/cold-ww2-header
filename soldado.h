@@ -61,6 +61,7 @@ struct Soldado{
 	void IA(CampoJogo meuCampo, TDelay *tempoEspera);
 	void UltTile(int *ultTile);
 	int GetId(Soldado *soldado0, Soldado *sold);
+	Soldado* GetSoldById(Soldado *soldado0, int id);
 	
 	/*Funções relativas a lista encadeada empregada no tipo Soldado*/
 	Soldado* Insere(Soldado *soldado0, char* tipo, int gameSpeed);
@@ -102,6 +103,25 @@ int Soldado::GetId(Soldado *soldado0,Soldado *sold){
 	return id;
 	
 }
+
+// Encontra um soldado através de seu identificador único
+Soldado* Soldado::GetSoldById(Soldado *soldado0, int id){
+	
+	int i;
+	Soldado *pSold;
+	
+	i = 0;
+	pSold = soldado0;
+	
+	while(pSold != NULL && i != id ){
+	
+		pSold = pSold->prox;
+		i++;
+	}
+		
+	return pSold;	
+}
+
 
 
 //==================================================================

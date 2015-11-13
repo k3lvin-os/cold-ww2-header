@@ -96,52 +96,52 @@ void OndaEixo::Verifica(char onda,  CampoJogo meuCampo){
 				break;
 			case '2':
 				nFlag = 1;
-				qtdIni= 1;
+				qtdIni= 3;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;
 			case '3':
 				nFlag = 2;
-				qtdIni= 1;
+				qtdIni= 3;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;							
 			case '4':
 				nFlag = 3;
-				qtdIni= 1;
+				qtdIni= 4;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;
 			case '5':
 				nFlag = 4;
-				qtdIni= 1;
+				qtdIni= 4;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;		
 			case '6':
 				nFlag = 5;
-				qtdIni= 1;
+				qtdIni= 5;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;	
 			case '7':
 				nFlag = 6;
-				qtdIni= 1;
+				qtdIni= 5;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;					
 			case '8':
 				nFlag = 7;
-				qtdIni= 1;
+				qtdIni= 6;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;	
 			case '9':
 				nFlag = 8;
-				qtdIni= 1;
+				qtdIni= 6;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;
 			case '10':
 				nFlag = 9;
-				qtdIni= 1;
+				qtdIni= 10;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;	
 			case '11':
 				nFlag = 10;
-				qtdIni= 1;
+				qtdIni= 10;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;			
 		}		
