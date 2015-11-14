@@ -105,15 +105,13 @@ void Rede::FlagsInit(){
 }
 
 
-
+//===============================================================================
 // Envia um pacote para o server
 bool Rede::EnviaParaOServer(char pacote[PACKET_MAX_SIZE]){
 	
 	int bytesEnviados;
 	
 	bytesEnviados = send(ConnectSocket ,pacote,strlen(pacote),0);
-	
-	//std::cout << "bytesEnviados" << bytesEnviados << std::endl; // teste
 	
 	if(bytesEnviados != SOCKET_ERROR && bytesEnviados != 0 )
 		return true;
@@ -122,16 +120,13 @@ bool Rede::EnviaParaOServer(char pacote[PACKET_MAX_SIZE]){
 }
 
 
-
+//==============================================================================
 // Envia um pacote para o cliente
 bool Rede::EnviaParaOClient(char pacote[PACKET_MAX_SIZE]){
 	
 	int bytesEnviados;
 	
 	bytesEnviados = send(AcceptSocket,pacote,strlen(pacote),0);
-
-
-//	std::cout << "bytesEnviados" << bytesEnviados << std::endl;
 
 	if(bytesEnviados != SOCKET_ERROR && bytesEnviados != 0 )
 		return true;
@@ -171,11 +166,11 @@ bool Rede::ClientInit(char *ipServidor,int portaServidor){
 	strcpy(pacote,"");
 	
     //----------------------
-    // Cria um socket para conectar-se ao servidor
+    // Cria um socket para se conectar ao servidor
     ConnectSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (ConnectSocket == INVALID_SOCKET) {
         wprintf(L"socket failed with error: %ld\n", WSAGetLastError());
-        WSACleanup();
+       	WSACleanup();
         clienteInit = false;
         return false;
     }
@@ -188,7 +183,7 @@ bool Rede::ClientInit(char *ipServidor,int portaServidor){
     addrServer.sin_port = htons(PORTA_PADRAO);   
 	
 	
-
+	clienteInit = true;
     return true;   
 }
 
@@ -204,7 +199,7 @@ bool Rede::AceitaConexaoClient(){
 	// Aceita a conexão do cliente
 	AcceptSocket=accept(ListenSocket,(SOCKADDR*)&addrClient,&len);
 	
-	
+		
 	if(AcceptSocket  == INVALID_SOCKET)
 		clienteConectado = false;
 	else
@@ -306,9 +301,7 @@ bool Rede::RecebeDoServer(){
 	
 	// Acresenta o caracter de "fim de string"
 	pacote[bytesRecebi] = '\0';
-	
-	//std::cout <<"BytesRecebi =" << bytesRecebi;
-	
+		
 	if(bytesRecebi != 0 && bytesRecebi != SOCKET_ERROR)
 		return true;
 	else
