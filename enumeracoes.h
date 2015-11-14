@@ -30,3 +30,10 @@ enum EscolhaEmMenu{
 	MENU_SERVIDOR,
 	SAIR
 };
+
+
+enum LeituraIPEPorta{
+	SEM_LEITURA = 0,
+	LEITURA_IP,
+	LEITURA_PORTA
+};
