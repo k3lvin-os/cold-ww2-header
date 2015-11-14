@@ -179,8 +179,8 @@ bool Rede::ClientInit(char *ipServidor,int portaServidor){
     // A estrutura sockaddr_in  especifica o endereço da familia,
     // o endereço IP, e a porta que o socket está se conectando
     addrServer.sin_family = AF_INET;
-    addrServer.sin_addr.s_addr = inet_addr( LOCALHOST );
-    addrServer.sin_port = htons(PORTA_PADRAO);   
+    addrServer.sin_addr.s_addr = inet_addr( ipServidor );
+    addrServer.sin_port = htons(portaServidor);   
 	
 	
 	clienteInit = true;
