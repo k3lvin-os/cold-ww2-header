@@ -138,7 +138,7 @@
 #define TEMPOFURIA 2000 // 2 s
 
 // Tempo de reload da torre
-#define TORRE_RELOAD 2
+#define TORRE_RELOAD 1
 
 // Preço de enviar um soldado
 #define PRECO_SOLDADO 10

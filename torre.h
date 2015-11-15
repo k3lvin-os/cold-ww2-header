@@ -336,7 +336,7 @@ bool Torre::CampoVisao(Soldado inimigo){
 // Atira no alvo
 int Torre::Atira(Soldado *alvo){
 	int dano;
-	dano = 25 + rand() % 26;
+	dano = 15 + rand() % 10;
 	alvo->vida -= dano;
 	
 	return dano;
