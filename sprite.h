@@ -13,6 +13,7 @@
 		void GoTo(int newX, int newY);
 		void BasicTile(int width, int height, int color, char *nome);
 		void Init(char path[], char nomeSprit[], int width, int height);
+		void Init(int beginX, int beginY, int endX, int endY);
 		void Init();
 		void Show(void* img, int imgX , int imgY);
 
@@ -108,4 +109,11 @@
 		y = 0;
 		nome = "?";
 	}
-	
+
+// Inicializa o sprite com base em uma imagem já disposta na tela 
+void Sprite::Init(int beginX, int beginY, int endX, int endY){
+	int size = imagesize(beginX,beginY,endX,endY);
+	image = malloc(size);
+	getimage(beginX,beginY,endX,endY,image);
+}
+

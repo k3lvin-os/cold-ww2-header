@@ -34,6 +34,9 @@ struct Jogador{
 	// Marcador de tempo para espera de inimigo
 	TDelay esperaIni;
 	
+	// Marcador de tempo depois da própria morte do lider
+	TDelay esperaMorte;
+	
 	// Dinheiro do jogador
 	int dinheiro;
 	
@@ -55,7 +58,10 @@ struct Jogador{
 	// Indica as coordendas da torre que o jogador comprou recentemente
 	int novaTorreXeY[2];
 	
-
+	// Indica que o outro jogador está morto
+	bool outroJogMorto;
+	
+		
 	// Soldado temporário do jogador (também faz parte da GUI)
 	Soldado soldGUI;
 	
@@ -101,29 +107,36 @@ void Jogador::MostraGUI(){
 	// GUI da Torre
 	torreGUI.MostraTorre();
 	
-	// GUI do Soldado
-	soldGUI.Show();	
-	
 	// "Colocar Torre" (GUI)
 	setcolor(LIGHTBLUE);
 	settextstyle(BOLD_FONT,HORIZ_DIR,2);
 	outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,"Colocar");
 	outtextxy(TORRE_TEXT_X + 12,TORRE_TEXT_Y + 32,"Torre");
 
-	
-	// "Enviar Soldado" (GUI)
-	setcolor(WHITE);
-	settextstyle(SANS_SERIF_FONT,HORIZ_DIR,1);
-	outtextxy(guiNameSoldX,guiNameSoldY,lado);
-	
-	// Texto do Soldado
-	setcolor(LIGHTRED);
-	settextstyle(BOLD_FONT,HORIZ_DIR,2);
-	outtextxy(guiSoldTextX,guiSoldTextY,"Enviar Soldado");
-	
-	// Círculo em volta do soldado
-	setcolor(BLACK);	
-	circle(guiCircleX ,guiCircleY,16);	
+	if(outroJogMorto == false){
+		
+		// GUI do Soldado
+		soldGUI.Show();	
+		
+		// "Enviar Soldado" (GUI)
+		setcolor(WHITE);
+		settextstyle(SANS_SERIF_FONT,HORIZ_DIR,1);
+		outtextxy(guiNameSoldX,guiNameSoldY,lado);
+		
+		// Texto do Soldado
+		setcolor(LIGHTRED);
+		settextstyle(BOLD_FONT,HORIZ_DIR,2);
+		outtextxy(guiSoldTextX,guiSoldTextY,"Enviar Soldado");	
+				
+		// Círculo em volta do soldado
+		setcolor(BLACK);	
+		circle(guiCircleX ,guiCircleY,16);	
+	} else{
+		
+		setcolor(LIGHTRED);
+		outtextxy(guiSoldTextX,guiSoldTextY + 16,"Sobreviva ao ataque nazista!");	
+
+	}
 }
 
 //=====================================================================
@@ -137,7 +150,8 @@ void Jogador::InputGUI(){
 		mouseX = mousex();
 		mouseY = mousey();
 		
-		if(mouseX >= guiSoldX && mouseX <= guiSoldX + TILE_W &&
+		if(outroJogMorto == false && 
+		mouseX >= guiSoldX && mouseX <= guiSoldX + TILE_W &&
 		mouseY >= guiSoldY && mouseY <= guiSoldY + TILE_H) {
 			
 			if(envioSold.PassouDelay(ESPERA_DELAY) == true){
@@ -171,11 +185,13 @@ void Jogador::Init(){
 	dinheiro = DINHEIRO;
 	envioSold.Atualiza();
 	esperaIni.Atualiza();
+	esperaMorte.marcador = NULL;
 	vida = VIDA;
 	lado = NULL;
 	gameSpeed = NULL;
 	qtdSoldEspera = 0;
 	flagTorre = false;
+	outroJogMorto = false;
 	novaTorreXeY[0] = UNDEFINED;
 	novaTorreXeY[1] = UNDEFINED;
 }
