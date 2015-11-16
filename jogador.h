@@ -134,7 +134,11 @@ void Jogador::MostraGUI(){
 	} else{
 		
 		setcolor(LIGHTRED);
-		outtextxy(guiSoldTextX,guiSoldTextY + 16,"Sobreviva ao ataque nazista!");	
+		if(lado == LADO1)
+			outtextxy(guiSoldTextX - 144,guiSoldTextY + 16,"Sobreviva ao ataque nazista!");
+		else
+			outtextxy(guiSoldTextX,guiSoldTextY + 16,"Sobreviva ao ataque nazista!");
+		
 
 	}
 }
