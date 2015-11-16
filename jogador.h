@@ -78,7 +78,7 @@ struct Jogador{
 	void InputGUI();
 	void NovoIni();
 	void EnviaIni();
-	void ArrastaTorre(CampoJogo meuCampo);
+	void ArrastaTorre(Cenario meuCampo);
 	bool Compra(int preco);
 
 		
@@ -249,7 +249,7 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 
 //======================================================================
 // Procedimento de arrastar a torre após o click
-void Jogador::ArrastaTorre(CampoJogo meuCampo){
+void Jogador::ArrastaTorre(Cenario meuCampo){
 	
 	int tMouseX,tMouseY, meuX, meuY;
 		

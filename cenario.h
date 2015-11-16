@@ -1,5 +1,5 @@
-// Este é o cenário do gameplay do jogo
-struct CampoJogo{
+// Esta struct trabalha com tiles formando cenários
+struct Cenario{
 	
 	// Qtd. padrão de tiles de campo de jogo
 	static const int QTD_TILE = 42;
@@ -32,8 +32,8 @@ struct CampoJogo{
 //=========================================================================
 
 // Limpa a memória que foi alocada dinamicamente 
-// aos membros da struct CampoJogo
-void CampoJogo::LimpaMem(){
+// aos membros da struct Cenario
+void Cenario::LimpaMem(){
 	
 	free(tipoTile);
 }
@@ -43,14 +43,14 @@ void CampoJogo::LimpaMem(){
 //=========================================================================
 
 // Limpa a zona de carregamento de imagens
-void CampoJogo::LimpaD(){
+void Cenario::LimpaD(){
 
 	Mostrar(0,0,1,2); // Intervalo de tiles de desenho
 }
 //=========================================================================
 
 // Verifica se o tile corresponde a um tile de caminho ou não
-bool CampoJogo::Caminho(int tileX, int tileY){
+bool Cenario::Caminho(int tileX, int tileY){
 
 	bool caminho;
 	
@@ -66,7 +66,7 @@ bool CampoJogo::Caminho(int tileX, int tileY){
 
 
 // Preenche o campo de jogo com um tile básico
-void CampoJogo::Zera(int tileZero){
+void Cenario::Zera(int tileZero){
 	
 	int i, j;
 	
@@ -80,7 +80,7 @@ void CampoJogo::Zera(int tileZero){
 //=========================================================================
 
 // Coloca os sprites na tela
-void CampoJogo::Mostrar(){
+void Cenario::Mostrar(){
 	
 	int j, i,  meuTipo, x,y;
 		
@@ -100,7 +100,7 @@ void CampoJogo::Mostrar(){
 //=========================================================================
 
 // Coloca os sprites de campo apenas aonde determinado
-void CampoJogo::Mostrar(int tX0,int tY0,int tXF,int tYF){
+void Cenario::Mostrar(int tX0,int tY0,int tXF,int tYF){
 	
 	int j, i,  meuTipo, x,y;
 		
@@ -126,7 +126,7 @@ void CampoJogo::Mostrar(int tX0,int tY0,int tXF,int tYF){
 
 // Arquiva a matriz de coordenadas dos tiles
 // (cria um arquivo com nome dado e o conteúdo citado)
-void CampoJogo::Arquiva(char *nomeArq){
+void Cenario::Arquiva(char *nomeArq){
 	
 	int i, j;	
 	
@@ -153,7 +153,7 @@ void CampoJogo::Arquiva(char *nomeArq){
 
 
 // Imprime a posição dos tiles no console
-void CampoJogo::Console(){
+void Cenario::Console(){
 		
 	int i, j;
 	
@@ -170,7 +170,7 @@ void CampoJogo::Console(){
 
 //=========================================================================
 // "Construtor" que apenas carrega as imagens dos tiles
-void CampoJogo::Init(){
+void Cenario::Init(){
 	
 	Zera(T_PRETO);
 	TileLoad();
@@ -181,7 +181,7 @@ void CampoJogo::Init(){
 	
 
 // Carrega os tipos de tiles do campo de jogo	
-void CampoJogo::TileLoad(){
+void Cenario::TileLoad(){
 	
 	/*
 			INFORMAÇÕES PARA ACRESENTAR TILES
@@ -251,7 +251,7 @@ void CampoJogo::TileLoad(){
 
 
 // Carrega a matriz do campo de jogo com os dados de um arquivo
-bool CampoJogo::PosLoad(char nomeArq[8]){
+bool Cenario::PosLoad(char nomeArq[8]){
 			
 	std::ifstream leitor;
 	char c;
@@ -311,7 +311,7 @@ bool CampoJogo::PosLoad(char nomeArq[8]){
 //=========================================================================
 
 // Verifica se a coordenada de tile é válida
-bool CampoJogo::PosExist(int tileX, int tileY){
+bool Cenario::PosExist(int tileX, int tileY){
 	
 	bool existe;
 	
@@ -325,7 +325,7 @@ bool CampoJogo::PosExist(int tileX, int tileY){
 }	
 	
 /*Retorna se o tile da torre é valido ou não*/
-bool CampoJogo::CheckPosTorre(int tileX, int tileY, char *lado){
+bool Cenario::CheckPosTorre(int tileX, int tileY, char *lado){
 	
 	bool validPos = false;
 	int nTileCima, nTileBaixo;

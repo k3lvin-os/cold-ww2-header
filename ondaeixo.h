@@ -20,7 +20,7 @@ struct OndaEixo{
 	void Init(Jogador *oEixoIA, int *velocidadeJogo,char *meuDest);
 	
 	// Funções
-	void Verifica(char onda,CampoJogo meuCampo);
+	void Verifica(char onda,Cenario meuCampo);
 	void InsereEixo(int x, int y, int qtd, int nFlag);
 
 
@@ -78,7 +78,7 @@ void OndaEixo::InsereEixo(int x, int y, int qtd, int nFlag){
 
 
 // Rotina de envio de onda de soldados do Eixo
-void OndaEixo::Verifica(char onda,  CampoJogo meuCampo){
+void OndaEixo::Verifica(char onda,  Cenario meuCampo){
 	
 	int qtdIni, nFlag;
 	Soldado *soldado0;

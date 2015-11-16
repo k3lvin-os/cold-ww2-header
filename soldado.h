@@ -51,14 +51,14 @@ struct Soldado{
 	// Funções
 	void Carrega(char rPath[]);
 	void GoTo(int novoX, int novoY);
-	bool Pathfind(CampoJogo meuCampo,int tileXF, int tileYF);
+	bool Pathfind(Cenario meuCampo,int tileXF, int tileYF);
 	void Move();
 	void Until(int untilX, int untilY);
 	bool MovUntil();
 	void Show();
 	void TrocaImg();
 	void TrocaDir(Direcao trocaDir);
-	void IA(CampoJogo meuCampo, TDelay *tempoEspera);
+	void IA(Cenario meuCampo, TDelay *tempoEspera);
 	void UltTile(int *ultTile);
 	int GetId(Soldado *soldado0, Soldado *sold);
 	Soldado* GetSoldById(Soldado *soldado0, int id);
@@ -443,7 +443,7 @@ void Soldado::UltTile(int *ultTile){
 //===========================================================================
 
 // Vai até o tile de destino com a pathfind
-bool Soldado::Pathfind(CampoJogo meuCampo,int tileXF, int tileYF){
+bool Soldado::Pathfind(Cenario meuCampo,int tileXF, int tileYF){
 	
 	// Calcula o tile do soldado
 	int tileX,  tileY;
@@ -646,7 +646,7 @@ bool Soldado::MovUntil(){
 
 //===========================================================
 // Comportamento geral do soldado
-void Soldado::IA(CampoJogo meuCampo, TDelay *tempoEspera){
+void Soldado::IA(Cenario meuCampo, TDelay *tempoEspera){
 	
 	Soldado *anterior;
 	
