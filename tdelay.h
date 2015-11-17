@@ -83,21 +83,6 @@ char TDelay::SoldOnda(){
 		case ONDA6:
 			onda = '6';
 			break;
-		case ONDA7:
-			onda = '7';
-			break;
-		case ONDA8:
-			onda = '8';
-			break;
-		case ONDA9:
-			onda = '9';
-			break;
-		case ONDA10:
-			onda = '10';
-			break;
-		case ONDA11:
-			onda = '11';
-			break;
 		default:
 			onda = SEM_ONDA;
 	}

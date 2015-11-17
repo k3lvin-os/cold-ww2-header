@@ -73,7 +73,7 @@
 #define PORTA_PADRAO 20131
 
 /*FPS do jogo*/
-#define FPS 30
+#define FPS 60
 
 /*Teclado*/
 #define ESC 27
@@ -108,20 +108,18 @@
 /*Qtd. de ondas de nazistas que o jogo lança*/
 #define QTD_ONDA 11
 
-/*Horário das ondas de soldados*/
-#define ONDA1 15 
-#define ONDA2 30 // 3 m para o ataque final
-#define ONDA3 45   
-#define ONDA4 75
-#define ONDA5 90 // 2 m para o ataque final
-#define ONDA6 105
-#define ONDA7 135
-#define ONDA8 150 // 1 m para o ataque final
-#define ONDA9 165
-#define ONDA10 210 // 1ª onda ataque final
-#define ONDA11 240 // 2ª onda ataque final
+// Define o inicio e o fim do jogo
+#define BEGIN 0 // 0 s 
+#define END 90 // 1 m 30 s
 
-#define FINALCOUNTDOWN 180 // Relogio regressivo
+/*Horário das ondas de soldados*/
+#define ONDA1 5 
+#define ONDA2 15 
+#define ONDA3 30   
+#define ONDA4 45
+#define ONDA5 60 
+#define ONDA6 75
+
 
 
 // Representa que não há onda há serem enviadas
@@ -130,9 +128,7 @@
 // Dano que o soldado infrige quando chega na base inimiga
 #define DANO_CHEGOU 10
 
-// Define o inimigocio e o fim do jogo
-#define BEGIN 0 // 0 s 
-#define END 270 // 5 m 30 s 
+
 
 // Tempo de fúria dos lideres
 #define TEMPOFURIA 2000 // 2 s
