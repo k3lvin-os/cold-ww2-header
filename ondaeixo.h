@@ -96,12 +96,12 @@ void OndaEixo::Verifica(char onda,  Cenario meuCampo){
 				break;
 			case '2':
 				nFlag = 1;
-				qtdIni= 7;
+				qtdIni= 3;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;
 			case '3':
 				nFlag = 2;
-				qtdIni= 7;
+				qtdIni= 5;
 				InsereEixo(soldX,soldY,qtdIni, nFlag);	
 				break;							
 			case '4':
