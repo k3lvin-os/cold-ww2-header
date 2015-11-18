@@ -42,7 +42,7 @@ struct Cutscenes{
 	void FinalNazi();
 	void FinalGuerraFria();
 	void Introducao(char *meuLado);
-	void EscreveDevagar(char* msg, int delay);
+	void EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra);
 	
 	
 };
@@ -130,10 +130,47 @@ void Cutscenes::FinalNazi(){
 	
 	sprites[ESTATUA_HITLER].GoTo(TELA_W - 513,0);
 	sprites[ESTATUA_HITLER].Show();
-	outtextxy(0,0,"Nem União Soviética, nem Estados Unidos \.\.\.");
+	//outtextxy(0,0,"Nem União Soviética, nem Estados Unidos \.\.\.");
+	EscreveDevagar(0,0,"Nem União Soviética, nem Estados Unidos \.\.\.",10);
+	
 	while(!kbhit()){
 		
 	}
 	
+
 }
+
+// Escrve o texto devagar com base em um delay
+void Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra){
+	
+	char buffer[101], temp[2], c;
+	int i, x;
+	
+	if(strlen(msg) <= 100){
+		
+		strcpy(buffer,msg);
+		i = 0;
+		x = x0;
+		c = buffer[0];
+		
+		while(c != '\0'){
+			
+			temp[0] = c;
+			temp[1] = '\0';
+			
+			if(c != ' ')
+				outtextxy(x,y0,temp);		
+			delay(delayPorLetra);
+			
+			x += 19 ;
+				
+			i++;
+			c = buffer[i];	
+		} 
+		
+	}
+	
+	
+}
+
 
