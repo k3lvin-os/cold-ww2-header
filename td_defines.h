@@ -84,6 +84,9 @@
 /*Caminho para encontrar a pasta assets*/
 #define ASSETS "../../Assets"
 
+/*Camiho, a partir da pasta Assets, para encontrar as imagens das cutscenes*/
+#define CUTSCENES "/Cutscenes/Img"
+
 /*Extensão bitmap*/
 #define BITMAP ".bmp"
 
