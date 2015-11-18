@@ -165,8 +165,8 @@ void Soldado::LimpaNo(Soldado *soldado0){
 	while(p != NULL){
 		aux = p;
 		p = p->prox;
-		free(aux->imagens); 
-		free(aux->mascaras);
+		//free(aux->imagens); 
+		//ree(aux->mascaras);
 		free(aux);
 	}
 	soldado0 = NULL;	

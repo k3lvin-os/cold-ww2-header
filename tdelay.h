@@ -83,6 +83,9 @@ char TDelay::SoldOnda(){
 		case ONDA6:
 			onda = '6';
 			break;
+		case END:
+			onda = 'F';
+			break;
 		default:
 			onda = SEM_ONDA;
 	}

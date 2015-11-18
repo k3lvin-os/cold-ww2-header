@@ -241,10 +241,10 @@ void Torre::LimpaNo(Torre *torre0){
 	while(p != NULL){
 		aux = p;
 		p = p->prox;
-		free(aux->mascarasCanhao); 
-		free(aux->mascaraGUI);
-		free(aux->imagensTorre);
-		free(aux->imagensCanhao);
+	//	free(aux->mascarasCanhao); 
+	//	free(aux->mascaraGUI);
+	//	free(aux->imagensTorre);
+	//	free(aux->imagensCanhao);
 		free(aux);
 	}
 	torre0 = NULL;	
