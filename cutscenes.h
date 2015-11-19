@@ -21,7 +21,7 @@ enum ImgCutscenes{
 
 // Relação entre números da enum e nomes para os finais do jogo
 enum Final{
-	FINAL_EUA,FINAL_URSS,FINAL_NAZI,FINAL_GUERRAFRIA
+	FINAL_EUA,FINAL_URSS,FINAL_NAZI,FINAL_GUERRAFRIA, SEM_FINAL
 };
 
 
@@ -110,9 +110,35 @@ void Cutscenes::Carrega(){
 // Recebe um final como parâmetro e mostra o final solicitado
 void Cutscenes::MostraFinal(Final meuFinal){
 	
+	Pagina minhaPg;
+	minhaPg.Init();
+	minhaPg.Troca();
+	minhaPg.Ativa();
+	cleardevice();
+	
+	if(meuFinal != FINAL_GUERRAFRIA){
+		setcolor(WHITE);
+		settextstyle(BOLD_FONT,HORIZ_DIR,3);
+		if(meuFinal == FINAL_NAZI)
+			outtextxy(TELA_W / 2 - 64,TELA_H / 2,"FINAL DOS NAZISTAS");
+		else if(meuFinal == FINAL_EUA)
+			outtextxy(TELA_W / 2,TELA_H / 2- 32,"FINAL DOS EUA");
+		else if(meuFinal == FINAL_URSS)
+			outtextxy(TELA_W / 2, TELA_H / 2- 32, "FINAL DA URSS");
+		settextstyle(BOLD_FONT,HORIZ_DIR,1);
+	}
+	
+	minhaPg.Visual();
+	delay(2000);
+	
 	if(meuFinal == FINAL_NAZI)
 		FinalNazi();
-	
+	else if(meuFinal == FINAL_URSS)
+		FinalUrss();
+	else if(meuFinal == FINAL_EUA)	
+		FinalEua();
+	else if(meuFinal == FINAL_GUERRAFRIA)
+		FinalGuerraFria();
 }
 
 
@@ -124,20 +150,33 @@ void Cutscenes::FinalNazi(){
 	minhaPg.Ativa();
 	setbkcolor(WHITE);
 	setcolor(BLACK);
-	settextstyle(BOLD_FONT   ,HORIZ_DIR,3);
+	settextstyle(BOLD_FONT   ,HORIZ_DIR,1);
 	cleardevice();
 	minhaPg.Visual();
 	
 	sprites[ESTATUA_HITLER].GoTo(TELA_W - 513,0);
 	sprites[ESTATUA_HITLER].Show();
-	//outtextxy(0,0,"Nem União Soviética, nem Estados Unidos \.\.\.");
-	EscreveDevagar(0,0,"Nem União Soviética, nem Estados Unidos \.\.\.",10);
+	delay(1500);
 	
-	while(!kbhit()){
-		
-	}
+	EscreveDevagar(0,80,"Nem União Soviética,nem Estados Unidos \.\.\.",75);
+	EscreveDevagar(0,160,"Eles não imaginavam que o poderio nazista",75);
+	EscreveDevagar(0,190,"era tão forte\.",75);
+	delay(100);
 	
-
+	EscreveDevagar(0,270,"Derrotando os dois inimigos, ",75);
+	EscreveDevagar(0,300,"Hitler implantou um único regime",75);
+	EscreveDevagar(0,330,"onde todas nações obedecem aos Nazistas,",75);
+	EscreveDevagar(0,360,"isso com posições vantajosas para aqueles",75);
+	EscreveDevagar(0,390,"que pertenceram ao Eixo (Itália e Japão).",75);
+	delay(200);
+	
+	EscreveDevagar(0,480,"Com a supremacia da raça ariana,",75);
+	EscreveDevagar(0,510,"os Nazistas encontraram a desejada paz e, ",75);
+	EscreveDevagar(0,540,"agora, inimigo algum pode atrapalhar isso.",75);
+	
+	delay(2000);
+	setbkcolor(BLACK);
+	cleardevice();
 }
 
 // Escrve o texto devagar com base em um delay
@@ -162,13 +201,33 @@ void Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra){
 				outtextxy(x,y0,temp);		
 			delay(delayPorLetra);
 			
-			x += 19 ;
+			if(c == ' ')
+				x += 15;
+			else
+				x += 19;
+			
 				
 			i++;
 			c = buffer[i];	
 		} 
 		
 	}
+	
+	
+}
+
+void Cutscenes::FinalEua(){
+	
+}
+
+
+void Cutscenes::FinalUrss(){
+	
+	
+}
+
+
+void Cutscenes::FinalGuerraFria(){
 	
 	
 }
