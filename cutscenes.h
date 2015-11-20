@@ -142,6 +142,45 @@ void Cutscenes::MostraFinal(Final meuFinal){
 }
 
 
+
+
+// Escreve o texto devagar com base em um delay
+void Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra){
+	
+	char buffer[101], temp[2], c;
+	int i, x;
+	
+	if(strlen(msg) <= 100){
+		
+		strcpy(buffer,msg);
+		i = 0;
+		x = x0;
+		c = buffer[0];
+		
+		while(c != '\0'){
+			
+			temp[0] = c;
+			temp[1] = '\0';
+			
+			if(c != ' ')
+				outtextxy(x,y0,temp);		
+			delay(delayPorLetra);
+			
+			if(c == ' ')
+				x += 15;
+			else
+				x += 19;
+			
+				
+			i++;
+			c = buffer[i];	
+		} 
+		
+	}
+	
+	
+}
+
 // Mostra o final dos nazistas
 void Cutscenes::FinalNazi(){
 	Pagina minhaPg;
@@ -179,57 +218,96 @@ void Cutscenes::FinalNazi(){
 	cleardevice();
 }
 
-// Escrve o texto devagar com base em um delay
-void Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra){
-	
-	char buffer[101], temp[2], c;
-	int i, x;
-	
-	if(strlen(msg) <= 100){
-		
-		strcpy(buffer,msg);
-		i = 0;
-		x = x0;
-		c = buffer[0];
-		
-		while(c != '\0'){
-			
-			temp[0] = c;
-			temp[1] = '\0';
-			
-			if(c != ' ')
-				outtextxy(x,y0,temp);		
-			delay(delayPorLetra);
-			
-			if(c == ' ')
-				x += 15;
-			else
-				x += 19;
-			
-				
-			i++;
-			c = buffer[i];	
-		} 
-		
-	}
-	
-	
-}
 
+// Final dos Eua
 void Cutscenes::FinalEua(){
+	Pagina minhaPg;
+	minhaPg.Init();
+	minhaPg.Troca();
+	minhaPg.Ativa();
 	
+	setbkcolor(WHITE);
+	setcolor(BLACK);
+	settextstyle(BOLD_FONT,HORIZ_DIR,1);
+	cleardevice();
+	minhaPg.Visual();
+
+	sprites[ESTATUA_TIOSAM].GoTo(TELA_W - 513, 0);
+	sprites[ESTATUA_TIOSAM].Show();
+	delay(1500);
+	
+	EscreveDevagar(0,80,"Os Estados Unidos derrotaram os Nazistas",75);
+	EscreveDevagar(0,110,"em uma última batalha.",75);
+	delay(100);
+
+	
+	EscreveDevagar(0,200,"A União Soviética não resistiu ao ",75);
+	EscreveDevagar(0,230,"embate e acabou se rendendo aos ",75);
+	EscreveDevagar(0,260,"americanos devido a superioridade",75);
+	EscreveDevagar(0,290,"desses no campo de batalha.",75); 
+	delay(200);
+
+	EscreveDevagar(0,380,"Dessa forma, os americanos tiveram ",75);
+	EscreveDevagar(0,410,"plena liberdade para implantar o",75);
+	EscreveDevagar(0,440,"capitalismo em todas nações do oriente.",75);
+	
+	delay(200);
+	EscreveDevagar(0,530,"Alcançaram a desejada paz e,",75);
+	EscreveDevagar(0,560,"agora, inimigo algum pode atrapalhar isso.",75);
+	
+	delay(2000);
+	setbkcolor(BLACK);
+	cleardevice();
 }
 
 
 void Cutscenes::FinalUrss(){
+	Pagina minhaPg;
+	minhaPg.Init();
+	minhaPg.Troca();
+	minhaPg.Ativa();
+	
+	setbkcolor(WHITE);
+	setcolor(BLACK);
+	settextstyle(BOLD_FONT,HORIZ_DIR,1);
+	cleardevice();
+	minhaPg.Visual();
+
+	sprites[ESTATUA_LENIN].GoTo(TELA_W - 513, 0);
+	sprites[ESTATUA_LENIN].Show();
+	delay(1500);
+		
+	EscreveDevagar(0,80,"A União Soviética derrotou os Nazistas",75);
+	EscreveDevagar(0,110,"em uma última batalha.",75);
+	delay(100);
+	
+	EscreveDevagar(0,200,"Os Estados Unidos não resistiram ao ",75);
+	EscreveDevagar(0,230,"embate e acabaram se rendendo aos ",75);
+	EscreveDevagar(0,260,"soviéticos devido a superioridade",75);
+	EscreveDevagar(0,290,"desses no campo de batalha.",75); 
+	delay(200);
+
+	EscreveDevagar(0,380,"Dessa forma, os soviéticos tiveram ",75);
+	EscreveDevagar(0,410,"plena liberdade para implantar o ",75);
+	EscreveDevagar(0,440,"comunismo em todas nações do ocidente.",75);
+	
+	delay(200);
+	EscreveDevagar(0,530,"Alcançaram a desejada paz e,",75);
+	EscreveDevagar(0,560,"agora, inimigo algum pode atrapalhar isso.",75);
+
+
 	
 	
+	delay(2000);
+	setbkcolor(BLACK);
+	cleardevice();	
 }
 
 
 void Cutscenes::FinalGuerraFria(){
-	
-	
+
 }
+
+
 
 

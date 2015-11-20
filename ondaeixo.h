@@ -44,11 +44,11 @@ void OndaEixo::Init(Jogador *oEixoIA, int *velocidadeJogo,char *meuDest){
 	eixoIA = oEixoIA;
 	dest = meuDest;
 	
-	if(dest == LADO2){
+	if(dest == LADOURSS){
 		soldX = ENTRADAURSSX;
 		soldY = ENTRADAURSSY;
 	} 
-	else if(dest == LADO1){
+	else if(dest == LADOEUA){
 		soldX = ENTRADAEUAX;
 		soldY = ENTRADAEUAY;
 	}

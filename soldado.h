@@ -269,14 +269,14 @@ void Soldado::Init(char* tipoSold, int gameSpeed ){
 		x = TILE_W * 2;
 		y = TILE_H * 1;
 		Carrega(URSS);
-		dest = LADO1;
+		dest = LADOEUA;
 	}
 	
 	else if(tipoSold == "Eua"){
 		x = TILE_W * 37;
 		y = TILE_H * 1;
 		Carrega(EUA);
-		dest = LADO2;
+		dest = LADOURSS;
 	}
 	
 
@@ -652,13 +652,13 @@ void Soldado::IA(Cenario meuCampo, TDelay *tempoEspera){
 	
 	int pCegoX, pCegoY, destTX, destTY;
 	
-	if(dest == LADO2){
+	if(dest == LADOURSS){
 		pCegoX = ENTRADAURSSX;
 		pCegoY = ENTRADAURSSY;
 		destTX = DEST_EUA_TX;
 		destTY = DEST_EUA_TY;
 	} 
-	else if (dest == LADO1){
+	else if (dest == LADOEUA){
 		pCegoX = ENTRADAEUAX;
 		pCegoY = ENTRADAEUAY;
 		destTX = DEST_URSS_TX;

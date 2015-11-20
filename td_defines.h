@@ -238,9 +238,9 @@
 
 
 // Opções para lado do jogador
-#define LADO1 "Eua"
-#define LADO2 "Urss"
-#define LADO3 "Eixo"
+#define LADOEUA "Eua"
+#define LADOURSS "Urss"
+#define LADONAZI "Eixo"
 
 // Dimensões das imagens dos lideres
 #define LIDER_TILEW 64

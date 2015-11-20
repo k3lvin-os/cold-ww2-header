@@ -134,7 +134,7 @@ void Jogador::MostraGUI(){
 	} else{
 		
 		setcolor(LIGHTRED);
-		if(lado == LADO1)
+		if(lado == LADOEUA)
 			outtextxy(guiSoldTextX - 144,guiSoldTextY + 16,"Sobreviva ao ataque nazista!");
 		else
 			outtextxy(guiSoldTextX,guiSoldTextY + 16,"Sobreviva ao ataque nazista!");
@@ -208,9 +208,9 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 	lado = meuLado;	
 	gameSpeed = velocidadeJogo;
 		
-	if(meuLado == LADO1 || meuLado == LADO2){
+	if(meuLado == LADOEUA || meuLado == LADOURSS){
 		
-		if(meuLado == LADO1){
+		if(meuLado == LADOEUA){
 	
 			guiNameSoldX = EUA_TEXT_X;
 			guiNameSoldY = EUA_TEXT_Y;
@@ -226,7 +226,7 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 			tempTorre.Init(lado,0,0,true);
 		}
 			
-		else if(meuLado == LADO2){
+		else if(meuLado == LADOURSS){
 			guiNameSoldX = URSS_TEXT_X;
 			guiNameSoldY = URSS_TEXT_Y;
 			guiSoldTextX = SOLD_URSS_X;
