@@ -7,14 +7,15 @@ enum ImgCutscenes{
 	ESTATUA_HITLER,
 	STALIN_QUADRO,
 	ROOSEV_QUADRO,
+	STALIN_BRAVO,
+	ROOSEV_BRAVO,
 	HITLER_QUADRO,
 	ROOSEV_GAME,
 	STALIN_GAME,
 	HILTER_GAME,
-	BOMBA_NUCLEAR,
+	BOMBA_NUCLEAR1,
+	BOMBA_NUCLEAR2,
 	LIDERES_IALTA,
-	STALIN_BRAVO,
-	ROOSEV_BRAVO,
 	qtdImgCutscenes
 };
 
@@ -74,32 +75,30 @@ void Cutscenes::Carrega(){
 			height = 720;
 		}
 		
-		else if(indiceH >= 4 && indiceH <= 6){
+		else if(indiceH >= 4 && indiceH <= 8){
 			width = 316;
 			height = 436;			
 		} 
 		
-		else if(indiceH >= 7 && indiceH <= 9){
+		else if(indiceH >= 9 && indiceH <= 11){
 			width = 64;
 			height = 96;
 		}
-		
-		else if(indiceH == 10  ){
-			width = 580;
-			height = 418;		
+				
+		else if(indiceH == 12){
+			width = 717;
+			height = 476;			
 		}
 		
-		else if(indiceH == 11){
-			width = 543;
-			height = 242;			
-			
+		else if(indiceH == 13){
+			width = 450;
+			height = 600;			
 		}
 		
-		else if(indiceH == 12 || indiceH == 13){
-			width = 316;
-			height = 436;			
-		}
-		
+		else if(indiceH == 14){
+			width = 1258;
+			height = 830;
+		}		
 		
 		sprites[i].Init();
 		sprites[i].GetImage(pathImg,width,height);
@@ -304,8 +303,11 @@ void Cutscenes::FinalUrss(){
 }
 
 
+// Final aonde os dois jogadores sobrevivem ao ataque dos nazistas
 void Cutscenes::FinalGuerraFria(){
-
+	sprites[BOMBA_NUCLEAR1].GoTo(TELA_W /2, 0);
+	sprites[BOMBA_NUCLEAR1].Show();
+	delay(2000);
 }
 
 
