@@ -120,11 +120,11 @@ void Cutscenes::MostraFinal(Final meuFinal){
 		setcolor(WHITE);
 		settextstyle(BOLD_FONT,HORIZ_DIR,3);
 		if(meuFinal == FINAL_NAZI)
-			outtextxy(TELA_W / 2 - 64,TELA_H / 2,"FINAL DOS NAZISTAS");
+			outtextxy(TELA_W / 2 - 80,TELA_H / 2,"FINAL DOS NAZISTAS");
 		else if(meuFinal == FINAL_EUA)
-			outtextxy(TELA_W / 2,TELA_H / 2- 32,"FINAL DOS EUA");
+			outtextxy(TELA_W / 2 - 80,TELA_H / 2,"FINAL DOS EUA");
 		else if(meuFinal == FINAL_URSS)
-			outtextxy(TELA_W / 2, TELA_H / 2- 32, "FINAL DA URSS");
+			outtextxy(TELA_W / 2 - 80,TELA_H / 2, "FINAL DA URSS");
 		settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	}
 	
@@ -150,7 +150,7 @@ void Cutscenes::FinalNazi(){
 	minhaPg.Ativa();
 	setbkcolor(WHITE);
 	setcolor(BLACK);
-	settextstyle(BOLD_FONT   ,HORIZ_DIR,1);
+	settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	cleardevice();
 	minhaPg.Visual();
 	
