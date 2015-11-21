@@ -15,7 +15,8 @@ enum ImgCutscenes{
 	HILTER_GAME,
 	BOMBA_NUCLEAR1,
 	BOMBA_NUCLEAR2,
-	LIDERES_IALTA,
+	LIDERES_IALTA1,
+	LIDERES_IALTA2,
 	qtdImgCutscenes
 };
 
@@ -66,7 +67,11 @@ void Cutscenes::Carrega(){
 			
 		itoa(indiceH,temp,10);
 		strcat(pathImg,temp);
-		strcat(pathImg,BITMAP);
+		
+		if(indiceH < 12)
+			strcat(pathImg,BITMAP);
+		else 
+			strcat(pathImg,JPEG);
 		
 		
 		
@@ -96,11 +101,16 @@ void Cutscenes::Carrega(){
 		}
 		
 		else if(indiceH == 14){
-			width = 1258;
-			height = 830;
-		}		
+			width = 800;
+			height = 600;
+		}
 		
-		sprites[i].Init();
+		else if(indiceH == 15)	{
+			width = 480;
+			height = 616;
+		}	
+		
+		sprites[i].Init();	
 		sprites[i].GetImage(pathImg,width,height);
 	}
 }
@@ -167,6 +177,9 @@ void Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra){
 			
 			if(c == ' ')
 				x += 15;
+				
+			else if( c == 'â')
+				x += 5;
 			else
 				x += 19;
 			
@@ -305,9 +318,57 @@ void Cutscenes::FinalUrss(){
 
 // Final aonde os dois jogadores sobrevivem ao ataque dos nazistas
 void Cutscenes::FinalGuerraFria(){
-	sprites[BOMBA_NUCLEAR1].GoTo(TELA_W /2, 0);
+	sprites[BOMBA_NUCLEAR1].GoTo(TELA_W - 717, 0);
 	sprites[BOMBA_NUCLEAR1].Show();
+	setcolor(WHITE);
+	settextstyle(BOLD_FONT,HORIZ_DIR,3);
+	
+	EscreveDevagar(0, TILE_H * 16,"A derrota dos Nazistas não foi o suficiente para encerrar a",75);
+	EscreveDevagar(0,TILE_W * 16 + 30, "Segunda Guerra Mundial...",75);
+	delay(1000);
+	
+	setfillstyle(1,BLACK);
+	bar(TILE_W * 0, TILE_H * 16, TILE_W * 39, TILE_H * 18);
+	delay(100);
+	cleardevice();
+	delay(200);
+	sprites[BOMBA_NUCLEAR2].Show();
+	EscreveDevagar(TILE_W * 14 + 16, 30, "Ela só foi encerrada em  Agosto de 1945",75);
+	EscreveDevagar(TILE_W * 14 + 16, 80, "com  o lançam ento das duas bom bas atôm icas",75);
+	EscreveDevagar(TILE_W * 14 + 16, 130, "em  Hiroshim a e em  Nagasaki.",75);
 	delay(2000);
+	cleardevice();
+	sprites[LIDERES_IALTA1].Show();
+	settextstyle(BOLD_FONT,HORIZ_DIR,1);
+	EscreveDevagar(0, TILE_H * 19 - 10, "Esta foto foi tirada alguns m eses antes disso,na conferência de Yalta, ",75);
+	EscreveDevagar(0,TILE_H * 19 + 30, "evento esse que foi uma reunião entre as duas potências mundiais ",75);
+	EscreveDevagar(0,TILE_H * 19 + 70, "que pariciparam do conflito armado.",75);
+	delay(500);
+	cleardevice();
+	sprites[LIDERES_IALTA2].Show();
+	settextstyle(BOLD_FONT,HORIZ_DIR,2);
+	EscreveDevagar(490,30, "O lhando para ela, ",75);
+	EscreveDevagar(490,80, "parece até que, o que se procedeu,",75);
+	EscreveDevagar(490,130,"foi um período de paz entre as duas nações.",75);
+	delay(250);
+	sprites[ROOSEV_QUADRO].GoTo(480, 150);
+	sprites[ROOSEV_QUADRO].Show();
+	sprites[STALIN_QUADRO].GoTo(846, 150);
+	sprites[STALIN_QUADRO].Show();
+	delay(3000);
+	cleardevice();
+	sprites[ROOSEV_BRAVO].GoTo(802, 142);
+	sprites[STALIN_BRAVO].GoTo(162, 142);	
+	sprites[ROOSEV_BRAVO].Show();
+	sprites[STALIN_BRAVO].Show();
+	EscreveDevagar(TILE_W * 7,30,"Mas, o que realmente veio depois foi um conflito longo ",75);
+	EscreveDevagar(TILE_W * 8,60,"e indireto que foi chama do de Guerra Fria.",75);
+	delay(3000);
+	bar(0,0,TILE_W * 39, 100);
+	delay(1000);
+
+	delay(30);
+	cleardevice();
 }
 
 

@@ -90,6 +90,9 @@
 /*Extensão bitmap*/
 #define BITMAP ".bmp"
 
+/*Extensão jpeg*/
+#define JPEG ".jpg"
+
 /*Destino dos soldados da URSS (em tile)*/
 #define DEST_URSS_TX 35
 #define DEST_URSS_TY 2
