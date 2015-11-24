@@ -43,7 +43,7 @@ struct Cutscenes{
 	void FinalUrss();
 	void FinalNazi();
 	void FinalGuerraFria();
-	void Introducao(char *meuLado);
+	void IntroJogo();
 	void EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra);
 	
 	
@@ -362,7 +362,7 @@ void Cutscenes::FinalGuerraFria(){
 	sprites[ROOSEV_BRAVO].Show();
 	sprites[STALIN_BRAVO].Show();
 	EscreveDevagar(TILE_W * 7,30,"Mas, o que realmente veio depois foi um conflito longo ",75);
-	EscreveDevagar(TILE_W * 8,60,"e indireto que foi chama do de Guerra Fria.",75);
+	EscreveDevagar(TILE_W * 8,60,"e indireto que foi cham ado de Guerra Fria.",75);
 	delay(3000);
 	bar(0,0,TILE_W * 39, 100);
 	delay(1000);
@@ -371,6 +371,19 @@ void Cutscenes::FinalGuerraFria(){
 	cleardevice();
 }
 
-
+// Introdução mostrada na inicialização do jogo
+void Cutscenes::IntroJogo(){
+	cleardevice();
+	settextstyle(BOLD_FONT,HORIZ_DIR,2);
+	setcolor(WHITE);
+	EscreveDevagar(0, TILE_H * 17, "Não podemos ficar parados. Não depois dos ataque dos japoneses,",40);
+	EscreveDevagar(30,TILE_W * 17 + 30,"e da União Soviética estar tão perto de derrotar os Nazistas.",40);
+	sprites[ROOSEV_QUADRO].GoTo(0,0);
+	sprites[ROOSEV_QUADRO].Show();
+	delay(100);
+	outtextxy(TELA_W / 2 - 150,500,"Franklin D. Roosevelt");
+	delay(1500);
+	cleardevice();
+}
 
 
