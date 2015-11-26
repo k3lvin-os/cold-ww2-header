@@ -409,7 +409,7 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 	minhaPg.Visual();
 	setcolor(WHITE);
 	settextstyle(BOLD_FONT, HORIZ_DIR, 2);
-	EscreveDevagar(TILE_W * 10, TILE_H * 10, "A paz no m undo será definida agora.",75,false);
+	EscreveDevagar(TILE_W * 10, TILE_H * 10, "A paz no mundo será definida agora.",75,false);
 	delay(2000);
 	cleardevice();
 //	minhaGrd.Colocar();
