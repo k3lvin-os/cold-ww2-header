@@ -4,6 +4,10 @@
 #define TELA_W 1280
 #define TELA_H 704
 
+/*Quantidade de novas torres (fila de espera)*/
+#define QTD_NOVATORRE 5
+
+
 /*Posição do Roosevelt*/
 #define ROOSEVELT_X TILE_W * 38
 #define ROOSEVELT_Y TILE_H * 19
@@ -189,6 +193,14 @@
 // Posição da torre acima do texto de torre
 #define TORRE1_X TILE_W * 19 + 16
 #define TORRE1_Y TILE_H * 15
+
+// Posição do Preço dos Itens
+#define PRECO_ITENS_X TILE_W * 19 - 3
+#define PRECO_ITENS_Y TILE_H * 8
+#define PRECO_TORRE_X TILE_W * 19 - 15
+#define PRECO_TORRE_Y TILE_H * 9
+#define PRECO_SOLD_X TILE_W * 18 + 1
+#define PRECO_SOLD_Y TILE_H * 10
 
 // Posição do dinheiro do jogador
 #define MONEY_EUA_X 22 * TILE_W 

@@ -149,6 +149,9 @@ void Cutscenes::MostraFinal(Final meuFinal){
 		FinalEua();
 	else if(meuFinal == FINAL_GUERRAFRIA)
 		FinalGuerraFria();
+	
+	PlaySound(NULL, NULL, 0); 
+
 }
 
 
@@ -326,6 +329,7 @@ void Cutscenes::FinalUrss(){
 
 // Final aonde os dois jogadores sobrevivem ao ataque dos nazistas
 void Cutscenes::FinalGuerraFria(){
+	PlaySound("../../Assets/Music/ColdWar.wav",NULL,SND_LOOP | SND_ASYNC);
 	sprites[BOMBA_NUCLEAR1].GoTo(TELA_W - 717, 0);
 	sprites[BOMBA_NUCLEAR1].Show();
 	setcolor(WHITE);

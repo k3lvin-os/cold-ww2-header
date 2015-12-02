@@ -7,6 +7,7 @@ struct Jogador{
 			Constantes
 	===========================*/
 	static const int DINHEIRO = 120;
+	static const int X_E_Y = 2;
 
 	
 	/*=========================
@@ -27,7 +28,7 @@ struct Jogador{
 	
 	// Lado do jogador
 	char* lado;
-	
+
 	// Marcador de tempo de envio de soldados
 	TDelay envioSold;
 	
@@ -56,7 +57,7 @@ struct Jogador{
 	int qtdSoldEspera;
 	
 	// Indica as coordendas da torre que o jogador comprou recentemente
-	int novaTorreXeY[2];
+	int novaTorreXeY[QTD_NOVATORRE][X_E_Y];
 	
 	// Indica que o outro jogador está morto
 	bool outroJogMorto;
@@ -94,8 +95,10 @@ void Jogador::MostraGUI(){
 		
 	char textDin[19] = "Dinheiro: ";
 	char buffer[8];
+	int laranja;
 	
 	settextjustify(LEFT_TEXT,TOP_TEXT);
+	laranja = COLOR(255,165,0);
 
 	// Dinheiro
 	itoa(dinheiro,buffer,10);
@@ -107,7 +110,15 @@ void Jogador::MostraGUI(){
 	// GUI da Torre
 	torreGUI.MostraTorre();
 	
+	// Preco
+	setcolor(GREEN);
+	settextstyle(BOLD_FONT,HORIZ_DIR,1);
+	outtextxy(PRECO_ITENS_X, PRECO_ITENS_Y,"Preços");
+	outtextxy(PRECO_TORRE_X, PRECO_TORRE_Y,"Torre - 50");
+	outtextxy(PRECO_SOLD_X, PRECO_SOLD_Y,"Soldado - 10");
+	
 	// "Colocar Torre" (GUI)
+	settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	setcolor(LIGHTBLUE);
 	settextstyle(BOLD_FONT,HORIZ_DIR,2);
 	outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,"Colocar");
@@ -181,7 +192,7 @@ void Jogador::InputGUI(){
 //===============================================================
 // "Construtor" geral 
 void Jogador::Init(){
-	
+	int i;
 	soldado0 = (Soldado *) malloc(sizeof(Soldado));
 	torre0 = (Torre *) malloc(sizeof(Torre));
 	soldado0->prox = NULL;
@@ -196,8 +207,11 @@ void Jogador::Init(){
 	qtdSoldEspera = 0;
 	flagTorre = false;
 	outroJogMorto = false;
-	novaTorreXeY[0] = UNDEFINED;
-	novaTorreXeY[1] = UNDEFINED;
+	for( i = 0; i < QTD_NOVATORRE; i++){
+		novaTorreXeY[i][0] = UNDEFINED;
+		novaTorreXeY[i][1] = UNDEFINED;
+	}
+
 }
 
 //=================================================================
@@ -295,8 +309,8 @@ void Jogador::ArrastaTorre(Cenario meuCampo){
 						if(torre0->SemTorrePerto(torre0,meuX,meuY) == true){
 							if(Compra(PRECO_TORRE) == true){
 								torre0->Insere(torre0,lado,meuX,meuY);
-								novaTorreXeY[0] = meuX;
-								novaTorreXeY[1] = meuY;
+								novaTorreXeY[0][0] = meuX;
+								novaTorreXeY[0][1] = meuY;
 							}
 
 						}
