@@ -9,26 +9,30 @@ enum Idioma{
 struct Linguagem{
 	
 	// Indica a quantidade de textos que o jogo contém
-	static int const QTD_TEXTO_JOGO = /* ? */ ;
+	static const int QTD_TEXTO_JOGO = 6 ;
 	
 	// Armazena os textos do jogo 
-	char *texto[qtdIdioma][qtdTextoJogo];
-	int escolhaIdioma;
+	char *texto[qtdIdioma][QTD_TEXTO_JOGO];
+	Idioma idiomaAtual;
 	
 	
 	//Funções
-	char* Texto();
+	char* GetText(int indiceDoTexto);
+	bool CarregaIdioma(char *arquivoIdioma);
+	void TextoDefault();
+	void LimpaMemoria();
 	
 	// "Construtor"
 	void Init(Idioma escolha);
-	bool CarregaIdioma(char *arquivoIdioma);
-	
+
 	
 };
 
 
-// Carrega a linguagem do jogo
+// Inicializa a estrutura
 void Linguagem::Init(Idioma escolha){
+	
+	idiomaAtual = escolha;
 	
 	if(escolha == PORTUGUES)
 		CarregaIdioma("pt-br.txt");	
@@ -39,6 +43,7 @@ void Linguagem::Init(Idioma escolha){
 
 // Carrega um idioma a partir de um arquivo de idioma
 bool Linguagem::CarregaIdioma(char *arquivoIdioma){
+	
 	std::ifstream leitor;
 	char c;
 	bool recebeTxt, recebeNTxt;
@@ -47,22 +52,19 @@ bool Linguagem::CarregaIdioma(char *arquivoIdioma){
 	
 	leitor.open(arquivoIdioma);
 	
-	
 	if(!leitor.is_open())
 		return false;
 	
-	texto = UNDEFINED_TEXT;
 	recebeTxt = false;
 	recebeNTxt = false;
 	nTexto = NULL;
-	strcpy(temp,"");
+	strcpy(nTextoChar,"");
+	strcpy(buffer,"");
+	
 	while(leitor.get(c)){
 	
-		
-		if(c == '_' ){
-			
+		if(c == '_' )
 			recebeNTxt = true;	
-		}
 		
 		else if(recebeNTxt == true){
 			
@@ -71,11 +73,14 @@ bool Linguagem::CarregaIdioma(char *arquivoIdioma){
 				temp[1] = '\0';	
 				strcat(nTextoChar,temp);		
 			}
-			
-			else
-				nTexto = atoi(nTextoChar);	
+			else{
+				nTexto = atoi(nTextoChar);
+				strcpy(nTextoChar,"");
+				recebeNTxt = false;
+			}
 		} 
 		
+
 		else if(c == '\"'){
 			
 			if(recebeTxt == false){
@@ -83,18 +88,58 @@ bool Linguagem::CarregaIdioma(char *arquivoIdioma){
 			} 
 			
 			else{
-				
-				
-			}
-			
-			
+				texto[idiomaAtual][nTexto - 1] = (char *) malloc(sizeof(buffer));
+				strcpy(texto[idiomaAtual][nTexto - 1],buffer);
+				strcpy(buffer,"");
+				recebeTxt = false;	
+			}			
+		}
+		
+		else if(recebeTxt == true){
+			temp[0] = c;
+			temp[1] = '\0';
+			strcat(buffer,temp);
 		}
 
 	}
+	
+	leitor.close();
 	
 	return true;
 	
 }
 
+// Coloca um texto default / erro para cada texto do jogo
+void Linguagem::TextoDefault(){
+	int j, i;
+	
+	i = 0;
+	while(i < qtdIdioma){
+		
+		j = 0;
+		while(j < QTD_TEXTO_JOGO){
+			texto[i][j] = "[FAIL IN TEXT LOAD]";
+			j++;
+		}
+		i++;
+	}
+}
+
+// Limpa a memória alocada para o texto do jogo
+void Linguagem::LimpaMemoria(){
+	int i, j;
+	
+	i = idiomaAtual;
+	for(j = 0; j < QTD_TEXTO_JOGO; j++)
+		free(texto[i][j]);
+}
+
+
+// Retorna o texto correspondente ao indice do idioma atual
+char* Linguagem::GetText(int indiceDoTexto){
+	int indiceMaquina;
+	indiceMaquina = indiceDoTexto - 1;
+	return texto[idiomaAtual][indiceMaquina];
+}
 
 

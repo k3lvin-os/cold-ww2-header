@@ -28,6 +28,7 @@ enum EscolhaEmMenu{
 	MENU_DOIS_JOG,
 	MENU_CLIENTE,
 	MENU_SERVIDOR,
+	LINGUAGEM,
 	SAIR
 };
 
