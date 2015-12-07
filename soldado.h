@@ -50,6 +50,7 @@ struct Soldado{
 	
 	// Funções
 	void Carrega(char rPath[]);
+	void Carrega(Soldado *modelo);
 	void GoTo(int novoX, int novoY);
 	bool Pathfind(Cenario meuCampo,int tileXF, int tileYF);
 	void Move();
@@ -64,16 +65,16 @@ struct Soldado{
 	Soldado* GetSoldById(Soldado *soldado0, int id);
 	
 	/*Funções relativas a lista encadeada empregada no tipo Soldado*/
-	Soldado* Insere(Soldado *soldado0, char* tipo, int gameSpeed);
-	Soldado* Insere(Soldado *soldado0, char* tipo, int gameSpeed, char *dest);
+	Soldado* Insere(Soldado *soldado0, Soldado *modelo, int gameSpeed);
+	Soldado* Insere(Soldado *soldado0, Soldado *modelo, int gameSpeed, char *dest);
 	void Remove(Soldado *anterior);
 	void LimpaNo(Soldado *soldado0);
 	Soldado* Anterior(Soldado *soldado0);
 
 	// "Construtores"
-	void Init(char* tipo, int speed);
+	void Init(Soldado *modelo, int speed);
 	void Init();
-	void Init(char* tipo, int speed, char *meuDest);
+	void Init(Soldado *modelo, int speed, char *meuDest);
 	
 };
 
@@ -126,8 +127,8 @@ Soldado* Soldado::GetSoldById(Soldado *soldado0, int id){
 
 //==================================================================
 // "Construtor" utilizado para soldados do Eixo
-void Soldado::Init(char* tipo,int speed, char *meuDest){
-	Init(tipo,speed);
+void Soldado::Init(Soldado *modelo,int speed, char *meuDest){
+	Init(modelo,speed);
 	dest = meuDest;
 }
 
@@ -165,19 +166,20 @@ void Soldado::LimpaNo(Soldado *soldado0){
 	while(p != NULL){
 		aux = p;
 		p = p->prox;
-		//free(aux->imagens); 
-		//ree(aux->mascaras);
+		free(aux->imagens); 
+		free(aux->mascaras);
 		free(aux);
 	}
 	soldado0 = NULL;	
 }
 
 
-
-Soldado* Soldado::Insere(Soldado *soldado0,char* tipo,  int gameSpeed, char *dest){
+// Insere um novo soldado da na lista encadeada e retorna um ponteiro para mainpula-lo
+//( Versão onde passar o destino do soldado é necessário)
+Soldado* Soldado::Insere(Soldado *soldado0,Soldado *modelo,  int gameSpeed, char *dest){
 	Soldado *novo;
 	novo = (Soldado *) malloc(sizeof(Soldado));
-	novo->Init(tipo,gameSpeed,dest); 
+	novo->Init(modelo,gameSpeed,dest); 
 	novo->prox = soldado0->prox;
 	soldado0->prox = novo;
 	
@@ -187,10 +189,10 @@ Soldado* Soldado::Insere(Soldado *soldado0,char* tipo,  int gameSpeed, char *des
 
 
 // Insere um novo soldado na lista encadeada
-Soldado* Soldado::Insere(Soldado *soldado0,char *tipo, int gameSpeed){
+Soldado* Soldado::Insere(Soldado *soldado0,Soldado *modelo, int gameSpeed){
 	Soldado *novo;
 	novo = (Soldado *) malloc(sizeof(Soldado));
-	novo->Init(tipo,gameSpeed); // Inicializa o soldado
+	novo->Init(modelo,gameSpeed); // Inicializa o soldado
 	novo->prox = soldado0->prox;
 	soldado0->prox = novo;
 	
@@ -246,36 +248,36 @@ void Soldado::Init(){
 	visivel = false;
 	movNUntil = false;
 	prox = NULL;
+	imagens[0] = NULL;
 }
 //===========================================================================
 
 // "Construtor" que recebe o tipo de soldado 
 //e atribui valores baseado nisso
-void Soldado::Init(char* tipoSold, int gameSpeed ){
+void Soldado::Init(Soldado *modelo, int gameSpeed ){
 	
 
 	
 	Init();
-	tipo = tipoSold;
 	speed = gameSpeed;
-	if(tipoSold == "Nazi"){
-		
-		Carrega(NAZI);			
+	Carrega(modelo);
+	
+	if(modelo->tipo == "Nazi"){
+						
 		posCego = true; 		
 	}
 	
-	else if(tipoSold == "Urss"){
+	else if(modelo->tipo == "Urss"){
 		
 		x = TILE_W * 2;
 		y = TILE_H * 1;
-		Carrega(URSS);
 		dest = LADOEUA;
+			
 	}
 	
-	else if(tipoSold == "Eua"){
+	else if(modelo->tipo == "Eua"){
 		x = TILE_W * 37;
 		y = TILE_H * 1;
-		Carrega(EUA);
 		dest = LADOURSS;
 	}
 	
@@ -718,3 +720,12 @@ void Soldado::IA(Cenario meuCampo, TDelay *tempoEspera){
 
 //=====================================================================
 
+// Carrega as imagens de um soldado a partir de um modelo
+void Soldado::Carrega(Soldado *modelo){
+	int i;
+	
+	for(i = 0; i < QTD_IMG; i++){
+		imagens[i] = modelo->imagens[i];
+		mascaras[i] = modelo->mascaras[i];
+	}
+}
