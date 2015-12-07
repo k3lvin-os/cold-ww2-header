@@ -415,13 +415,13 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 	cleardevice();
 //	minhaGrd.Colocar();
 	if (meuJog.lado == LADOEUA){
-		EscreveDevagar( TILE_W * 12, TILE_H * 2, "E depende de você, Roosevelt!", 75, false);
+		EscreveDevagar( TILE_W * 12, TILE_H * 2, linguagem.GetText(7), 75, false);
 		sprites[ROOSEV_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
 		sprites[ROOSEV_QUADRO].Show();
 	}
 	else
 	{
-		EscreveDevagar( TILE_W * 13, TILE_H * 2, "E depende de você, Stalin!", 75, false);
+		EscreveDevagar( TILE_W * 13, TILE_H * 2, linguagem.GetText(8), 75, false);
 		sprites[STALIN_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
 		sprites[STALIN_QUADRO].Show();
 	}	
