@@ -28,7 +28,7 @@ struct Jogador{
 	
 	// Lado do jogador
 	char* lado;
-
+	
 	// Marcador de tempo de envio de soldados
 	TDelay envioSold;
 	
@@ -174,7 +174,7 @@ void Jogador::InputGUI(){
 				envioSold.Atualiza();	
 			
 				if (Compra(PRECO_SOLDADO) == true){
- 					soldado0->Insere(soldado0,lado,*gameSpeed);	
+ 					soldado0->Insere(soldado0,&soldGUI,*gameSpeed);	
 					qtdSoldEspera = 1;			
 				}	
 			}
@@ -238,6 +238,7 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 			guiCircleY = guiSoldY + 16;
 			lider.Init("Roosevelt",&vida);
 			tempTorre.Init(lado,0,0,true);
+			soldGUI.Carrega(EUA);
 		}
 			
 		else if(meuLado == LADOURSS){
@@ -251,17 +252,19 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 			guiSoldX = GUI_URSS_X ;
 			guiSoldY = GUI_URSS_Y;
 			guiCircleX = guiSoldX + 16;
-			guiCircleY = guiSoldY + 16;	
+			guiCircleY = guiSoldY + 16;
+			soldGUI.Carrega(URSS);	
 		}		
 		
-		soldGUI.Init(meuLado,0);
 		soldGUI.GoTo(guiSoldX,guiSoldY);
 		soldGUI.TrocaDir(CIMA);
 		torreGUI.Init(meuLado,TORRE1_X,TORRE1_Y,true);
 		tempTorre.Init(lado,0,0,true);	
 	}
-	else
+	else{
 		lider.Init("Hitler",&vida);
+		soldGUI.Carrega(NAZI);
+	}
 	
 }
 

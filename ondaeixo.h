@@ -67,7 +67,7 @@ void OndaEixo::InsereEixo(int x, int y, int qtd, int nFlag){
 		
 		for(i = 0; i < qtd; i++){
 			
-			pSold = soldado0->Insere(soldado0,"Nazi",*gameSpeed,dest);
+			pSold = soldado0->Insere(soldado0,&eixoIA->soldGUI,*gameSpeed,dest);
 			pSold->GoTo(x,y);
 		}
 		
