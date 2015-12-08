@@ -239,6 +239,7 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 			lider.Init("Roosevelt",&vida);
 			tempTorre.Init(lado,0,0,true);
 			soldGUI.Carrega(EUA);
+			soldGUI.tipo = "Eua";
 		}
 			
 		else if(meuLado == LADOURSS){
@@ -253,7 +254,8 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 			guiSoldY = GUI_URSS_Y;
 			guiCircleX = guiSoldX + 16;
 			guiCircleY = guiSoldY + 16;
-			soldGUI.Carrega(URSS);	
+			soldGUI.Carrega(URSS);
+			soldGUI.tipo = "Urss";	
 		}		
 		
 		soldGUI.GoTo(guiSoldX,guiSoldY);
@@ -264,6 +266,7 @@ void Jogador::Init(char *meuLado, int *velocidadeJogo){
 	else{
 		lider.Init("Hitler",&vida);
 		soldGUI.Carrega(NAZI);
+		soldGUI.tipo = "Nazi";
 	}
 	
 }

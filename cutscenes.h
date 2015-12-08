@@ -401,6 +401,7 @@ void Cutscenes::IntroJogo(){
 // Tutorial do Jogo
 void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 	
+	bool checkClick, continua;
 	Grade minhaGrd;
 	Pagina minhaPg;
 	minhaPg.Init();
@@ -410,64 +411,79 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 	minhaPg.Visual();
 	setcolor(WHITE);
 	settextstyle(BOLD_FONT, HORIZ_DIR, 2);
-	EscreveDevagar(TILE_W * 10, TILE_H * 10, "A paz no mundo será definida agora.",75,false);
-	delay(2000);
-	cleardevice();
-//	minhaGrd.Colocar();
-	if (meuJog.lado == LADOEUA){
-		EscreveDevagar( TILE_W * 12, TILE_H * 2, linguagem.GetText(7), 75, false);
-		sprites[ROOSEV_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
-		sprites[ROOSEV_QUADRO].Show();
-	}
+	
+	if(tipoGameplay == MULTIPLAYER)
+		checkClick = false;
 	else
-	{
-		EscreveDevagar( TILE_W * 13, TILE_H * 2, linguagem.GetText(8), 75, false);
-		sprites[STALIN_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
-		sprites[STALIN_QUADRO].Show();
-	}	
+		checkClick = true;
 	
-	delay(3000);
 	
-	cleardevice();
+	continua = EscreveDevagar(TILE_W * 10, TILE_H * 10,
+	 "A paz no mundo será definida agora.",75,checkClick);
+	 
+	if(continua == true){
+		delay(2000);
+		cleardevice();
+		
+		if (meuJog.lado == LADOEUA)
+			continua = EscreveDevagar( TILE_W * 12, TILE_H * 2, linguagem.GetText(7), 75, checkClick);
+		else
+			continua = EscreveDevagar( TILE_W * 13, TILE_H * 2, linguagem.GetText(8), 75, checkClick);	
+}
+
 	
-	meuJog.torreGUI.MostraTorre();
-	EscreveDevagar( TILE_W * 2, TILE_H * 14, "Arraste torres para que elas defendam  o seu cam po de batalha.", 75, false);
+	if(continua == true){
+		
+		if(meuJog.lado == LADOEUA){
+				sprites[ROOSEV_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
+				sprites[ROOSEV_QUADRO].Show();	
+		} else{
+				sprites[STALIN_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
+				sprites[STALIN_QUADRO].Show();					
+		}		
 	
-	delay (1000);
-	cleardevice();
-	
-	meuJog.soldGUI.x = meuJog.torreGUI.x;
-	meuJog.soldGUI.y = meuJog.torreGUI.y;
-	meuJog.soldGUI.Show();
-	if(meuJog.lado == LADOEUA){
-		meuJog.soldGUI.x = GUI_EUA_X;
-		meuJog.soldGUI.y = GUI_EUA_Y;
+		delay(3000);
+		cleardevice();
+		meuJog.torreGUI.MostraTorre();
+		
+		continua = EscreveDevagar( TILE_W * 2, TILE_H * 14,
+	 	"Arraste torres para que elas defendam  o seu cam po de batalha.",
+	  	75, checkClick);
 	}
-	else
-	{
-		meuJog.soldGUI.x = GUI_URSS_X;
-		meuJog.soldGUI.y = GUI_URSS_Y;
-	}
-	EscreveDevagar( TILE_W * 4, TILE_H * 14, "Envie soldados para atrapalhar os planos do outro jogador.", 75, false);
 	
-	delay(1000);
+	if(continua == true){
+		delay (1000);
+		cleardevice();
+		meuJog.soldGUI.x = meuJog.torreGUI.x;
+		meuJog.soldGUI.y = meuJog.torreGUI.y;
+		meuJog.soldGUI.Show();	
+		
+		if(meuJog.lado == LADOEUA){
+			meuJog.soldGUI.x = GUI_EUA_X;
+			meuJog.soldGUI.y = GUI_EUA_Y;
+		}
+		else
+		{
+			meuJog.soldGUI.x = GUI_URSS_X;
+			meuJog.soldGUI.y = GUI_URSS_Y;
+		}		
+		
+		continua = EscreveDevagar( TILE_W * 4, TILE_H * 14, 
+		"Envie soldados para atrapalhar os planos do outro jogador.",
+		 75, checkClick);	
+	}
 	
 	if(tipoGameplay == MULTIPLAYER){
 		EnviaPacoteJogo();
 		RecebePacoteJogo();
 	}
 	
+	delay(1000);
 	cleardevice();
-	
 	PlaySound("../../Assets/Music/gameplay.wav",NULL,SND_LOOP | SND_ASYNC);	
-	
-	EscreveDevagar( TILE_W * 15, TILE_H * 10, "Alcance sua PAZ !!!", 75, false);
-	
-	
+	EscreveDevagar( TILE_W * 15, TILE_H * 10, "Alcance sua PAZ !!!",
+		 75, false);
+		 	
 	delay(3000);
 	cleardevice();
-	
-	
 }
-
-
