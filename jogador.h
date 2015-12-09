@@ -93,9 +93,11 @@ struct Jogador{
 // Mostra a interface com o usuário do jogador
 void Jogador::MostraGUI(){
 		
-	char textDin[19] = "Dinheiro: ";
+	char textDin[19];
 	char buffer[8];
 	int laranja;
+	
+	strcpy(textDin,linguagem.GetText(62));
 	
 	settextjustify(LEFT_TEXT,TOP_TEXT);
 	laranja = COLOR(255,165,0);
@@ -113,16 +115,16 @@ void Jogador::MostraGUI(){
 	// Preco
 	setcolor(GREEN);
 	settextstyle(BOLD_FONT,HORIZ_DIR,1);
-	outtextxy(PRECO_ITENS_X, PRECO_ITENS_Y,"Preços");
-	outtextxy(PRECO_TORRE_X, PRECO_TORRE_Y,"Torre - 50");
-	outtextxy(PRECO_SOLD_X, PRECO_SOLD_Y,"Soldado - 10");
+	outtextxy(PRECO_ITENS_X, PRECO_ITENS_Y,linguagem.GetText(51));
+	outtextxy(PRECO_TORRE_X, PRECO_TORRE_Y,linguagem.GetText(52));
+	outtextxy(PRECO_SOLD_X, PRECO_SOLD_Y,linguagem.GetText(53));
 	
 	// "Colocar Torre" (GUI)
 	settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	setcolor(LIGHTBLUE);
 	settextstyle(BOLD_FONT,HORIZ_DIR,2);
-	outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,"Colocar");
-	outtextxy(TORRE_TEXT_X + 12,TORRE_TEXT_Y + 32,"Torre");
+	outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,linguagem.GetText(54));
+	outtextxy(TORRE_TEXT_X + 12,TORRE_TEXT_Y + 32,linguagem.GetText(55));
 
 	if(outroJogMorto == false){
 		
@@ -137,7 +139,7 @@ void Jogador::MostraGUI(){
 		// Texto do Soldado
 		setcolor(LIGHTRED);
 		settextstyle(BOLD_FONT,HORIZ_DIR,2);
-		outtextxy(guiSoldTextX,guiSoldTextY,"Enviar Soldado");	
+		outtextxy(guiSoldTextX,guiSoldTextY,linguagem.GetText(56));	
 				
 		// Círculo em volta do soldado
 		setcolor(BLACK);	
@@ -146,9 +148,9 @@ void Jogador::MostraGUI(){
 		
 		setcolor(LIGHTRED);
 		if(lado == LADOEUA)
-			outtextxy(guiSoldTextX - 144,guiSoldTextY + 16,"Sobreviva ao ataque nazista!");
+			outtextxy(guiSoldTextX - 144,guiSoldTextY + 16,linguagem.GetText(57));
 		else
-			outtextxy(guiSoldTextX,guiSoldTextY + 16,"Sobreviva ao ataque nazista!");
+			outtextxy(guiSoldTextX,guiSoldTextY + 16,linguagem.GetText(57));
 		
 
 	}

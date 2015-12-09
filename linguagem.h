@@ -9,7 +9,7 @@ enum Idioma{
 struct Linguagem{
 	
 	// Indica a quantidade de textos que o jogo contém
-	static const int QTD_TEXTO_JOGO = 8 ;
+	static const int QTD_TEXTO_JOGO = 62;
 	
 	// Armazena os textos do jogo 
 	char *texto[qtdIdioma][QTD_TEXTO_JOGO];
@@ -47,7 +47,7 @@ bool Linguagem::CarregaIdioma(char *arquivoIdioma){
 	std::ifstream leitor;
 	char c;
 	bool recebeTxt, recebeNTxt;
-	char buffer[50], temp[2], nTextoChar[4] ;
+	char buffer[70], temp[2], nTextoChar[4] ;
 	int nTexto;
 	
 	leitor.open(arquivoIdioma);
@@ -90,6 +90,8 @@ bool Linguagem::CarregaIdioma(char *arquivoIdioma){
 			else{
 				texto[idiomaAtual][nTexto - 1] = (char *) malloc(sizeof(buffer));
 				strcpy(texto[idiomaAtual][nTexto - 1],buffer);
+				// TESTE
+				std::cout << texto[idiomaAtual][nTexto - 1] << std::endl;
 				strcpy(buffer,"");
 				recebeTxt = false;	
 			}			

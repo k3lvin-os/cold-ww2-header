@@ -419,7 +419,7 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 	
 	
 	continua = EscreveDevagar(TILE_W * 10, TILE_H * 10,
-	 "A paz no mundo será definida agora.",75,checkClick);
+	 linguagem.GetText(58),75,checkClick);
 	 
 	if(continua == true){
 		delay(2000);
@@ -446,9 +446,8 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 		cleardevice();
 		meuJog.torreGUI.MostraTorre();
 		
-		continua = EscreveDevagar( TILE_W * 2, TILE_H * 14,
-	 	"Arraste torres para que elas defendam  o seu cam po de batalha.",
-	  	75, checkClick);
+		continua = EscreveDevagar( TILE_W * 2, TILE_H * 14,linguagem.GetText(59),
+		75, checkClick);
 	}
 	
 	if(continua == true){
@@ -468,8 +467,7 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 			meuJog.soldGUI.y = GUI_URSS_Y;
 		}		
 		
-		continua = EscreveDevagar( TILE_W * 4, TILE_H * 14, 
-		"Envie soldados para atrapalhar os planos do outro jogador.",
+		continua = EscreveDevagar( TILE_W * 4, TILE_H * 14, linguagem.GetText(60),
 		 75, checkClick);	
 	}
 	
@@ -481,7 +479,7 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 	delay(1000);
 	cleardevice();
 	PlaySound("../../Assets/Music/gameplay.wav",NULL,SND_LOOP | SND_ASYNC);	
-	EscreveDevagar( TILE_W * 15, TILE_H * 10, "Alcance sua PAZ !!!",
+	EscreveDevagar( TILE_W * 15, TILE_H * 10, linguagem.GetText(61),
 		 75, false);
 		 	
 	delay(3000);
