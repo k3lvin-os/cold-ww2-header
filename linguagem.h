@@ -1,5 +1,6 @@
 // Idiomas do jogo
 enum Idioma{
+	SEM_IDIOMA,
 	PORTUGUES,
 	INGLES,
 	qtdIdioma
