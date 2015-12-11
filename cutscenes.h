@@ -44,6 +44,7 @@ struct Cutscenes{
 	void FinalNazi();
 	void FinalGuerraFria();
 	bool EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra, bool checkClick);
+	void Tutorial(Jogador meuJog, TipoGameplay tipoGameplay);
 	
 };
 
@@ -304,13 +305,13 @@ void Cutscenes::FinalUrss(){
 	EscreveDevagar(0,290,linguagem.GetText(82),75,false); 
 	delay(200);
 
-	EscreveDevagar(0,380,"Dessa forma, os soviéticos tiveram ",75,false);
-	EscreveDevagar(0,410,"plena liberdade para implantar o ",75,false);
-	EscreveDevagar(0,440,"comunismo em todas nações do ocidente.",75,false);
+	EscreveDevagar(0,380, linguagem.GetText(90),75,false);
+	EscreveDevagar(0,410, linguagem.GetText(91),75,false);
+	EscreveDevagar(0,440, linguagem.GetText(92),75,false);
 	
 	delay(200);
-	EscreveDevagar(0,530,"Alcançaram a desejada paz e,",75,false);
-	EscreveDevagar(0,560,"agora, inimigo algum pode atrapalhar isso.",75,false);
+	EscreveDevagar(0,530,linguagem.GetText(86),75,false);
+	EscreveDevagar(0,560,linguagem.GetText(76),75,false);
 
 
 	
@@ -329,8 +330,8 @@ void Cutscenes::FinalGuerraFria(){
 	setcolor(WHITE);
 	settextstyle(BOLD_FONT,HORIZ_DIR,3);
 	
-	EscreveDevagar(0, TILE_H * 16,"A derrota dos Nazistas não foi o suficiente para encerrar a",75,false);
-	EscreveDevagar(0,TILE_W * 16 + 30, "Segunda Guerra Mundial...",75,false);
+	EscreveDevagar(0, TILE_H * 16,linguagem.GetText(93),75,false);
+	EscreveDevagar(0,TILE_W * 16 + 30,linguagem.GetText(94),75,false);
 	delay(1000);
 	
 	setfillstyle(1,BLACK);
@@ -339,27 +340,27 @@ void Cutscenes::FinalGuerraFria(){
 	cleardevice();
 	delay(200);
 	sprites[BOMBA_NUCLEAR2].Show();
-	EscreveDevagar(TILE_W * 14 + 16, 30, "Ela só foi encerrada em  Agosto de 1945",75,false);
-	EscreveDevagar(TILE_W * 14 + 16, 80, "com  o lançam ento das duas bom bas atôm icas",75,false);
-	EscreveDevagar(TILE_W * 14 + 16, 130, "em  Hiroshim a e em  Nagasaki.",75,false);
+	EscreveDevagar(TILE_W * 14 + 16, 30, linguagem.GetText(95),75,false);
+	EscreveDevagar(TILE_W * 14 + 16, 80, linguagem.GetText(96),75,false);
+	EscreveDevagar(TILE_W * 14 + 16, 130, linguagem.GetText(97),75,false);
 	delay(2000);
 	cleardevice();
 	sprites[LIDERES_IALTA1].Show();
 	settextstyle(BOLD_FONT,HORIZ_DIR,1);
-	EscreveDevagar(0, TILE_H * 19 - 10, "Esta foto foi tirada alguns m eses antes disso,na conferência de Yalta, ",75,false);
-	EscreveDevagar(0,TILE_H * 19 + 30, "evento esse que foi uma reunião entre as duas potências mundiais ",75,false);
-	EscreveDevagar(0,TILE_H * 19 + 70, "que pariciparam do conflito armado.",75,false);
+	EscreveDevagar(0, TILE_H * 19 - 10, linguagem.GetText(98),75,false);
+	EscreveDevagar(0,TILE_H * 19 + 30, linguagem.GetText(99),75,false);
+	EscreveDevagar(0,TILE_H * 19 + 70, linguagem.GetText(100),75,false);
 	delay(500);
 	cleardevice();
 	sprites[LIDERES_IALTA2].Show();
 	settextstyle(BOLD_FONT,HORIZ_DIR,2);
-	EscreveDevagar(490,30, "O lhando para ela, ",75,false);
-	EscreveDevagar(490,80, "parece até que, o que se procedeu,",75,false);
-	EscreveDevagar(490,130,"foi um período de paz entre as duas nações.",75,false);
+	EscreveDevagar(600,30, linguagem.GetText(101),75,false);
+	EscreveDevagar(600,80,linguagem.GetText(102) ,75,false);
+	EscreveDevagar(600,130,linguagem.GetText(103),75,false);
 	delay(250);
-	sprites[ROOSEV_QUADRO].GoTo(480, 150);
+	sprites[ROOSEV_QUADRO].GoTo(600, 150);
 	sprites[ROOSEV_QUADRO].Show();
-	sprites[STALIN_QUADRO].GoTo(846, 150);
+	sprites[STALIN_QUADRO].GoTo(916, 150);
 	sprites[STALIN_QUADRO].Show();
 	delay(3000);
 	cleardevice();
@@ -367,8 +368,8 @@ void Cutscenes::FinalGuerraFria(){
 	sprites[STALIN_BRAVO].GoTo(162, 142);	
 	sprites[ROOSEV_BRAVO].Show();
 	sprites[STALIN_BRAVO].Show();
-	EscreveDevagar(TILE_W * 7,30,"Mas, o que realmente veio depois foi um conflito longo ",75,false);
-	EscreveDevagar(TILE_W * 8,60,"e indireto que foi cham ado de Guerra Fria.",75,false);
+	EscreveDevagar(TILE_W * 7,30,linguagem.GetText(104),75,false);
+	EscreveDevagar(TILE_W * 8,60,linguagem.GetText(105),75,false);
 	delay(3000);
 	bar(0,0,TILE_W * 39, 100);
 	delay(1000);
@@ -377,4 +378,92 @@ void Cutscenes::FinalGuerraFria(){
 	cleardevice();
 }
 
+void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
+	
+	bool checkClick, continua;
+	Grade minhaGrd;
+	Pagina minhaPg;
+	minhaPg.Init();
+	minhaPg.Troca();
+	minhaPg.Ativa();	
+	cleardevice();
+	minhaPg.Visual();
+	setcolor(WHITE);
+	settextstyle(BOLD_FONT, HORIZ_DIR, 2);
+	
+	if(tipoGameplay == MULTIPLAYER)
+		checkClick = false;
+	else
+		checkClick = true;
+	
+	
+	continua = EscreveDevagar(TILE_W * 10, TILE_H * 10,
+	 linguagem.GetText(58),75,checkClick);
+	 
+	if(continua == true){
+		delay(2000);
+		cleardevice();
+		
+		if (meuJog.lado == LADOEUA)
+			continua = EscreveDevagar( TILE_W * 12, TILE_H * 2, linguagem.GetText(7), 75, checkClick);	
+		else
+			continua = EscreveDevagar( TILE_W * 13, TILE_H * 2, linguagem.GetText(8), 75, checkClick);	
+}
+
+	
+	if(continua == true){
+		
+		if(meuJog.lado == LADOEUA){
+				sprites[ROOSEV_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
+				sprites[ROOSEV_QUADRO].Show();	
+		} else{
+				sprites[STALIN_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
+				sprites[STALIN_QUADRO].Show();				
+
+	
+		}		
+	
+		delay(3000);
+		cleardevice();
+		meuJog.torreGUI.MostraTorre();
+		
+		continua = EscreveDevagar( TILE_W * 2, TILE_H * 14,linguagem.GetText(59),
+		75, checkClick);
+	}
+	
+	if(continua == true){
+		delay (1000);
+		cleardevice();
+		meuJog.soldGUI.x = meuJog.torreGUI.x;
+		meuJog.soldGUI.y = meuJog.torreGUI.y;
+		meuJog.soldGUI.Show();	
+		
+		if(meuJog.lado == LADOEUA){
+			meuJog.soldGUI.x = GUI_EUA_X;
+			meuJog.soldGUI.y = GUI_EUA_Y;
+		}
+		else
+		{
+			meuJog.soldGUI.x = GUI_URSS_X;
+			meuJog.soldGUI.y = GUI_URSS_Y;
+		}		
+		
+		continua = EscreveDevagar( TILE_W * 4, TILE_H * 14, linguagem.GetText(60),
+		 75, checkClick);	
+	}
+	
+	if(tipoGameplay == MULTIPLAYER){
+		EnviaPacoteJogo();
+		RecebePacoteJogo();
+	}
+	
+	delay(1000);
+	cleardevice();
+	PlaySound("../../Assets/Music/gameplay.wav",NULL,SND_LOOP | SND_ASYNC);	
+	EscreveDevagar( TILE_W * 15, TILE_H * 10, linguagem.GetText(61),
+		 75, false);
+		 	
+	delay(3000);
+	cleardevice();
+}
 
