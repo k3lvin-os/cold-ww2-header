@@ -106,7 +106,6 @@ void Jogador::MostraGUI(){
 	itoa(dinheiro,buffer,10);
 	strcat(textDin,buffer);
 	setcolor(GREEN);
-	settextstyle(BOLD_FONT, HORIZ_DIR, 1);
 	outtextxy(guiDinX,guiDinY,textDin );
 
 	// GUI da Torre
@@ -114,15 +113,12 @@ void Jogador::MostraGUI(){
 	
 	// Preco
 	setcolor(GREEN);
-	settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	outtextxy(PRECO_ITENS_X, PRECO_ITENS_Y,linguagem.GetText(51));
 	outtextxy(PRECO_TORRE_X, PRECO_TORRE_Y,linguagem.GetText(52));
 	outtextxy(PRECO_SOLD_X, PRECO_SOLD_Y,linguagem.GetText(53));
 	
 	// "Colocar Torre" (GUI)
-	settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	setcolor(LIGHTBLUE);
-	settextstyle(BOLD_FONT,HORIZ_DIR,2);
 	outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,linguagem.GetText(54));
 	outtextxy(TORRE_TEXT_X + 12,TORRE_TEXT_Y + 32,linguagem.GetText(55));
 
@@ -133,12 +129,10 @@ void Jogador::MostraGUI(){
 		
 		// "Enviar Soldado" (GUI)
 		setcolor(WHITE);
-		settextstyle(SANS_SERIF_FONT,HORIZ_DIR,1);
 		outtextxy(guiNameSoldX,guiNameSoldY,lado);
 		
 		// Texto do Soldado
 		setcolor(LIGHTRED);
-		settextstyle(BOLD_FONT,HORIZ_DIR,2);
 		outtextxy(guiSoldTextX,guiSoldTextY,linguagem.GetText(56));	
 				
 		// Círculo em volta do soldado

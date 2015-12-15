@@ -120,14 +120,12 @@ void Cutscenes::MostraFinal(Final meuFinal){
 	
 	if(meuFinal != FINAL_GUERRAFRIA){
 		setcolor(WHITE);
-		settextstyle(BOLD_FONT,HORIZ_DIR,3);
 		if(meuFinal == FINAL_NAZI)
 			outtextxy(TELA_W / 2 - 80,TELA_H / 2,linguagem.GetText(63));
 		else if(meuFinal == FINAL_EUA)
 			outtextxy(TELA_W / 2 - 80,TELA_H / 2,linguagem.GetText(64));
 		else if(meuFinal == FINAL_URSS)
 			outtextxy(TELA_W / 2 - 80,TELA_H / 2,linguagem.GetText(65));
-		settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	}
 	
 	minhaPg.Visual();
@@ -205,7 +203,6 @@ void Cutscenes::FinalNazi(){
 	minhaPg.Ativa();
 	setbkcolor(WHITE);
 	setcolor(BLACK);
-	settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	cleardevice();
 	minhaPg.Visual();
 	
@@ -245,7 +242,6 @@ void Cutscenes::FinalEua(){
 	
 	setbkcolor(WHITE);
 	setcolor(BLACK);
-	settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	cleardevice();
 	minhaPg.Visual();
 
@@ -287,7 +283,6 @@ void Cutscenes::FinalUrss(){
 	
 	setbkcolor(WHITE);
 	setcolor(BLACK);
-	settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	cleardevice();
 	minhaPg.Visual();
 
@@ -328,7 +323,6 @@ void Cutscenes::FinalGuerraFria(){
 	sprites[BOMBA_NUCLEAR1].GoTo(TELA_W - 717, 0);
 	sprites[BOMBA_NUCLEAR1].Show();
 	setcolor(WHITE);
-	settextstyle(BOLD_FONT,HORIZ_DIR,3);
 	
 	EscreveDevagar(0, TILE_H * 16,linguagem.GetText(93),75,false);
 	EscreveDevagar(0,TILE_W * 16 + 30,linguagem.GetText(94),75,false);
@@ -346,14 +340,12 @@ void Cutscenes::FinalGuerraFria(){
 	delay(2000);
 	cleardevice();
 	sprites[LIDERES_IALTA1].Show();
-	settextstyle(BOLD_FONT,HORIZ_DIR,1);
 	EscreveDevagar(0, TILE_H * 19 - 10, linguagem.GetText(98),75,false);
 	EscreveDevagar(0,TILE_H * 19 + 30, linguagem.GetText(99),75,false);
 	EscreveDevagar(0,TILE_H * 19 + 70, linguagem.GetText(100),75,false);
 	delay(500);
 	cleardevice();
 	sprites[LIDERES_IALTA2].Show();
-	settextstyle(BOLD_FONT,HORIZ_DIR,2);
 	EscreveDevagar(600,30, linguagem.GetText(101),75,false);
 	EscreveDevagar(600,80,linguagem.GetText(102) ,75,false);
 	EscreveDevagar(600,130,linguagem.GetText(103),75,false);
@@ -389,7 +381,6 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 	cleardevice();
 	minhaPg.Visual();
 	setcolor(WHITE);
-	settextstyle(BOLD_FONT, HORIZ_DIR, 2);
 	
 	if(tipoGameplay == MULTIPLAYER)
 		checkClick = false;
