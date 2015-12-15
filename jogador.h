@@ -120,7 +120,7 @@ void Jogador::MostraGUI(){
 	// "Colocar Torre" (GUI)
 	setcolor(LIGHTBLUE);
 	outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,linguagem.GetText(54));
-	outtextxy(TORRE_TEXT_X + 12,TORRE_TEXT_Y + 32,linguagem.GetText(55));
+	outtextxy(TORRE_TEXT_X ,TORRE_TEXT_Y + 32,linguagem.GetText(55));
 
 	if(outroJogMorto == false){
 		
@@ -129,7 +129,12 @@ void Jogador::MostraGUI(){
 		
 		// "Enviar Soldado" (GUI)
 		setcolor(WHITE);
-		outtextxy(guiNameSoldX,guiNameSoldY,lado);
+		
+		if(lado == LADOEUA)
+			outtextxy(guiNameSoldX,guiNameSoldY,linguagem.GetText(106));
+		else
+			outtextxy(guiNameSoldX,guiNameSoldY,linguagem.GetText(107));
+		
 		
 		// Texto do Soldado
 		setcolor(LIGHTRED);

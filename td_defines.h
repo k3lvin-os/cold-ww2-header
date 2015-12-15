@@ -120,15 +120,15 @@
 
 // Define o inicio e o fim do jogo
 #define BEGIN 0 // 0 s 
-#define END 90 // 1 m 30 s
+#define END 92 // 1 m 30 s
 
 /*Horário das ondas de soldados*/
-#define ONDA1 5 
-#define ONDA2 15 
-#define ONDA3 30   
-#define ONDA4 45
-#define ONDA5 60 
-#define ONDA6 75
+#define ONDA1 7 
+#define ONDA2 17 
+#define ONDA3 32   
+#define ONDA4 47
+#define ONDA5 62 
+#define ONDA6 77
 
 
 
@@ -187,7 +187,7 @@
 
 
 // Posição do texto da torre
-#define TORRE_TEXT_X TILE_W * 19 - 8
+#define TORRE_TEXT_X TILE_W * 18
 #define TORRE_TEXT_Y TILE_H * 18
 
 // Posição da torre acima do texto de torre
@@ -195,11 +195,11 @@
 #define TORRE1_Y TILE_H * 15
 
 // Posição do Preço dos Itens
-#define PRECO_ITENS_X TILE_W * 19 - 3
+#define PRECO_ITENS_X TILE_W * 18 
 #define PRECO_ITENS_Y TILE_H * 8
-#define PRECO_TORRE_X TILE_W * 19 - 15
+#define PRECO_TORRE_X TILE_W * 18 
 #define PRECO_TORRE_Y TILE_H * 9
-#define PRECO_SOLD_X TILE_W * 18 + 1
+#define PRECO_SOLD_X TILE_W * 18 
 #define PRECO_SOLD_Y TILE_H * 10
 
 // Posição do dinheiro do jogador
