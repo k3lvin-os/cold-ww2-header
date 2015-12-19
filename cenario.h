@@ -202,7 +202,7 @@ void Cenario::TileLoad(){
 	tipoTile[1].BasicTile(TILE_W,TILE_H, BROWN, "Marrom"); // Tiles de protótipo
 	tipoTile[2].BasicTile(TILE_W,TILE_H, WHITE, "Branco"); 
 	tipoTile[3].BasicTile(TILE_W,TILE_H, RED,"Vermelho");
-	tipoTile[4].BasicTile(TILE_W,TILE_H, YELLOW, "Amarelo"); 
+	tipoTile[4].BasicTile(TILE_W,TILE_H, LIGHTGREEN, "Verde claro"); 
 	
 	// Sprites de campo
 	tipoTile[5].Init("../../Assets/Campo/eua.bmp","Campo do EUA e Aliados",TILE_W,TILE_H);

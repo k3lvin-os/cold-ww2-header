@@ -73,6 +73,12 @@
 #define TILE_QTDX 40
 #define TILE_QTDY 22
 
+/*Tile de inicio do Seek Of Peace (Y) na versão menu*/
+#define LOGOY1 TILE_H * 5
+
+/*Tile de inicio do Seek Of Peace (Y) na versão splitscreen*/
+#define LOGOY2 TILE_H * 3
+
 /*Portão padrão de acesso ao servidor*/
 #define PORTA_PADRAO 20131
 
@@ -217,24 +223,26 @@
 #define BOTAO_JOGAR_Y TILE_H * 18
 
 // Botão do cliente
-#define BOTAO_CLIENTE_X TILE_W * 13
-#define BOTAO_CLIENTE_Y TILE_H * 12
+#define BOTAO_CLIENTE_X TILE_W * 9 
+#define BOTAO_CLIENTE_Y TILE_H * 13
+
+// Botão do multiplayer local
+#define LOCALMULTI_X TILE_W * 19
+#define LOCALMULTI_Y TILE_H * 13
 
 
 // Botão do servidor
-#define BOTAO_SERV_X TILE_W * 24
-#define BOTAO_SERV_Y TILE_H * 12
+#define BOTAO_SERV_X TILE_W * 29
+#define BOTAO_SERV_Y TILE_H * 13
 
 // Posição do botão "voltar"
 #define BOTAO_VOLTAR_X TILE_W * 14
 #define BOTAO_VOLTAR_Y TILE_H * 18
 
-// Posição do logo de jogo
+// Posição do logo de jogo (X)
 #define LOGO_X TILE_W * 11
-#define LOGO_Y TILE_H * 5
 
 #define LOGO2_X TILE_W * 14
-#define LOGO2_Y TILE_H * 8 - 16 
 
 // IP do localhost
 #define LOCALHOST "127.0.0.1"
