@@ -85,8 +85,12 @@
 /*FPS do jogo*/
 #define FPS 60
 
+/*Delay para carregar uma tela de jogo*/
+#define DELAY_TELA 100
+
 /*Teclado*/
 #define ESC 27
+
 
 /*Base numérica decimal (para uso no itoa() e outras funções que necessitam desta constante)*/
 #define DECIMAL 10

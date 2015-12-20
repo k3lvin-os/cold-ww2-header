@@ -5,7 +5,7 @@ enum TipoGameplay{
 };
 
 
-// Indica o tipo de mensagem de dados
+// Indica o tipo de mensagem 
 enum TipoPacote{
 	SEM_TIPO = 0,
 	LIDER_SERV,
@@ -17,7 +17,15 @@ enum TipoPacote{
 	DANO
 };
 
+enum TipoCursor
+{
+	C_SELETOR,
+	C_TORRE,
+	C_SOLDADO
+};
 
+
+// Indica o menu de jogo
 enum EscolhaEmMenu{
 	SEM_ESCOLHA = 0, 
 	MENU,
@@ -32,7 +40,7 @@ enum EscolhaEmMenu{
 	SAIR
 };
 
-
+// Indica o tipo de leitura de ip e porta
 enum LeituraIPEPorta{
 	SEM_LEITURA = 0,
 	LEITURA_IP,
