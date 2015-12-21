@@ -76,6 +76,7 @@ struct Jogador{
 	==============================*/
 	
 	void MostraGUI();
+	void MostraGUI(TipoGameplay tipo);
 	void InputGUI();
 	void NovoIni();
 	void EnviaIni();
@@ -340,3 +341,19 @@ bool Jogador::Compra(int preco){
 	} else
 		return false;
 }
+
+// Mostra a GUI depedendo do tipo de gameplay
+void Jogador::MostraGUI(TipoGameplay tipo)
+{
+	
+	if(tipo != MULTIPLAYER_SPLIT)
+	{
+		MostraGUI();
+	}
+	else
+	{
+		
+	}
+	
+}
+

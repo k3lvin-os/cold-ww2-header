@@ -2,33 +2,30 @@
 // Cursor utilizado no modo splitscreen
 struct Cursor
 {
-	static const int MAX_IDLE = 20;
-	static const int MAX_NO_TIMER = 10;
-	
 	
 	int tileX, tileY, meuX, meuY; // Coordenadas
-	char *lado;
 	TipoCursor tipo;
-	Soldado *guiSold;
-	Torre *guiTower;
+	Jogador *meuJog;
 	Cenario *campoJogo;
 	bool helpMode;
-
-	Sprite imgCursor, *botaoJog;
+	Sprite *img;
 	
 	void CheckInput();
 	bool AnyItemWasUsed();
 	void Show();
-	void Init(char * lado, Sprite imgCursor, Sprite *botaoJog, Soldado *s, Torre *t );
+	void Init(Cenario *campoJogo, Jogador *meuJog, Sprite *img);
+
 };
 
 
 // Verifica se algum item foi utilizado
 bool Cursor::AnyItemWasUsed()
 {
-	if(lado == LADOEUA)
+	
+	
+	if(meuJog->lado == LADOEUA)
 	{
-		if(GetKeyState(VK_RCONTROL) & 0X80)
+		if(GetKeyState(VK_RCONTROL) & 0x80 )
 		{
 			return true;
 		}
@@ -36,7 +33,7 @@ bool Cursor::AnyItemWasUsed()
 	
 	else
 	{
-		if(GetKeyState(VK_LCONTROL) & 0X80)
+		if(GetKeyState(VK_LCONTROL) & 0x80)
 		{
 			return true;
 		}
@@ -49,7 +46,7 @@ bool Cursor::AnyItemWasUsed()
 void Cursor::CheckInput()
 {
 	
-	if(lado == LADOEUA)
+	if(meuJog->lado == LADOEUA)
 	{
 		
 		if(GetKeyState(VK_NUMPAD0) & 0x80) // '0'
@@ -156,10 +153,10 @@ void Cursor::CheckInput()
 }
 
 // "Construtor"
-void Cursor::Init(char * lado, Sprite imgCursor, Sprite *botaoJog, Soldado *s, Torre *t )
+void Cursor::Init(Cenario *campoJogo, Jogador *meuJog, Sprite *img)
 {
 	
-	if(lado == LADOEUA)
+	if(meuJog->lado == LADOEUA)
 	{		
 		tileX = 30;
 		tileY = 10;
@@ -174,13 +171,12 @@ void Cursor::Init(char * lado, Sprite imgCursor, Sprite *botaoJog, Soldado *s, T
 	meuX = TILE_W * tileX;
 	meuY = TILE_H * tileY;
 	
-	this->lado = lado;
-	this->imgCursor = imgCursor;
-	this->botaoJog = botaoJog;
+	this->campoJogo = campoJogo;
+	this->meuJog = meuJog;
+	this->img = img;
 	tipo = C_SELETOR;
 	helpMode = false;
-	guiSold = s;
-	guiTower = t;
+
 
 	
 
@@ -189,7 +185,7 @@ void Cursor::Init(char * lado, Sprite imgCursor, Sprite *botaoJog, Soldado *s, T
 // Mostra o cursor
 void Cursor::Show()
 {
-	if(lado == LADOEUA)
+	if(meuJog->lado == LADOEUA)
 	{
 		setcolor(LIGHTGREEN);
 		outtextxy(meuX,meuY,"P2");
@@ -201,7 +197,6 @@ void Cursor::Show()
 			outtextxy(meuX + 8,meuY + 80,"v");			
 			outtextxy(meuX + 8 ,meuY - 48,"^");
 		}
-
 	}
 	
 	else
@@ -217,29 +212,20 @@ void Cursor::Show()
 			outtextxy(meuX + 4 ,meuY - 48,"W");	
 		}
 		
-		
-
 	}
 				
-	imgCursor.GoTo(meuX, meuY);
-	imgCursor.Show();
+	img->GoTo(meuX, meuY);
+	img->Show();
 	
-	if(tipo == C_SELETOR)
+	if(tipo == C_TORRE)
 	{
 			
-		
-		
-	}
-	
-	else if(tipo == C_TORRE)
-	{
+		img->GoTo(meuX, meuY + 32);
+		img->Show();
 			
-		imgCursor.GoTo(meuX, meuY + 32);
-		imgCursor.Show();
-			
-		guiTower->x = meuX;
-		guiTower->y = meuY;
-		guiTower->MostraTorre();
+		meuJog->tempTorre.x = meuX;
+		meuJog->tempTorre.y = meuY;
+		meuJog->tempTorre.MostraTorre();
 		
 		setcolor(LIGHTBLUE);
 		outtextxy(meuX - 25 , meuY + 90, "Colocar");
@@ -248,11 +234,19 @@ void Cursor::Show()
 	
 	else if(tipo == C_SOLDADO)
 	{
-		guiSold->GoTo(meuX,meuY);
-		guiSold->Show();
+		meuJog->soldGUI.GoTo(meuX,meuY);
+		meuJog->soldGUI.Show();
 		
 		setcolor(LIGHTRED);
-		outtextxy(meuX - 50,meuY + 50,"Enviar soldado");
+		if(meuJog->envioSold.PassouDelay(ESPERA_DELAY) == true)
+		{
+			outtextxy(meuX - 50,meuY + 50,"Enviar soldado");
+		} 
+		
+		else
+		{
+			outtextxy(meuX - 50,meuY + 50,"Soldado Enviado!");
+		}
 
 	}
 
@@ -260,18 +254,20 @@ void Cursor::Show()
 	
 	if(helpMode == true)
 	{			
-		if(lado == LADOEUA)
+		if(meuJog->lado == LADOEUA)
 		{	
 			setcolor(LIGHTGREEN);
-			outtextxy(meuX - 40, meuY - 80,  "'0' = Troca Item");
-			outtextxy(meuX - 40, meuY - 100, "'LCTRL' = Usa Item");
+			outtextxy(meuX - 40, meuY - 80,  "NUMPAD_0 = Troca Item");
+			if(tipo != C_SELETOR)
+				outtextxy(meuX - 40, meuY - 100, "RCTRL = Usa Item");
 		}
 		
 		else
 		{
 			setcolor(WHITE);
-			outtextxy(meuX - 40, meuY - 80,  "'Espaço' = Troca Item");
-			outtextxy(meuX - 40, meuY - 100, "'RCTRL' = Usa Item");		
+			outtextxy(meuX - 40, meuY - 80,  "ESPAÇO = Troca Item");
+			if(tipo != C_SELETOR)
+				outtextxy(meuX - 40, meuY - 100, "RCTRL = Usa Item");	
 		}									
 	}
 

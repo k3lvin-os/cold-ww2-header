@@ -382,7 +382,7 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 	minhaPg.Visual();
 	setcolor(WHITE);
 	
-	if(tipoGameplay == MULTIPLAYER)
+	if(tipoGameplay == MULTIPLAYER_ONLINE)
 		checkClick = false;
 	else
 		checkClick = true;
@@ -443,7 +443,7 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 		 75, checkClick);	
 	}
 	
-	if(tipoGameplay == MULTIPLAYER){
+	if(tipoGameplay == MULTIPLAYER_ONLINE){
 		EnviaPacoteJogo();
 		RecebePacoteJogo();
 	}
