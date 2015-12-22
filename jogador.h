@@ -75,8 +75,7 @@ struct Jogador{
 				Funções
 	==============================*/
 	
-	void MostraGUI();
-	void MostraGUI(TipoGameplay tipo);
+	void MostraGUI(TipoGameplay tipoGameplay);
 	void InputGUI();
 	void NovoIni();
 	void EnviaIni();
@@ -90,71 +89,6 @@ struct Jogador{
 	
 };
 
-//==================================================================
-// Mostra a interface com o usuário do jogador
-void Jogador::MostraGUI(){
-		
-	char textDin[19];
-	char buffer[8];
-	int laranja;
-	
-	strcpy(textDin,linguagem.GetText(62));
-	
-	settextjustify(LEFT_TEXT,TOP_TEXT);
-	laranja = COLOR(255,165,0);
-
-	// Dinheiro
-	itoa(dinheiro,buffer,10);
-	strcat(textDin,buffer);
-	setcolor(GREEN);
-	outtextxy(guiDinX,guiDinY,textDin );
-
-	// GUI da Torre
-	torreGUI.MostraTorre();
-	
-	// Preco
-	setcolor(GREEN);
-	outtextxy(PRECO_ITENS_X, PRECO_ITENS_Y,linguagem.GetText(51));
-	outtextxy(PRECO_TORRE_X, PRECO_TORRE_Y,linguagem.GetText(52));
-	outtextxy(PRECO_SOLD_X, PRECO_SOLD_Y,linguagem.GetText(53));
-	
-	// "Colocar Torre" (GUI)
-	setcolor(LIGHTBLUE);
-	outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,linguagem.GetText(54));
-	outtextxy(TORRE_TEXT_X ,TORRE_TEXT_Y + 32,linguagem.GetText(55));
-
-	if(outroJogMorto == false){
-		
-		// GUI do Soldado
-		soldGUI.Show();	
-		
-		// "Enviar Soldado" (GUI)
-		setcolor(WHITE);
-		
-		if(lado == LADOEUA)
-			outtextxy(guiNameSoldX,guiNameSoldY,linguagem.GetText(106));
-		else
-			outtextxy(guiNameSoldX,guiNameSoldY,linguagem.GetText(107));
-		
-		
-		// Texto do Soldado
-		setcolor(LIGHTRED);
-		outtextxy(guiSoldTextX,guiSoldTextY,linguagem.GetText(56));	
-				
-		// Círculo em volta do soldado
-		setcolor(BLACK);	
-		circle(guiCircleX ,guiCircleY,16);	
-	} else{
-		
-		setcolor(LIGHTRED);
-		if(lado == LADOEUA)
-			outtextxy(guiSoldTextX - 144,guiSoldTextY + 16,linguagem.GetText(57));
-		else
-			outtextxy(guiSoldTextX,guiSoldTextY + 16,linguagem.GetText(57));
-		
-
-	}
-}
 
 //=====================================================================
 // Trabalha com a interação com a GUI
@@ -343,17 +277,69 @@ bool Jogador::Compra(int preco){
 }
 
 // Mostra a GUI depedendo do tipo de gameplay
-void Jogador::MostraGUI(TipoGameplay tipo)
-{
+void Jogador::MostraGUI(TipoGameplay tipoGameplay)
+{	
+	char textDin[19];
+	char buffer[8];
+	int laranja;
 	
-	if(tipo != MULTIPLAYER_SPLIT)
+	strcpy(textDin,linguagem.GetText(62));	
+	settextjustify(LEFT_TEXT,TOP_TEXT);
+
+	// Dinheiro
+	itoa(dinheiro,buffer,10);
+	strcat(textDin,buffer);
+	setcolor(GREEN);
+	outtextxy(guiDinX,guiDinY,textDin );
+
+	// Preco
+	setcolor(GREEN);
+	outtextxy(PRECO_ITENS_X, PRECO_ITENS_Y,linguagem.GetText(51));
+	outtextxy(PRECO_TORRE_X, PRECO_TORRE_Y,linguagem.GetText(52));
+	outtextxy(PRECO_SOLD_X, PRECO_SOLD_Y,linguagem.GetText(53));
+	
+	if(tipoGameplay != MULTIPLAYER_SPLIT )
 	{
-		MostraGUI();
-	}
-	else
-	{
+		// GUI da Torre
+		torreGUI.MostraTorre();
 		
+		// "Colocar Torre" (GUI)
+		setcolor(LIGHTBLUE);
+		outtextxy(TORRE_TEXT_X,TORRE_TEXT_Y,linguagem.GetText(54));
+		outtextxy(TORRE_TEXT_X ,TORRE_TEXT_Y + 32,linguagem.GetText(55));
 	}
+
+
+	if(outroJogMorto == false && tipoGameplay != MULTIPLAYER_SPLIT){
+		
+		// GUI do Soldado
+		soldGUI.Show();	
+		
+		// "Enviar Soldado" (GUI)
+		setcolor(WHITE);
+		
+		if(lado == LADOEUA)
+			outtextxy(guiNameSoldX,guiNameSoldY,linguagem.GetText(106));
+		else
+			outtextxy(guiNameSoldX,guiNameSoldY,linguagem.GetText(107));
+		
+		
+		// Texto do Soldado
+		setcolor(LIGHTRED);
+		outtextxy(guiSoldTextX,guiSoldTextY,linguagem.GetText(56));	
+				
+		// Círculo em volta do soldado
+		setcolor(BLACK);	
+		circle(guiCircleX ,guiCircleY,16);	
+	} 
 	
+	else if(outroJogMorto == true)
+	{		
+		setcolor(LIGHTRED);
+		if(lado == LADOEUA)
+			outtextxy(guiSoldTextX - 144,guiSoldTextY + 16,linguagem.GetText(57));
+		else
+			outtextxy(guiSoldTextX,guiSoldTextY + 16,linguagem.GetText(57));
+	}	
 }
 

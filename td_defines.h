@@ -215,7 +215,7 @@
 // Posição do dinheiro do jogador
 #define MONEY_EUA_X 22 * TILE_W 
 #define MONEY_EUA_Y 21 * TILE_H 
-#define MONEY_URSS_X 14 * TILE_W - 10
+#define MONEY_URSS_X 14 * TILE_W - 22
 #define MONEY_URSS_Y 21 * TILE_H 	
 
 // Raio de alacance padrão para as torres

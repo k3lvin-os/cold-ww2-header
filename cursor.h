@@ -8,6 +8,9 @@ struct Cursor
 	Jogador *meuJog;
 	Cenario *campoJogo;
 	bool helpMode;
+	bool faltaDinTorre;
+	bool faltaDinSold;
+	bool posInvalid;
 	Sprite *img;
 	
 	void CheckInput();
@@ -174,6 +177,9 @@ void Cursor::Init(Cenario *campoJogo, Jogador *meuJog, Sprite *img)
 	this->campoJogo = campoJogo;
 	this->meuJog = meuJog;
 	this->img = img;
+	faltaDinSold = false;
+	faltaDinTorre = false;
+	posInvalid = false;
 	tipo = C_SELETOR;
 	helpMode = false;
 
@@ -227,26 +233,60 @@ void Cursor::Show()
 		meuJog->tempTorre.y = meuY;
 		meuJog->tempTorre.MostraTorre();
 		
-		setcolor(LIGHTBLUE);
-		outtextxy(meuX - 25 , meuY + 90, "Colocar");
-		outtextxy(meuX - 10, meuY + 115, "Torre");
+		if(faltaDinTorre == false && posInvalid == false)
+		{
+			setcolor(LIGHTBLUE);
+			outtextxy(meuX - 25 , meuY + 90, "Colocar");
+			outtextxy(meuX - 10, meuY + 115, "Torre");
+		}
+		else
+		{
+			if(posInvalid == true)
+			{
+				setcolor(LIGHTRED);
+				outtextxy(meuX - 15 , meuY + 90, "Posição");
+				outtextxy(meuX - 10, meuY + 115, "Inválida");
+				posInvalid = false;
+			}
+			
+			else
+			{
+				setcolor(LIGHTRED);
+				outtextxy(meuX - 25 , meuY + 90, "Dinheiro");
+				outtextxy(meuX - 40, meuY + 115, "Insuficiente");
+				faltaDinTorre = false;
+			}
+		}
+
 	}
 	
 	else if(tipo == C_SOLDADO)
 	{
 		meuJog->soldGUI.GoTo(meuX,meuY);
-		meuJog->soldGUI.Show();
-		
+		meuJog->soldGUI.Show();	
 		setcolor(LIGHTRED);
-		if(meuJog->envioSold.PassouDelay(ESPERA_DELAY) == true)
-		{
-			outtextxy(meuX - 50,meuY + 50,"Enviar soldado");
-		} 
 		
-		else
+		if(faltaDinSold == false)
 		{
-			outtextxy(meuX - 50,meuY + 50,"Soldado Enviado!");
+			if(meuJog->envioSold.PassouDelay(ESPERA_DELAY) == true)
+			{
+				outtextxy(meuX - 50,meuY + 50,"Enviar soldado");
+			} 
+			
+			else
+			{
+				outtextxy(meuX - 50,meuY + 50,"Soldado Enviado!");
+			}
 		}
+		
+		else		
+		{
+			setcolor(LIGHTRED);
+			outtextxy(meuX - 50,meuY + 50,"Dinheiro insuficiente");	
+			faltaDinSold = false;	
+		}
+		
+
 
 	}
 
