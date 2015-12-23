@@ -241,24 +241,24 @@ void Cursor::Show()
 		if(faltaDinTorre == false && posInvalid == false)
 		{
 			setcolor(LIGHTBLUE);
-			outtextxy(meuX - 25 , meuY + 90, "Colocar");
-			outtextxy(meuX - 10, meuY + 115, "Torre");
+			outtextxy(meuX - 25 , meuY + 90, linguagem.GetText(114));
+			outtextxy(meuX - 10, meuY + 115, linguagem.GetText(115));
 		}
 		else
 		{
 			if(posInvalid == true)
 			{
 				setcolor(LIGHTRED);
-				outtextxy(meuX - 15 , meuY + 90, "Posição");
-				outtextxy(meuX - 10, meuY + 115, "Inválida");
+				outtextxy(meuX - 15 , meuY + 90, linguagem.GetText(116));
+				outtextxy(meuX - 10, meuY + 115, linguagem.GetText(117));
 				posInvalid = false;
 			}
 			
 			else
 			{
 				setcolor(LIGHTRED);
-				outtextxy(meuX - 25 , meuY + 90, "Dinheiro");
-				outtextxy(meuX - 40, meuY + 115, "Insuficiente");
+				outtextxy(meuX - 25 , meuY + 90,linguagem.GetText(118));
+				outtextxy(meuX - 40, meuY + 115, linguagem.GetText(119));
 				faltaDinTorre = false;
 			}
 		}
@@ -275,19 +275,19 @@ void Cursor::Show()
 		{
 			if(meuJog->envioSold.PassouDelay(ESPERA_DELAY) == true)
 			{
-				outtextxy(meuX - 50,meuY + 50,"Enviar soldado");
+				outtextxy(meuX - 50,meuY + 50,linguagem.GetText(56));
 			} 
 			
 			else
 			{
-				outtextxy(meuX - 50,meuY + 50,"Soldado Enviado!");
+				outtextxy(meuX - 50,meuY + 50,linguagem.GetText(120));
 			}
 		}
 		
 		else		
 		{
 			setcolor(LIGHTRED);
-			outtextxy(meuX - 50,meuY + 50,"Dinheiro insuficiente");	
+			outtextxy(meuX - 50,meuY + 50,linguagem.GetText(121));	
 			faltaDinSold = false;	
 		}
 		
@@ -302,17 +302,17 @@ void Cursor::Show()
 		if(meuJog->lado == LADOEUA)
 		{	
 			setcolor(LIGHTGREEN);
-			outtextxy(meuX - 40, meuY - 80,  "NUMPAD_0 = Troca Item");
+			outtextxy(meuX - 40, meuY - 80,  linguagem.GetText(122));
 			if(tipo != C_SELETOR)
-				outtextxy(meuX - 40, meuY - 100, "RCTRL = Usa Item");
+				outtextxy(meuX - 40, meuY - 100, linguagem.GetText(123));
 		}
 		
 		else
 		{
 			setcolor(WHITE);
-			outtextxy(meuX - 40, meuY - 80,  "ESPAÇO = Troca Item");
+			outtextxy(meuX - 40, meuY - 80,  linguagem.GetText(124));
 			if(tipo != C_SELETOR)
-				outtextxy(meuX - 40, meuY - 100, "RCTRL = Usa Item");	
+				outtextxy(meuX - 40, meuY - 100, linguagem.GetText(125));	
 		}									
 	}
 

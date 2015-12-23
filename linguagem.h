@@ -9,7 +9,7 @@ enum Idioma{
 struct Linguagem{
 	
 	// Indica a quantidade de textos que o jogo contém
-	static const int QTD_TEXTO_JOGO = 110;
+	static const int QTD_TEXTO_JOGO = 125;
 	
 	// Armazena os textos do jogo 
 	char *texto[qtdIdioma][QTD_TEXTO_JOGO];
