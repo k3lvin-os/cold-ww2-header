@@ -4,8 +4,7 @@ class FPSController{
 	
 	int limit;	// Limit of the frames per second
 	int count;	// Amount of framas in the current second
-	time_t timeMark; // Time marker
-	time_t second;
+	time_t second; // Current second register
 	
 	bool NextSecond();
 	
@@ -21,7 +20,6 @@ class FPSController{
 FPSController::FPSController(int limit)
 {
 	this->limit = limit;
-	timeMark = NULL;
 	count = 0;
 }
 
@@ -29,14 +27,31 @@ FPSController::FPSController(int limit)
 // Start the time marker
 void FPSController::Start()
 {
-	time(&timeMark);
+	time(&second);
+	count = 0;
 }
 
 // Check FPS - if over the framas limt, don't update until the next second
 void FPSController::CheckFPS()
 {
-	count++;
-	if(count >= limit)
+	time_t now;
+	time(&now);
+	
+	if(now != second)
+	{
+		time(&second);
+		count = 0;
+	}
+	
+	if(count < limit){
+		count++;
+	}
+	else{
+		do{
+			time(&now);
+		} while(now == second);
+	}
+	
 }
 
 
