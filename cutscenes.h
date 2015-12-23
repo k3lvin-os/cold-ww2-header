@@ -43,8 +43,9 @@ struct Cutscenes{
 	void FinalUrss();
 	void FinalNazi();
 	void FinalGuerraFria();
-	bool EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra, bool checkClick);
-	void Tutorial(Jogador meuJog, TipoGameplay tipoGameplay);
+	bool EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra, TipoGameplay tipoGm);
+	void EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra);
+	void Tutorial(Jogador meuJog, TipoGameplay tipoGm);
 	
 };
 
@@ -143,12 +144,9 @@ void Cutscenes::MostraFinal(Final meuFinal){
 	PlaySound(NULL, NULL, 0); 
 
 }
-
-
-
-
-// Escreve o texto devagar com base em um delay
-bool Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra, bool checkClick){
+// Escreve o texto devagar com base em um delay 
+void Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra)
+{
 	
 	char buffer[101], temp[2], c;
 	int i, x;
@@ -177,11 +175,61 @@ bool Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra, boo
 				x += 5;
 			else
 				x += 19;
-			if(checkClick == true){
+			
+			i++;
+			c = buffer[i];	
+		} 
+		
+	}
+	
+}
+
+
+
+// Escreve o texto devagar com base em um delay e verifica entrada de dados
+bool Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra, TipoGameplay tipoGm){
+	
+	char buffer[101], temp[2], c;
+	int i, x;
+	bool continua=true;
+	
+	if(strlen(msg) <= 100){
+		
+		strcpy(buffer,msg);
+		i = 0;
+		x = x0;
+		c = buffer[0];
+		
+		while(c != '\0' && continua != false){
+			
+			temp[0] = c;
+			temp[1] = '\0';
+			
+			if(c != ' ')
+				outtextxy(x,y0,temp);		
+			delay(delayPorLetra);
+			
+			if(c == ' ')
+				x += 15;
+				
+			else if( c == 'â')
+				x += 5;
+			else
+				x += 19;
+			if(tipoGm == SINGLEPLAYER){
 				if(GetKeyState(VK_LBUTTON)& 0X80)
 				{
 					continua = false;
 				}	
+			}
+			
+			else if(tipoGm == MULTIPLAYER_SPLIT){
+				
+				if( (GetKeyState(VK_NUMPAD0) & 0x80) || (GetKeyState(VK_RCONTROL)  & 0x80) ||
+					(GetKeyState(VK_LCONTROL) & 0x80) || (GetKeyState(VK_SPACE) & 0x80))
+					{
+						continua = false;
+					}
 			}
 			
 			i++;
@@ -210,21 +258,21 @@ void Cutscenes::FinalNazi(){
 	sprites[ESTATUA_HITLER].Show();
 	delay(1500);
 	
-	EscreveDevagar(0,80,linguagem.GetText(66),75,false);
-	EscreveDevagar(0,160,linguagem.GetText(67),75,false);
-	EscreveDevagar(0,190,linguagem.GetText(68),75,false);
+	EscreveDevagar(0,80,linguagem.GetText(66),75);
+	EscreveDevagar(0,160,linguagem.GetText(67),75);
+	EscreveDevagar(0,190,linguagem.GetText(68),75);
 	delay(100);
 	
-	EscreveDevagar(0,270,linguagem.GetText(69),75,false);
-	EscreveDevagar(0,300,linguagem.GetText(70),75,false);
-	EscreveDevagar(0,330,linguagem.GetText(71),75,false);
-	EscreveDevagar(0,360,linguagem.GetText(72),75,false);
-	EscreveDevagar(0,390,linguagem.GetText(73),75,false);
+	EscreveDevagar(0,270,linguagem.GetText(69),75);
+	EscreveDevagar(0,300,linguagem.GetText(70),75);
+	EscreveDevagar(0,330,linguagem.GetText(71),75);
+	EscreveDevagar(0,360,linguagem.GetText(72),75);
+	EscreveDevagar(0,390,linguagem.GetText(73),75);
 	delay(200);
 	
-	EscreveDevagar(0,480,linguagem.GetText(74),75,false);
-	EscreveDevagar(0,510,linguagem.GetText(75),75,false);
-	EscreveDevagar(0,540,linguagem.GetText(76),75,false);
+	EscreveDevagar(0,480,linguagem.GetText(74),75);
+	EscreveDevagar(0,510,linguagem.GetText(75),75);
+	EscreveDevagar(0,540,linguagem.GetText(76),75);
 	
 	delay(8000);
 	setbkcolor(BLACK);
@@ -249,24 +297,24 @@ void Cutscenes::FinalEua(){
 	sprites[ESTATUA_TIOSAM].Show();
 	delay(1500);
 	
-	EscreveDevagar(0,80,linguagem.GetText(77),75,false);
-	EscreveDevagar(0,110,linguagem.GetText(78),75,false);
+	EscreveDevagar(0,80,linguagem.GetText(77),75);
+	EscreveDevagar(0,110,linguagem.GetText(78),75);
 	delay(100);
 
 	
-	EscreveDevagar(0,200,linguagem.GetText(79),75,false);
-	EscreveDevagar(0,230,linguagem.GetText(80),75,false);
-	EscreveDevagar(0,260,linguagem.GetText(81),75,false);
-	EscreveDevagar(0,290,linguagem.GetText(82),75,false); 
+	EscreveDevagar(0,200,linguagem.GetText(79),75);
+	EscreveDevagar(0,230,linguagem.GetText(80),75);
+	EscreveDevagar(0,260,linguagem.GetText(81),75);
+	EscreveDevagar(0,290,linguagem.GetText(82),75); 
 	delay(200);
 
-	EscreveDevagar(0,380,linguagem.GetText(83),75,false);
-	EscreveDevagar(0,410,linguagem.GetText(84),75,false);
-	EscreveDevagar(0,440,linguagem.GetText(85),75,false);
+	EscreveDevagar(0,380,linguagem.GetText(83),75);
+	EscreveDevagar(0,410,linguagem.GetText(84),75);
+	EscreveDevagar(0,440,linguagem.GetText(85),75);
 	
 	delay(200);
-	EscreveDevagar(0,530,linguagem.GetText(86),75,false);
-	EscreveDevagar(0,560,linguagem.GetText(76),75,false);
+	EscreveDevagar(0,530,linguagem.GetText(86),75);
+	EscreveDevagar(0,560,linguagem.GetText(76),75);
 	
 	delay(2800);
 	setbkcolor(BLACK);
@@ -290,23 +338,23 @@ void Cutscenes::FinalUrss(){
 	sprites[ESTATUA_LENIN].Show();
 	delay(1500);
 		
-	EscreveDevagar(0,80,linguagem.GetText(87),75,false);
-	EscreveDevagar(0,110,linguagem.GetText(78),75,false);
+	EscreveDevagar(0,80,linguagem.GetText(87),75);
+	EscreveDevagar(0,110,linguagem.GetText(78),75);
 	delay(100);
 	
-	EscreveDevagar(0,200,linguagem.GetText(88),75,false);
-	EscreveDevagar(0,230,linguagem.GetText(80),75,false);
-	EscreveDevagar(0,260,linguagem.GetText(89),75,false);
-	EscreveDevagar(0,290,linguagem.GetText(82),75,false); 
+	EscreveDevagar(0,200,linguagem.GetText(88),75);
+	EscreveDevagar(0,230,linguagem.GetText(80),75);
+	EscreveDevagar(0,260,linguagem.GetText(89),75);
+	EscreveDevagar(0,290,linguagem.GetText(82),75); 
 	delay(200);
 
-	EscreveDevagar(0,380, linguagem.GetText(90),75,false);
-	EscreveDevagar(0,410, linguagem.GetText(91),75,false);
-	EscreveDevagar(0,440, linguagem.GetText(92),75,false);
+	EscreveDevagar(0,380, linguagem.GetText(90),75);
+	EscreveDevagar(0,410, linguagem.GetText(91),75);
+	EscreveDevagar(0,440, linguagem.GetText(92),75);
 	
 	delay(200);
-	EscreveDevagar(0,530,linguagem.GetText(86),75,false);
-	EscreveDevagar(0,560,linguagem.GetText(76),75,false);
+	EscreveDevagar(0,530,linguagem.GetText(86),75);
+	EscreveDevagar(0,560,linguagem.GetText(76),75);
 
 
 	
@@ -324,8 +372,8 @@ void Cutscenes::FinalGuerraFria(){
 	sprites[BOMBA_NUCLEAR1].Show();
 	setcolor(WHITE);
 	
-	EscreveDevagar(0, TILE_H * 16,linguagem.GetText(93),75,false);
-	EscreveDevagar(0,TILE_W * 16 + 30,linguagem.GetText(94),75,false);
+	EscreveDevagar(0, TILE_H * 16,linguagem.GetText(93),75);
+	EscreveDevagar(0,TILE_W * 16 + 30,linguagem.GetText(94),75);
 	delay(1000);
 	
 	setfillstyle(1,BLACK);
@@ -334,21 +382,21 @@ void Cutscenes::FinalGuerraFria(){
 	cleardevice();
 	delay(200);
 	sprites[BOMBA_NUCLEAR2].Show();
-	EscreveDevagar(TILE_W * 14 + 16, 30, linguagem.GetText(95),75,false);
-	EscreveDevagar(TILE_W * 14 + 16, 80, linguagem.GetText(96),75,false);
-	EscreveDevagar(TILE_W * 14 + 16, 130, linguagem.GetText(97),75,false);
+	EscreveDevagar(TILE_W * 14 + 16, 30, linguagem.GetText(95),75);
+	EscreveDevagar(TILE_W * 14 + 16, 80, linguagem.GetText(96),75);
+	EscreveDevagar(TILE_W * 14 + 16, 130, linguagem.GetText(97),75);
 	delay(2000);
 	cleardevice();
 	sprites[LIDERES_IALTA1].Show();
-	EscreveDevagar(0, TILE_H * 19 - 10, linguagem.GetText(98),75,false);
-	EscreveDevagar(0,TILE_H * 19 + 30, linguagem.GetText(99),75,false);
-	EscreveDevagar(0,TILE_H * 19 + 70, linguagem.GetText(100),75,false);
+	EscreveDevagar(0, TILE_H * 19 - 10, linguagem.GetText(98),75);
+	EscreveDevagar(0,TILE_H * 19 + 30, linguagem.GetText(99),75);
+	EscreveDevagar(0,TILE_H * 19 + 70, linguagem.GetText(100),75);
 	delay(500);
 	cleardevice();
 	sprites[LIDERES_IALTA2].Show();
-	EscreveDevagar(600,30, linguagem.GetText(101),75,false);
-	EscreveDevagar(600,80,linguagem.GetText(102) ,75,false);
-	EscreveDevagar(600,130,linguagem.GetText(103),75,false);
+	EscreveDevagar(600,30, linguagem.GetText(101),75);
+	EscreveDevagar(600,80,linguagem.GetText(102) ,75);
+	EscreveDevagar(600,130,linguagem.GetText(103),75);
 	delay(250);
 	sprites[ROOSEV_QUADRO].GoTo(600, 150);
 	sprites[ROOSEV_QUADRO].Show();
@@ -360,8 +408,8 @@ void Cutscenes::FinalGuerraFria(){
 	sprites[STALIN_BRAVO].GoTo(162, 142);	
 	sprites[ROOSEV_BRAVO].Show();
 	sprites[STALIN_BRAVO].Show();
-	EscreveDevagar(TILE_W * 7,30,linguagem.GetText(104),75,false);
-	EscreveDevagar(TILE_W * 8,60,linguagem.GetText(105),75,false);
+	EscreveDevagar(TILE_W * 7,30,linguagem.GetText(104),75);
+	EscreveDevagar(TILE_W * 8,60,linguagem.GetText(105),75);
 	delay(3000);
 	bar(0,0,TILE_W * 39, 100);
 	delay(1000);
@@ -370,9 +418,9 @@ void Cutscenes::FinalGuerraFria(){
 	cleardevice();
 }
 
-void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
+void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGm){
 	
-	bool checkClick, continua;
+	bool  continua;
 	Grade minhaGrd;
 	Pagina minhaPg;
 	minhaPg.Init();
@@ -382,68 +430,116 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 	minhaPg.Visual();
 	setcolor(WHITE);
 	
-	if(tipoGameplay == MULTIPLAYER_ONLINE)
-		checkClick = false;
-	else
-		checkClick = true;
 	
-	
-	continua = EscreveDevagar(TILE_W * 10, TILE_H * 10,
-	 linguagem.GetText(58),75,checkClick);
+	continua = EscreveDevagar(TILE_W * 10, TILE_H * 10,linguagem.GetText(58),75,tipoGm);
 	 
 	if(continua == true){
 		delay(2000);
 		cleardevice();
 		
-		if (meuJog.lado == LADOEUA)
-			continua = EscreveDevagar( TILE_W * 12, TILE_H * 2, linguagem.GetText(7), 75, checkClick);	
-		else
-			continua = EscreveDevagar( TILE_W * 13, TILE_H * 2, linguagem.GetText(8), 75, checkClick);	
-}
-
-	
-	if(continua == true){
-		
-		if(meuJog.lado == LADOEUA){
-				sprites[ROOSEV_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
-				sprites[ROOSEV_QUADRO].Show();	
-		} else{
-				sprites[STALIN_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
-				sprites[STALIN_QUADRO].Show();				
-
-	
-		}		
-	
-		delay(3000);
-		cleardevice();
-		meuJog.torreGUI.MostraTorre();
-		
-		continua = EscreveDevagar( TILE_W * 2, TILE_H * 14,linguagem.GetText(59),
-		75, checkClick);
-	}
-	
-	if(continua == true){
-		delay (1000);
-		cleardevice();
-		meuJog.soldGUI.x = meuJog.torreGUI.x;
-		meuJog.soldGUI.y = meuJog.torreGUI.y;
-		meuJog.soldGUI.Show();	
-		
-		if(meuJog.lado == LADOEUA){
-			meuJog.soldGUI.x = GUI_EUA_X;
-			meuJog.soldGUI.y = GUI_EUA_Y;
+		if(tipoGm != MULTIPLAYER_SPLIT)
+		{
+			if (meuJog.lado == LADOEUA)
+				continua = EscreveDevagar( TILE_W * 12, TILE_H * 2, linguagem.GetText(7), 75, tipoGm);	
+			else
+				continua = EscreveDevagar( TILE_W * 13, TILE_H * 2, linguagem.GetText(8), 75, tipoGm);		
 		}
 		else
 		{
-			meuJog.soldGUI.x = GUI_URSS_X;
-			meuJog.soldGUI.y = GUI_URSS_Y;
-		}		
+			
+			sprites[STALIN_QUADRO].GoTo(162, 142);	
+			sprites[STALIN_QUADRO].Show();
+			continua = EscreveDevagar( TILE_W * 3, TILE_H * 2, linguagem.GetText(109), 75, tipoGm);	
+			
+			
+			
+			if(continua == true)
+			{
+				delay(1000);
+				sprites[ROOSEV_QUADRO].GoTo(802, 142);
+				sprites[ROOSEV_QUADRO].Show();
+				continua = EscreveDevagar( TILE_W * 16 + 16, TILE_H * 2,
+				 linguagem.GetText(110), 75, tipoGm);	
+
+			}
+
+		}
+
+	}
+
+	
+	if(continua == true){
 		
-		continua = EscreveDevagar( TILE_W * 4, TILE_H * 14, linguagem.GetText(60),
-		 75, checkClick);	
+		if(tipoGm != MULTIPLAYER_SPLIT)
+		{
+			if(meuJog.lado == LADOEUA)
+			{
+				sprites[ROOSEV_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
+				sprites[ROOSEV_QUADRO].Show();	
+			} 
+			else
+			{
+				sprites[STALIN_QUADRO].GoTo( TILE_W * 15, TILE_H * 3);
+				sprites[STALIN_QUADRO].Show();				
+			}	
+			
+			delay(3000);
+			cleardevice();
+			meuJog.torreGUI.MostraTorre();
+			
+			continua = EscreveDevagar( TILE_W * 2, TILE_H * 14,linguagem.GetText(59),
+			75, tipoGm);
+
+		}
+		
+		else
+		{
+			delay(1000);
+			fundoTorre.Show();
+			meuJog.torreGUI.x = cursor[0].meuX;
+			meuJog.torreGUI.y = cursor[0].meuY;
+			outroJog.torreGUI.x = cursor[1].meuX; 
+			outroJog.torreGUI.y = cursor[1].meuY; 
+			meuJog.torreGUI.MostraTorre();
+			outroJog.torreGUI.MostraTorre();
+			continua = EscreveDevagar( TILE_W * 2, TILE_H * 14,linguagem.GetText(59),75, tipoGm);			
+		}		
+
 	}
 	
-	if(tipoGameplay == MULTIPLAYER_ONLINE){
+	if(continua == true){
+	
+		if(tipoGm != MULTIPLAYER_SPLIT)
+		{	
+			
+			
+			delay (1000);
+			cleardevice();
+			meuJog.soldGUI.x = meuJog.torreGUI.x;
+			meuJog.soldGUI.y = meuJog.torreGUI.y;
+			meuJog.soldGUI.Show();		
+			continua = EscreveDevagar( TILE_W * 4, TILE_H * 14, linguagem.GetText(60),
+			 75, tipoGm);	
+			 		 
+		}
+		
+		else
+		{
+			delay (1000);
+			cleardevice();
+			fundoTorre.Show();
+			meuJog.soldGUI.x = meuJog.torreGUI.x;
+			meuJog.soldGUI.y = meuJog.torreGUI.y;
+			outroJog.soldGUI.x = outroJog.torreGUI.x;
+			outroJog.soldGUI.y = outroJog.torreGUI.y;
+			meuJog.soldGUI.Show();
+			outroJog.soldGUI.Show();		
+			continua = EscreveDevagar( TILE_W * 4, TILE_H * 14, linguagem.GetText(60),
+			 75, tipoGm);	
+		}			
+	}
+	
+	if(tipoGm == MULTIPLAYER_ONLINE){
 		EnviaPacoteJogo();
 		RecebePacoteJogo();
 	}
@@ -451,10 +547,12 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGameplay){
 	delay(1000);
 	cleardevice();
 	PlaySound("../../Assets/Music/gameplay.wav",NULL,SND_LOOP | SND_ASYNC);	
-	EscreveDevagar( TILE_W * 15, TILE_H * 10, linguagem.GetText(61),
-		 75, false);
+	EscreveDevagar( TILE_W * 15, TILE_H * 10, linguagem.GetText(61),75);
 		 	
 	delay(3000);
 	cleardevice();
 }
+
+
+
 

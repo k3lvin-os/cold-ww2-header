@@ -228,10 +228,15 @@ void Cursor::Show()
 			
 		img->GoTo(meuX, meuY + 32);
 		img->Show();
+
 			
 		meuJog->tempTorre.x = meuX;
 		meuJog->tempTorre.y = meuY;
 		meuJog->tempTorre.MostraTorre();
+		setcolor(BLUE);
+		circle(meuX + 16,meuY + 32,TORRE_RAIO);
+
+
 		
 		if(faltaDinTorre == false && posInvalid == false)
 		{
