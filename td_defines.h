@@ -86,7 +86,7 @@
 #define FPS 60
 
 // FPS alternativo
-#define FPS2 100
+#define FPS2 30
 
 /*Delay para carregar uma tela de jogo*/
 #define DELAY_TELA 100
