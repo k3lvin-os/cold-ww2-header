@@ -141,8 +141,12 @@
 #define ONDA3 32   
 #define ONDA4 47
 #define ONDA5 62 
-#define ONDA6 77
 
+#define ONDA_IA1 42 
+#define ONDA_IA2 57
+#define ONDA_IA3 77
+
+#define QTD_ONDA 8
 
 
 // Representa que não há onda há serem enviadas

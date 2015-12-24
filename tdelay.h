@@ -80,8 +80,14 @@ char TDelay::SoldOnda(){
 		case ONDA5:
 			onda = '5';
 			break;
-		case ONDA6:
+		case ONDA_IA1:
 			onda = '6';
+			break;
+		case ONDA_IA2:
+			onda = '7';
+			break;
+		case ONDA_IA3:
+			onda = '8';
 			break;
 		case END:
 			onda = 'F';

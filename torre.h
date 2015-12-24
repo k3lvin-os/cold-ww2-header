@@ -54,6 +54,7 @@ struct Torre{
 	void AnimacaoPatrulha();
 	void AnimacaoMira(Soldado *alvo);
 	bool SemTorrePerto(Torre *torre0,int x,int y);
+	int QtdTorre(Torre *torre0);
 	
 	
 	/*Funções relativas a lista encadeada empregada no tipo Torre*/
@@ -350,4 +351,20 @@ void Torre::AnimacaoMira(Soldado *alvo){
 	else
 		posicao = TORRE_DIR;
 }
+
+
+// Conta o número de torres do jogador
+int Torre::QtdTorre(Torre *torre0)
+{
+	int qtd = 0;
+	Torre *t;
+	
+	for(t = torre0->prox; t != NULL; t = t->prox)
+	{
+		qtd++;
+	}
+	
+	return qtd;
+}
+
 

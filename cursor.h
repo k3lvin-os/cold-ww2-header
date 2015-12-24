@@ -80,7 +80,7 @@ void Cursor::CheckInput()
 			tileX++;
 		}
 		
-		if(GetKeyState(VK_DOWN) & 0X80)
+		if(GetKeyState(VK_DOWN) & 0x80)
 		{
 			tileY++;
 		}
@@ -127,7 +127,7 @@ void Cursor::CheckInput()
 			tileX++;
 		}
 		
-		if(GetKeyState(0x53) & 0X80) // 'S'
+		if(GetKeyState(0x53) & 0x80) // 'S'
 		{
 			tileY++;
 		}

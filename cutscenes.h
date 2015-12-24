@@ -217,7 +217,7 @@ bool Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra, Tip
 			else
 				x += 19;
 			if(tipoGm == SINGLEPLAYER){
-				if(GetKeyState(VK_LBUTTON)& 0X80)
+				if(GetKeyState(VK_LBUTTON) & 0x80 )
 				{
 					continua = false;
 				}	

@@ -272,7 +272,8 @@ bool Jogador::Compra(int preco){
 	if(dinheiro >= preco){
 		dinheiro -= preco;
 		return true;
-	} else
+	} 
+	else
 		return false;
 }
 
