@@ -193,6 +193,9 @@ bool Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra, Tip
 	int i, x;
 	bool continua=true;
 	
+	if(tipoGm != MULTIPLAYER_ONLINE)
+		outtextxy(0,16,linguagem.GetText(126));
+	
 	if(strlen(msg) <= 100){
 		
 		strcpy(buffer,msg);
@@ -216,21 +219,14 @@ bool Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra, Tip
 				x += 5;
 			else
 				x += 19;
-			if(tipoGm == SINGLEPLAYER){
-				if(GetKeyState(VK_LBUTTON) & 0x80 )
+			if(tipoGm != MULTIPLAYER_ONLINE){
+				
+				if(GetKeyState(VK_ESCAPE) & 0x80 )
 				{
 					continua = false;
 				}	
 			}
-			
-			else if(tipoGm == MULTIPLAYER_SPLIT){
-				
-				if( (GetKeyState(VK_NUMPAD0) & 0x80) || (GetKeyState(VK_RCONTROL)  & 0x80) ||
-					(GetKeyState(VK_LCONTROL) & 0x80) || (GetKeyState(VK_SPACE) & 0x80))
-					{
-						continua = false;
-					}
-			}
+
 			
 			i++;
 			c = buffer[i];	
