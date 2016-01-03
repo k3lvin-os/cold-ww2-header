@@ -88,7 +88,7 @@ void Cenario::Mostrar(){
 	
 		for(j = 0; j < TILE_QTDX; j++) { 
 			
-			meuTipo = posTile[j][i]; // Debug encontrou um erro aqui
+			meuTipo = posTile[j][i]; 
 	
 			x = j * TILE_W;
 			y = i * TILE_H;
@@ -183,21 +183,6 @@ void Cenario::Init(){
 // Carrega os tipos de tiles do campo de jogo	
 void Cenario::TileLoad(){
 	
-	/*
-			INFORMAÇÕES PARA ACRESENTAR TILES
-		- Primeiramente, aumente o tamanho do array. O número do array
-		deve ser igual a quantidade de tiles que você vai armazenar
-		
-		- Após isso, use BasicTile, caso você queira criar protótipos de tiles
-		,e use Init para criar tiles com imagens bitmpas criados por você
-		
-		- Não se esqueça de ter uma pasta chamada Assets. ELa deve estar
-		no mesmo local que o caminho dos tiles que usam Init, como mostra os 
-		exemplos abaixo. E, obviamente,	ela deve conter
-	    os bitmaps que você especifica no nosso "construtor" Init
-	
-	*/
-	
 	tipoTile[0].BasicTile(TILE_W,TILE_H, BLACK, "Preto"); 
 	tipoTile[1].BasicTile(TILE_W,TILE_H, BROWN, "Marrom"); // Tiles de protótipo
 	tipoTile[2].BasicTile(TILE_W,TILE_H, WHITE, "Branco"); 
@@ -205,43 +190,43 @@ void Cenario::TileLoad(){
 	tipoTile[4].BasicTile(TILE_W,TILE_H, LIGHTGREEN, "Verde claro"); 
 	
 	// Sprites de campo
-	tipoTile[5].Init("../../Assets/Campo/eua.bmp","Campo do EUA e Aliados",TILE_W,TILE_H);
-	tipoTile[6].Init("../../Assets/Campo/urss.bmp","Campo da URSS", TILE_W, TILE_H);
-	tipoTile[7].Init("../../Assets/Campo/muro.bmp","Muro de Tijolos Brancos",TILE_W,TILE_H);
-	tipoTile[8].Init("../../Assets/Campo/rota0.bmp","Rota dos Soldados",TILE_W,TILE_H);
-	tipoTile[9].Init("../../Assets/Campo/sacos1.bmp","Trincheira - Baixo",TILE_W,TILE_H);
-	tipoTile[10].Init("../../Assets/Campo/sacos2.bmp","Trincheira - Grama",TILE_W,TILE_H);
-	tipoTile[11].Init("../../Assets/Campo/sacos3.bmp","Trincheira - Neve",TILE_W,TILE_H);
-	tipoTile[12].Init("../../Assets/Campo/cerca1.bmp","Cerca - Grama",TILE_W,TILE_H);
-	tipoTile[13].Init("../../Assets/Campo/cerca2.bmp","Cerca 1 - Grama",TILE_W,TILE_H);
-	tipoTile[14].Init("../../Assets/Campo/cerca3.bmp","Cerca 2 - Grama",TILE_W,TILE_H);
-	tipoTile[15].Init("../../Assets/Campo/cerca4.bmp","Cerca - Neve",TILE_W,TILE_H);
-	tipoTile[16].Init("../../Assets/Campo/cerca5.bmp","Cerca 1 - Neve",TILE_W,TILE_H);
-	tipoTile[17].Init("../../Assets/Campo/cerca6.bmp","Cerca 2 - Neve",TILE_W,TILE_H);
-	tipoTile[18].Init("../../Assets/Campo/rota1a.bmp","Rota - Horiz Grama",TILE_W,TILE_H);
-	tipoTile[19].Init("../../Assets/Campo/rota2a.bmp","Rota - Verti Grama",TILE_W,TILE_H);
-	tipoTile[20].Init("../../Assets/Campo/rota3a.bmp","Rota - Sup Esq Grama",TILE_W,TILE_H);
-	tipoTile[21].Init("../../Assets/Campo/rota4a.bmp","Rota - Sup Dir Grama",TILE_W,TILE_H);
-	tipoTile[22].Init("../../Assets/Campo/rota5a.bmp","Rota - Inf Esq Grama",TILE_W,TILE_H);
-	tipoTile[23].Init("../../Assets/Campo/rota6a.bmp","Rota - Inf Dir Grama",TILE_W,TILE_H);
-	tipoTile[24].Init("../../Assets/Campo/rota1b.bmp","Rota - Horiz Neve",TILE_W,TILE_H);
-	tipoTile[25].Init("../../Assets/Campo/rota2b.bmp","Rota - Verti Neve",TILE_W,TILE_H);
-	tipoTile[26].Init("../../Assets/Campo/rota3b.bmp","Rota - Sup Esq Neve",TILE_W,TILE_H);
-	tipoTile[27].Init("../../Assets/Campo/rota4b.bmp","Rota - Sup Dir Neve",TILE_W,TILE_H);
-	tipoTile[28].Init("../../Assets/Campo/rota5b.bmp","Rota - Inf Esq Neve",TILE_W,TILE_H);
-	tipoTile[29].Init("../../Assets/Campo/rota6b.bmp","Rota - Inf Dir Neve",TILE_W,TILE_H);
-	tipoTile[30].Init("../../Assets/Campo/baseeua1.bmp","Base EUA - Parte 1",TILE_W,TILE_H);
-	tipoTile[31].Init("../../Assets/Campo/baseeua2.bmp","Base EUA - Parte 2",TILE_W,TILE_H);
-	tipoTile[32].Init("../../Assets/Campo/baseeua3.bmp","Base EUA - Parte 3",TILE_W,TILE_H);
-	tipoTile[33].Init("../../Assets/Campo/baseeua4.bmp","Base EUA - Parte 4",TILE_W,TILE_H);
-	tipoTile[34].Init("../../Assets/Campo/baseeua5.bmp","Base EUA - Parte 5",TILE_W,TILE_H);
-	tipoTile[35].Init("../../Assets/Campo/baseeua6.bmp","Base EUA - Parte 6",TILE_W,TILE_H);
-	tipoTile[36].Init("../../Assets/Campo/baseurss1.bmp","Base URSS - Parte 1",TILE_W,TILE_H);
-	tipoTile[37].Init("../../Assets/Campo/baseurss2.bmp","Base URSS - Parte 2",TILE_W,TILE_H);
-	tipoTile[38].Init("../../Assets/Campo/baseurss3.bmp","Base URSS - Parte 3",TILE_W,TILE_H);
-	tipoTile[39].Init("../../Assets/Campo/baseurss4.bmp","Base URSS - Parte 4",TILE_W,TILE_H);
-	tipoTile[40].Init("../../Assets/Campo/baseurss5.bmp","Base URSS - Parte 5",TILE_W,TILE_H);
-	tipoTile[41].Init("../../Assets/Campo/baseurss6.bmp","Base URSS - Parte 6",TILE_W,TILE_H);
+	tipoTile[5].Init("Assets/Campo/eua.bmp","Campo do EUA e Aliados",TILE_W,TILE_H);
+	tipoTile[6].Init("Assets/Campo/urss.bmp","Campo da URSS", TILE_W, TILE_H);
+	tipoTile[7].Init("Assets/Campo/muro.bmp","Muro de Tijolos Brancos",TILE_W,TILE_H);
+	tipoTile[8].Init("Assets/Campo/rota0.bmp","Rota dos Soldados",TILE_W,TILE_H);
+	tipoTile[9].Init("Assets/Campo/sacos1.bmp","Trincheira - Baixo",TILE_W,TILE_H);
+	tipoTile[10].Init("Assets/Campo/sacos2.bmp","Trincheira - Grama",TILE_W,TILE_H);
+	tipoTile[11].Init("Assets/Campo/sacos3.bmp","Trincheira - Neve",TILE_W,TILE_H);
+	tipoTile[12].Init("Assets/Campo/cerca1.bmp","Cerca - Grama",TILE_W,TILE_H);
+	tipoTile[13].Init("Assets/Campo/cerca2.bmp","Cerca 1 - Grama",TILE_W,TILE_H);
+	tipoTile[14].Init("Assets/Campo/cerca3.bmp","Cerca 2 - Grama",TILE_W,TILE_H);
+	tipoTile[15].Init("Assets/Campo/cerca4.bmp","Cerca - Neve",TILE_W,TILE_H);
+	tipoTile[16].Init("Assets/Campo/cerca5.bmp","Cerca 1 - Neve",TILE_W,TILE_H);
+	tipoTile[17].Init("Assets/Campo/cerca6.bmp","Cerca 2 - Neve",TILE_W,TILE_H);
+	tipoTile[18].Init("Assets/Campo/rota1a.bmp","Rota - Horiz Grama",TILE_W,TILE_H);
+	tipoTile[19].Init("Assets/Campo/rota2a.bmp","Rota - Verti Grama",TILE_W,TILE_H);
+	tipoTile[20].Init("Assets/Campo/rota3a.bmp","Rota - Sup Esq Grama",TILE_W,TILE_H);
+	tipoTile[21].Init("Assets/Campo/rota4a.bmp","Rota - Sup Dir Grama",TILE_W,TILE_H);
+	tipoTile[22].Init("Assets/Campo/rota5a.bmp","Rota - Inf Esq Grama",TILE_W,TILE_H);
+	tipoTile[23].Init("Assets/Campo/rota6a.bmp","Rota - Inf Dir Grama",TILE_W,TILE_H);
+	tipoTile[24].Init("Assets/Campo/rota1b.bmp","Rota - Horiz Neve",TILE_W,TILE_H);
+	tipoTile[25].Init("Assets/Campo/rota2b.bmp","Rota - Verti Neve",TILE_W,TILE_H);
+	tipoTile[26].Init("Assets/Campo/rota3b.bmp","Rota - Sup Esq Neve",TILE_W,TILE_H);
+	tipoTile[27].Init("Assets/Campo/rota4b.bmp","Rota - Sup Dir Neve",TILE_W,TILE_H);
+	tipoTile[28].Init("Assets/Campo/rota5b.bmp","Rota - Inf Esq Neve",TILE_W,TILE_H);
+	tipoTile[29].Init("Assets/Campo/rota6b.bmp","Rota - Inf Dir Neve",TILE_W,TILE_H);
+	tipoTile[30].Init("Assets/Campo/baseeua1.bmp","Base EUA - Parte 1",TILE_W,TILE_H);
+	tipoTile[31].Init("Assets/Campo/baseeua2.bmp","Base EUA - Parte 2",TILE_W,TILE_H);
+	tipoTile[32].Init("Assets/Campo/baseeua3.bmp","Base EUA - Parte 3",TILE_W,TILE_H);
+	tipoTile[33].Init("Assets/Campo/baseeua4.bmp","Base EUA - Parte 4",TILE_W,TILE_H);
+	tipoTile[34].Init("Assets/Campo/baseeua5.bmp","Base EUA - Parte 5",TILE_W,TILE_H);
+	tipoTile[35].Init("Assets/Campo/baseeua6.bmp","Base EUA - Parte 6",TILE_W,TILE_H);
+	tipoTile[36].Init("Assets/Campo/baseurss1.bmp","Base URSS - Parte 1",TILE_W,TILE_H);
+	tipoTile[37].Init("Assets/Campo/baseurss2.bmp","Base URSS - Parte 2",TILE_W,TILE_H);
+	tipoTile[38].Init("Assets/Campo/baseurss3.bmp","Base URSS - Parte 3",TILE_W,TILE_H);
+	tipoTile[39].Init("Assets/Campo/baseurss4.bmp","Base URSS - Parte 4",TILE_W,TILE_H);
+	tipoTile[40].Init("Assets/Campo/baseurss5.bmp","Base URSS - Parte 5",TILE_W,TILE_H);
+	tipoTile[41].Init("Assets/Campo/baseurss6.bmp","Base URSS - Parte 6",TILE_W,TILE_H);
 	
 	
 
@@ -254,19 +239,25 @@ void Cenario::TileLoad(){
 bool Cenario::PosLoad(char nomeArq[8]){
 			
 	std::ifstream leitor;
-	char c;
+	char c, rPath[20], temp[4];
 	bool mtxCheia = false;
-	int i, j;
-	char temp[4] = "   ";
-	int  tempPos = 0;
+	int i, j, tempPos;
 	
-	leitor.open(nomeArq);
+	
+	tempPos = 0;
+	strcpy(temp,"");
+	strcpy(rPath,TXT_PATH);
+	strcat(rPath,nomeArq);
+	
+	leitor.open(rPath);
 	
 	if(!leitor.is_open()){
 		std::cout << "Não foi possível abrir o arquivo " << nomeArq[8];
 		return false;
 	}
-	else{
+	
+	else
+	{
 		
 	
 		i = 0;  

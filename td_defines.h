@@ -99,7 +99,14 @@
 #define DECIMAL 10
 
 /*Caminho para encontrar a pasta assets*/
-#define ASSETS "../../Assets"
+#define ASSETS "Assets/"
+
+/*=======================================================*/
+/*Caminho para encontrar arquivos de idioma*/
+#define PTBR_PATH "txt/pt-br.txt"
+#define EN_PATH "txt/en.txt"
+/*=========================================================*/
+
 
 /*Camiho, a partir da pasta Assets, para encontrar as imagens das cutscenes*/
 #define CUTSCENES "/Cutscenes/Img"
@@ -148,6 +155,8 @@
 
 #define QTD_ONDA 8
 
+// Caminho relativo para acessar a pasta dos arquivos .txt
+#define TXT_PATH "txt/"
 
 // Representa que não há onda há serem enviadas
 #define SEM_ONDA '?'

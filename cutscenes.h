@@ -240,7 +240,7 @@ bool Cutscenes::EscreveDevagar(int x0, int y0, char* msg, int delayPorLetra, Tip
 
 // Mostra o final dos nazistas
 void Cutscenes::FinalNazi(){
-	PlaySound("../../Assets/Music/diefahne.wav",NULL,SND_LOOP | SND_ASYNC);
+	PlaySound("Assets/Music/diefahne.wav",NULL,SND_LOOP | SND_ASYNC);
 	Pagina minhaPg;
 	minhaPg.Init();
 	minhaPg.Troca();
@@ -278,7 +278,7 @@ void Cutscenes::FinalNazi(){
 
 // Final dos Eua
 void Cutscenes::FinalEua(){
-	PlaySound("../../Assets/Music/star_spangled.wav",NULL,SND_LOOP | SND_ASYNC);
+	PlaySound("Assets/Music/star_spangled.wav",NULL,SND_LOOP | SND_ASYNC);
 	Pagina minhaPg;
 	minhaPg.Init();
 	minhaPg.Troca();
@@ -319,7 +319,7 @@ void Cutscenes::FinalEua(){
 
 
 void Cutscenes::FinalUrss(){
-	PlaySound("../../Assets/Music/soviet-anthem.wav",NULL,SND_LOOP | SND_ASYNC);
+	PlaySound("Assets/Music/soviet-anthem.wav",NULL,SND_LOOP | SND_ASYNC);
 	Pagina minhaPg;
 	minhaPg.Init();
 	minhaPg.Troca();
@@ -363,7 +363,7 @@ void Cutscenes::FinalUrss(){
 
 // Final aonde os dois jogadores sobrevivem ao ataque dos nazistas
 void Cutscenes::FinalGuerraFria(){
-	PlaySound("../../Assets/Music/ColdWar.wav",NULL,SND_LOOP | SND_ASYNC);
+	PlaySound("Assets/Music/ColdWar.wav",NULL,SND_LOOP | SND_ASYNC);
 	sprites[BOMBA_NUCLEAR1].GoTo(TELA_W - 717, 0);
 	sprites[BOMBA_NUCLEAR1].Show();
 	setcolor(WHITE);
@@ -542,7 +542,7 @@ void Cutscenes::Tutorial(Jogador meuJog, TipoGameplay tipoGm){
 	
 	delay(1000);
 	cleardevice();
-	PlaySound("../../Assets/Music/gameplay.wav",NULL,SND_LOOP | SND_ASYNC);	
+	PlaySound("Assets/Music/gameplay.wav",NULL,SND_LOOP | SND_ASYNC);	
 	EscreveDevagar( TILE_W * 15, TILE_H * 10, linguagem.GetText(61),75);
 		 	
 	delay(3000);

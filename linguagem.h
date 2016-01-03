@@ -35,10 +35,10 @@ void Linguagem::Init(Idioma escolha){
 	idiomaAtual = escolha;
 	
 	if(escolha == PORTUGUES)
-		CarregaIdioma("pt-br.txt");	
+		CarregaIdioma(PTBR_PATH);	
 	
 	else if(escolha == INGLES)
-		CarregaIdioma("en.txt");		
+		CarregaIdioma(EN_PATH);		
 }
 
 // Carrega um idioma a partir de um arquivo de idioma
