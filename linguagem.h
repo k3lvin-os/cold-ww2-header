@@ -90,8 +90,10 @@ bool Linguagem::CarregaIdioma(char *arquivoIdioma){
 			} 
 			
 			else{
+				// ATENÇÃO: este processamento está alocando o tamanho do buffer, e não a qtd. elementos
+				// dentro dele
 				texto[idiomaAtual][nTexto - 1] = (char *) malloc(sizeof(buffer));
-				strcpy(texto[idiomaAtual][nTexto - 1],buffer);
+				strcpy(texto[idiomaAtual][nTexto - 1],buffer); 
 				strcpy(buffer,"");
 				recebeTxt = false;	
 			}			
