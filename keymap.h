@@ -3,13 +3,13 @@
 class KeyMap
 {
 	public:
-	static const int TXT_AMOUNT_KEY = 46;
+	static const int TXT_AMOUNT_KEY = 75;
 	static const int TXT_TOTAL_NUMBER = TXT_AMOUNT_KEY;
 	
 	private:
 		char *_name[TXT_TOTAL_NUMBER];
 		int _value[TXT_TOTAL_NUMBER];
-		void LoadKeys(char *txtKeyMap);
+		void LoadKeysFromTxt(char *txtKeyMap);
 	public:
 		//Constructor
 		KeyMap(char* txtKeyMap);
@@ -36,12 +36,12 @@ void KeyMap::ShowKeys()
 // Constructor that needs a .txt with a propoer key mapping
 KeyMap::KeyMap(char* txtKeyMap)
 {
-	LoadKeys(txtKeyMap);
+	LoadKeysFromTxt(txtKeyMap);
 	
 }
 
 // Load the keys _name and _values from .txt file
-void KeyMap::LoadKeys(char* txtKeyMap)
+void KeyMap::LoadKeysFromTxt(char* txtKeyMap)
 {
 	std::ifstream reader;
 	bool readingValue = false;
@@ -67,7 +67,7 @@ void KeyMap::LoadKeys(char* txtKeyMap)
 				temp[1] = '\0';
 				strcat(buffer,temp);
 			}
-			else if(c != '\0')
+			else if(c != '\0' )
 			{
 				if(readingValue)
 				{
