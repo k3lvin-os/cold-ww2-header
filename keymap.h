@@ -3,7 +3,7 @@
 class KeyMap
 {
 	public:
-	static const int TXT_AMOUNT_KEY = 75;
+	static const int TXT_AMOUNT_KEY = 110;
 	static const int TXT_TOTAL_NUMBER = TXT_AMOUNT_KEY;
 	
 	private:
